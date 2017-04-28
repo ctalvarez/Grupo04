@@ -85,5 +85,5 @@ test:
 production:
   <<: *default
   database: TVSeries4U_production
-  username: <%= ENV['DATABASE_ROLE'] %>
-  password: <%= ENV['DATABASE_PASSWORD'] %>
+  username: <%= ENV['DB_USERNAME'] %>
+  password: <%= ENV['DB_PASSWORD'] %>
