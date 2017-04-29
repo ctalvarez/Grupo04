@@ -6,10 +6,11 @@ class Serie < ApplicationRecord
   belongs_to :user
 
   has_many :genre_series, class_name: 'GenreSerie', dependent: :destroy
-  has_many :genres, through: :genre_series, class_name: 'Genre'
+  has_many :genres, through: :genre_series, class_name: 'Genre' do
 
-  scope :by_name, (->(serie_name) {where('name == ?', serie_name )})
-  scope :by_genre, (->(serie_genre) {where('genres == ?', serie_genre )})
-  scope :by_idiom, (->(serie_idiom) {where('idiom == ?', serie_idiom )})
+  end
+
+  scope :by_name, (->(serie_name) {where('name like ?', "%#{serie_name}%" )})
+  scope :by_idiom, (->(serie_idiom) {where('idiom like ?', serie_idiom)})
 
 end

@@ -14,6 +14,15 @@ class SeriesController < ApplicationController
 
   def home
     @series = Serie.all
+    @idioms = Serie.uniq.pluck(:idiom)
+    @genres = Genre.uniq.pluck(:genre)
+    if params[:name].present? or params[:idiom].present? or params[:genre].present?
+
+      @series = @series.by_name(params[:name]) if params[:name].present?
+      @series = @series.by_idiom(params[:idiom]) if params[:idiom].present?
+      @series = @series.Genre.merge(GenreSerie.by_genre) if params[:genre].present?
+    end
+
   end
 
   # GET /series/1
