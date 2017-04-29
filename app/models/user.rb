@@ -12,6 +12,9 @@ class User < ApplicationRecord
 
   #Aquí esta el parche para que por defecto sean usuarios!!!
   def default_user
+    if self.rol == nil
       self.rol = :user
+    end
   end
+  
 end

@@ -18,8 +18,9 @@ x = User.create name: 'David', email: 'daruz@uc.cl', password: 'qwerty', rol: :a
 y = User.create name: 'Felipe', email: 'figarrido@uc.cl', password: 'qwerty', rol: :admin
 z = User.create name: 'Carlos', email: 'ctalvarez@uc.cl', password: 'qwerty', rol: :admin
 
-m = Serie.create name: 'How I met your mother', description: 'asd', user_id: y.id, idiom: 'english'
-n = Serie.create name: 'Breaking Bad', description: 'Best serie EVER', user_id: x.id, idiom: 'english'
+m = Serie.create name: 'How I met your mother', description: 'asd', user_id: y.id, idiom: 'english', private: false
+n = Serie.create name: 'Breaking Bad', description: 'Best serie EVER', user_id: x.id, idiom: 'english', private: false
+o = Serie.create name: 'The Flash', description: 'Flaaaasshhh', user_id: x.id, idiom: 'english', private: true
 
 GenreSerie.create genre_id: a.id, serie_id: m.id
 GenreSerie.create genre_id: c.id, serie_id: m.id
