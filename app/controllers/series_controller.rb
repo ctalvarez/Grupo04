@@ -14,7 +14,7 @@ class SeriesController < ApplicationController
 
   def home
     @series = Serie.where(private: false)
-    @idioms = Serie.uniq.pluck(:idiom)
+    @idioms = Serie.idioms
     @genres = Genre.uniq.pluck(:genre)
     if params[:name].present? or params[:idiom].present? or params[:genre].present?
 
