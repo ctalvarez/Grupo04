@@ -35,6 +35,13 @@
 		<!-- <%= f.select :genre_ids, Genre.all.collect { |g| [g.genre, g.id] }, {}, multiple: true %> -->
 	</div>
 
+<%if current_user.rol.eql? 'admin'%>
+  <div class="field">
+    <%= "Private" %>
+    <%= f.check_box :private, {}, true, nil %><br>
+  </div>
+<%end%>
+
   <div class="actions">
     <%= f.submit %>
   </div>
