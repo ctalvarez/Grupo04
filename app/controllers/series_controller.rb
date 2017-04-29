@@ -5,6 +5,14 @@ class SeriesController < ApplicationController
   # GET /series
   # GET /series.json
   def index
+    if current_user.rol.eql? 'admin'
+      @series = Serie.all
+    else
+      @series = User.find(current_user).series
+    end
+  end
+
+  def home
     @series = Serie.all
   end
 

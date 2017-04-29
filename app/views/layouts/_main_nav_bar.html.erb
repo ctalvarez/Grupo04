@@ -3,6 +3,10 @@
   <% if user_signed_in?%>
     <%= link_to "Cerrar Sesion", destroy_user_session_path, :method => :delete%>
     <%= link_to "Mi Perfil", user_path(current_user)%>
+    <% if current_user.rol.eql? 'admin'%>
+      <%= link_to "Administrar Usuarios", users_path%>
+      <%= link_to "Administrar Series", series_index_path%>
+    <%end%>
   <% else%>
     <%=link_to "Registrase", new_user_registration_path%>
     <%=link_to "Iniciar Sesion", new_user_session_path%>
