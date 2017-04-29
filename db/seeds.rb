@@ -22,5 +22,5 @@ m = Serie.create name: 'How I met your mother', description: 'asd', user_id: y.i
 n = Serie.create name: 'Breaking Bad', description: 'Best serie EVER', user_id: x.id, idiom: 'english', private: false
 o = Serie.create name: 'The Flash', description: 'Flaaaasshhh', user_id: x.id, idiom: 'english', private: true
 
-GenreSerie.create genre_id: a.id, serie_id: m.id
-GenreSerie.create genre_id: c.id, serie_id: m.id
+i = GenreSerie.create genre_id: a.id, serie_id: m.id
+j = GenreSerie.create genre_id: c.id, serie_id: m.id
