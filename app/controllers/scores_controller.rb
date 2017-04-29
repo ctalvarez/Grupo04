@@ -1,4 +1,5 @@
 class ScoresController < ApplicationController
+  layout "all_layout"
   before_action :set_score, only: [:show, :edit, :update, :destroy]
 
   # GET /scores

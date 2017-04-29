@@ -1,4 +1,5 @@
 class ChaptersController < ApplicationController
+  layout "all_layout"
   before_action :set_chapter, only: [:show, :edit, :update, :destroy]
 
   # GET /chapters
