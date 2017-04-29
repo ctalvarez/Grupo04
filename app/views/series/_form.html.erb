@@ -21,6 +21,16 @@
     <%= f.text_area :description %>
   </div>
 
+	<div class="field">
+		<%= f.label :idiom %>
+		<%= select :idiom, :idiom, Serie.idioms %>
+	</div>
+
+	<div class="field">
+		<%= f.label :genres %>
+		<%= f.select :genre_ids, Genre.all.collect { |g| [g.genre, g.id] }, {}, multiple: true %>
+	</div>
+
   <div class="actions">
     <%= f.submit %>
   </div>

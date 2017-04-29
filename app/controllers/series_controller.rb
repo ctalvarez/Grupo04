@@ -25,8 +25,13 @@ class SeriesController < ApplicationController
   # POST /series
   # POST /series.json
   def create
-    @series = Serie.new(series_params)
-
+		@series = Serie.new(series_params)
+		params[:serie][:genre_ids].each do |genre|
+			if genre != ""
+				p genre
+				GenreSerie.create serie_id: @series.id, genre_id: genre
+			end
+		end
     respond_to do |format|
       if @series.save
         format.html { redirect_to @series, notice: 'Serie was successfully created.' }
@@ -70,6 +75,8 @@ class SeriesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def series_params
-      params.require(:series).permit(:name, :description)
+      serie_params = params.require(:serie).permit(:name, :description, :idiom)
+			serie_params[:user_id] = current_user.id
+			serie_params
     end
 end

@@ -16,9 +16,9 @@
       <tr>
         <td><%= series.name %></td>
         <td><%= series.description %></td>
-        <td><%= link_to 'Show', series %></td>
+        <td><%= link_to 'Show', '/series/' + series.id.to_s %></td>
         <td><%= link_to 'Edit', edit_series_path(series) %></td>
-        <td><%= link_to 'Destroy', series, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Destroy', '/series/' + series.id.to_s, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>

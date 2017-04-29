@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170429175055) do
+ActiveRecord::Schema.define(version: 20170429175219) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,10 +25,10 @@ ActiveRecord::Schema.define(version: 20170429175055) do
   end
 
   create_table "genre_series", force: :cascade do |t|
-    t.integer  "serie_id"
-    t.integer  "genre_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "genre_id"
+    t.integer  "serie_id"
     t.index ["genre_id"], name: "index_genre_series_on_genre_id", using: :btree
     t.index ["serie_id"], name: "index_genre_series_on_serie_id", using: :btree
   end
@@ -80,6 +80,8 @@ ActiveRecord::Schema.define(version: 20170429175055) do
   end
 
   add_foreign_key "chapters", "series", column: "serie_id"
+  add_foreign_key "genre_series", "genres"
+  add_foreign_key "genre_series", "series", column: "serie_id"
   add_foreign_key "scores", "chapters"
   add_foreign_key "scores", "users"
   add_foreign_key "series", "users"
