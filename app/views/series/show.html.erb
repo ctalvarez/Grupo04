@@ -10,5 +10,14 @@
   <%= @series.description %>
 </p>
 
+<p>
+	<strong>Genres:</strong>
+	<ul>
+		<% @series.genres.each do | genre | %>
+			<li><%= genre.genre %></li>
+		<% end %>
+	</ul>
+</p>
+
 <%= link_to 'Edit', edit_series_path(@series) %> |
 <%= link_to 'Back', series_path %>

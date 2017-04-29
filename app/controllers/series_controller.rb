@@ -26,14 +26,13 @@ class SeriesController < ApplicationController
   # POST /series.json
   def create
 		@series = Serie.new(series_params)
-		params[:serie][:genre_ids].each do |genre|
-			if genre != ""
-				p genre
-				GenreSerie.create serie_id: @series.id, genre_id: genre.to_i
-			end
-		end
     respond_to do |format|
       if @series.save
+				params[:serie][:genre_ids].each do |genre|
+					if genre != ""
+						GenreSerie.create serie_id: @series.id, genre_id: genre
+					end
+				end
         format.html { redirect_to @series, notice: 'Serie was successfully created.' }
         format.json { render :show, status: :created, location: @series }
       else

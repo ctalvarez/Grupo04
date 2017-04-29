@@ -28,7 +28,11 @@
 
 	<div class="field">
 		<%= f.label :genres %>
-		<%= f.select :genre_ids, Genre.all.collect { |g| [g.genre, g.id] }, {}, multiple: true %>
+		<% Genre.all.each do |genre| %>
+			<%= f.check_box :genre_ids, {multiple: true}, genre.id, nil %><%= genre.genre %> <br>
+		<% end %>
+
+		<!-- <%= f.select :genre_ids, Genre.all.collect { |g| [g.genre, g.id] }, {}, multiple: true %> -->
 	</div>
 
   <div class="actions">
