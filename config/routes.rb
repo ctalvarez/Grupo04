@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users
   get 'series', to: "series#index"
-  get 'home', to: "seres#home"
+  get 'home', to: "series#home"
   resources :series
   resources :scores
   resources :chapters

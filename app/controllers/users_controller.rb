@@ -25,6 +25,7 @@ class UsersController < ApplicationController
   # POST /users
   # POST /users.json
   def create
+    user_params[:rol] = :user
     @user = User.new(user_params)
 
     respond_to do |format|
