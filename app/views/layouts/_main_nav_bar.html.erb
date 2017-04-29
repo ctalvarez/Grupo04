@@ -1,5 +1,10 @@
 
 <nav >
-  <%=link_to "Registrase", new_user_registration_path%>
-  <%=link_to "Iniciar Sesion", new_user_session_path%>
+  <% if user_signed_in?%>
+    <%= link_to "Cerrar Sesion", destroy_user_session_path, :method => :delete%>
+    <%= link_to "Mi Perfil", user_path(current_user)%>
+  <% else%>
+    <%=link_to "Registrase", new_user_registration_path%>
+    <%=link_to "Iniciar Sesion", new_user_session_path%>
+  <%end%>
 </nav>
