@@ -16,5 +16,13 @@ class User < ApplicationRecord
       self.rol = :user
     end
   end
-  
+
+  def change_level
+    if self.rol == 'admin'
+      self.update(rol: 'user')
+    else
+      self.update(rol: 'admin')
+    end
+  end
+
 end

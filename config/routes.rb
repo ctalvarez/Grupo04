@@ -9,5 +9,7 @@ Rails.application.routes.draw do
   # resources :chapters
   resources :users
   root 'series#home'
+
+  patch 'change_level', to: 'users#change_level'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
