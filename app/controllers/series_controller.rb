@@ -29,7 +29,7 @@ class SeriesController < ApplicationController
 		params[:serie][:genre_ids].each do |genre|
 			if genre != ""
 				p genre
-				GenreSerie.create serie_id: @series.id, genre_id: genre
+				GenreSerie.create serie_id: @series.id, genre_id: genre.to_i
 			end
 		end
     respond_to do |format|

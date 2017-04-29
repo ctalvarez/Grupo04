@@ -1,5 +1,5 @@
 class Genre < ApplicationRecord
 
-  has_many :genre_serie, class_name: 'GenreSerie'
-  has_many :series, through: :genre_serie, class_name: 'Serie'
+  has_many :genre_series, class_name: 'GenreSerie'
+  has_many :series, through: :genre_series, class_name: 'Serie', source: :serie
 end
