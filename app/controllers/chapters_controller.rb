@@ -15,7 +15,8 @@ class ChaptersController < ApplicationController
 
   # GET /chapters/new
   def new
-    @chapter = Chapter.new
+		@serie = Serie.find(params[:series_id])
+    @chapter = @serie.chapters.build
   end
 
   # GET /chapters/1/edit
@@ -25,11 +26,12 @@ class ChaptersController < ApplicationController
   # POST /chapters
   # POST /chapters.json
   def create
-    @chapter = Chapter.new(chapter_params)
+		@serie = Serie.find(params[:series_id])
+    @chapter = @serie.chapters.build(chapter_params)
 
     respond_to do |format|
       if @chapter.save
-        format.html { redirect_to @chapter, notice: 'Chapter was successfully created.' }
+        format.html { redirect_to series_chapter_path(@serie, @chapter), notice: 'Chapter was successfully created.' }
         format.json { render :show, status: :created, location: @chapter }
       else
         format.html { render :new }

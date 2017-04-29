@@ -15,6 +15,15 @@
   <%= @user.rol %>
 </p>
 
+<p>
+	<strong>Series:</strong>
+	<ul>
+		<% @user.series.each do | serie | %>
+			<li><%= link_to serie.name, '/series/' + serie.id.to_s %></li>
+		<% end %>
+	</ul>
+</p>
+
 <%= link_to 'New Series', new_series_path %>
 
 <br>
