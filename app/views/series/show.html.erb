@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @series.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @series.description %>
+</p>
+
+<p>
+	<strong>Genres:</strong>
+	<ul>
+		<% @series.genres.each do | genre | %>
+			<li><%= genre.genre %></li>
+		<% end %>
+	</ul>
+</p>
+
+<p>
+	<strong>Chapters:</strong>
+	<ul>
+		<% @series.chapters.each do | chapter | %>
+			<li><%= link_to chapter.name, series_chapter_path(@series, chapter.id) %></li>
+		<% end %>
+	</ul>
+</p>
+
+<%= link_to 'New Chapter', new_series_chapter_path(series_id: @series.id) %>
+<br>
+<%= link_to 'Edit', edit_series_path(@series) %> |
+<%= link_to 'Back', root_path %>

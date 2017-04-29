@@ -1,0 +1,48 @@
+<%= form_for(series, url: '/series/' + series.id.to_s) do |f| %>
+  <% if series.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(series.errors.count, "error") %> prohibited this series from being saved:</h2>
+
+      <ul>
+      <% series.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= f.label :description %>
+    <%= f.text_area :description %>
+  </div>
+
+	<div class="field">
+		<%= f.label :idiom %>
+		<%= select :idiom, :idiom, Serie.idioms.collect { |key, value| [key, key] } %>
+	</div>
+
+	<div class="field">
+		<%= f.label :genres %>
+		<% Genre.all.each do |genre| %>
+			<%= f.check_box :genre_ids, {multiple: true}, genre.id, nil %><%= genre.genre %> <br>
+		<% end %>
+
+		<!-- <%= f.select :genre_ids, Genre.all.collect { |g| [g.genre, g.id] }, {}, multiple: true %> -->
+	</div>
+
+<%if current_user.rol.eql? 'admin'%>
+  <div class="field">
+    <%= "Private" %>
+    <%= f.check_box :private, {}, true, nil %><br>
+  </div>
+<%end%>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,46 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Todas nuestras series :D</h1>
+
+<%= form_tag  home_path, :method => 'get' do%>
+    <div class="field">
+      <%= label_tag 'Nombre' %>
+      <%= text_field_tag :name, params[:name] %>
+    </div>
+
+    <div class="field">
+      <%= label_tag 'Idiom' %>
+      <%= select_tag params[:idiom], options_for_select(@idioms), :include_blank => true %>
+    </div>
+
+    <div class="field">
+      <%= label_tag 'Genre' %>
+      <%= select_tag params[:genre], options_for_select(@genres),
+                     {:multiple => true} %>
+    </div>
+
+
+    <%= submit_tag "Search" %>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @series.each do |series| %>
+      <tr>
+        <td><%= series.name %></td>
+        <td><%= series.description %></td>
+        <td><%= series.idiom %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>

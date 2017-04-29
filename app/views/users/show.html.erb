@@ -1,0 +1,32 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @user.name %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @user.email %>
+</p>
+
+<p>
+  <strong>Rol:</strong>
+  <%= @user.rol %>
+</p>
+
+<p>
+	<strong>Series:</strong>
+	<ul>
+		<% @user.series.each do | serie | %>
+			<li><%= link_to serie.name, '/series/' + serie.id.to_s %></li>
+		<% end %>
+	</ul>
+</p>
+
+<%= link_to 'New Series', new_series_path %>
+
+<br>
+
+<%= link_to 'Edit', edit_user_path(@user) %> |
+<%= link_to 'Back', users_path %>
