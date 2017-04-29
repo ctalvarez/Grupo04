@@ -19,6 +19,7 @@ y = User.create name: 'Felipe', email: 'figarrido@uc.cl', password: 'qwerty', ro
 z = User.create name: 'Carlos', email: 'ctalvarez@uc.cl', password: 'qwerty', rol: :admin
 
 m = Serie.create name: 'How I met your mother', description: 'asd', user_id: y.id, idiom: 'english'
+n = Serie.create name: 'Breaking Bad', description: 'Best serie EVER', user_id: x.id, idiom: 'english'
 
 GenreSerie.create genre_id: a.id, serie_id: m.id
 GenreSerie.create genre_id: c.id, serie_id: m.id
