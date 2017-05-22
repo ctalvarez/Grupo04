@@ -14,7 +14,7 @@ class Serie < ApplicationRecord
     series = self.where(private: false)
 
     if name.present?
-      series = series.where('name like ?', "%#{name}%" )
+      series = series.where('name ilike ?', "%#{name}%" )
     end
     if idiom.present?
       series = series.where('idiom like ?', "%#{idiom}%")
