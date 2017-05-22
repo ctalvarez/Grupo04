@@ -13,7 +13,6 @@ class SeriesController < ApplicationController
   end
 
   def home
-
     @idioms = Serie.uniq.pluck(:idiom)
     @genres = Genre.uniq.pluck(:genre)
     
@@ -21,24 +20,6 @@ class SeriesController < ApplicationController
     @series = Serie.search(params[:name_search], params[:idiom_search],
     params[:genre_search])
 
-
-  #   if params[:name].present? or params[:idiom].present? or params[:genre].present?
-  #
-  #     @series = @series.by_name(params[:name]) if params[:name].present?
-  #     @series = @series.by_idiom(params[:idiom]) if params[:idiom].present?
-  #
-  #
-  #     genre_series = []
-  #     genres = Genre.all
-  #     genres.each do |g|
-  #       if g.genre == params[:genre]
-  #         genre_series << g.series
-  #       end
-  #     end
-  #     genre_series.uniq
-  #     @series = @series & genre_series
-  #   end
-  #
   end
 
   # GET /series/1
@@ -84,7 +65,7 @@ class SeriesController < ApplicationController
   def update
     respond_to do |format|
       if @series.update(series_params)
-        format.html { redirect_to @series, notice: 'Serie was successfully updated.' }
+        format.html { redirect_to '/series/' + @series.id.to_s, notice: 'Serie was successfully updated.' }
         format.json { render :show, status: :ok, location: @series }
       else
         format.html { render :edit }
@@ -113,6 +94,7 @@ class SeriesController < ApplicationController
     def series_params
       serie_params = params.require(:serie).permit(:name, :description, :idiom, :private, :genres)
 			serie_params[:user_id] = current_user.id
+			serie_params[:idiom] = params[:idiom][:idiom]
 			serie_params
     end
 

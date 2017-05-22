@@ -1,4 +1,4 @@
-<%= form_for(series) do |f| %>
+<%= form_for(series, url: '/series/' + series.id.to_s) do |f| %>
   <% if series.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(series.errors.count, "error") %> prohibited this series from being saved:</h2>
@@ -23,7 +23,7 @@
 
 	<div class="field">
 		<%= f.label :idiom %>
-		<%= select :idiom, :idiom, Serie.idioms %>
+		<%= select :idiom, :idiom, Serie.idioms.collect { |key, value| [key, key] } %>
 	</div>
 
 	<div class="field">
