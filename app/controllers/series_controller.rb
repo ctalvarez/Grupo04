@@ -15,8 +15,7 @@ class SeriesController < ApplicationController
   def home
     @idioms = Serie.uniq.pluck(:idiom)
     @genres = Genre.uniq.pluck(:genre)
-    
-    #@series = Serie.search(params)
+    # retorna la que no son privadas si es que no se le da ningun parametro
     @series = Serie.search(params[:name_search], params[:idiom_search],
     params[:genre_search])
 
