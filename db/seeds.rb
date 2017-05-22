@@ -21,6 +21,13 @@ z = User.create name: 'Carlos', email: 'ctalvarez@uc.cl', password: 'qwerty', ro
 m = Serie.create name: 'How I met your mother', description: 'asd', user_id: y.id, idiom: 'english', private: false
 n = Serie.create name: 'Breaking Bad', description: 'Best serie EVER', user_id: x.id, idiom: 'english', private: false
 o = Serie.create name: 'The Flash', description: 'Flaaaasshhh', user_id: x.id, idiom: 'english', private: true
+p = Serie.create name: 'Narcos', description: 'plata o plomo', user_id: z.id, idiom: 'spanish', private: false
 
-i = GenreSerie.create genre_id: a.id, serie_id: m.id
-j = GenreSerie.create genre_id: c.id, serie_id: m.id
+
+i = GenreSerie.create genre_id: a.id, serie_id: m.id  # HIMYM es romance
+j = GenreSerie.create genre_id: c.id, serie_id: m.id  # HIMYM es comedia
+k = GenreSerie.create genre_id: b.id, serie_id: n.id  # BB es suspenso
+l = GenreSerie.create genre_id: b.id, serie_id: o.id  # Flash es suspenso
+d = GenreSerie.create genre_id: b.id, serie_id: p.id  # Narcos es suspenso
+
+

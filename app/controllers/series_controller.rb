@@ -13,16 +13,32 @@ class SeriesController < ApplicationController
   end
 
   def home
-    @series = Serie.where(private: false)
+
     @idioms = Serie.uniq.pluck(:idiom)
     @genres = Genre.uniq.pluck(:genre)
-    if params[:name].present? or params[:idiom].present? or params[:genre].present?
+    
+    #@series = Serie.search(params)
+    @series = Serie.search(params[:name_search], params[:idiom_search],
+    params[:genre_search])
 
-      @series = @series.by_name(params[:name]) if params[:name].present?
-      @series = @series.by_idiom(params[:idiom]) if params[:idiom].present?
-      @series = @series.Genre.merge(GenreSerie.by_genre) if params[:genre].present?
-    end
 
+  #   if params[:name].present? or params[:idiom].present? or params[:genre].present?
+  #
+  #     @series = @series.by_name(params[:name]) if params[:name].present?
+  #     @series = @series.by_idiom(params[:idiom]) if params[:idiom].present?
+  #
+  #
+  #     genre_series = []
+  #     genres = Genre.all
+  #     genres.each do |g|
+  #       if g.genre == params[:genre]
+  #         genre_series << g.series
+  #       end
+  #     end
+  #     genre_series.uniq
+  #     @series = @series & genre_series
+  #   end
+  #
   end
 
   # GET /series/1
@@ -95,8 +111,12 @@ class SeriesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def series_params
-      serie_params = params.require(:serie).permit(:name, :description, :idiom, :private)
+      serie_params = params.require(:serie).permit(:name, :description, :idiom, :private, :genres)
 			serie_params[:user_id] = current_user.id
 			serie_params
+    end
+
+    def searches_params
+      params.require(:serie).permit(:name, :idiom, :private, :genres)
     end
 end
