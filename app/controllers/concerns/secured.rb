@@ -1,5 +1,5 @@
 module Secured
-  ActiveRecord::Concern
+  extend ActiveSupport::Concern
 
   def admin?
     redirect_to root_path unless current_user&.admin?
