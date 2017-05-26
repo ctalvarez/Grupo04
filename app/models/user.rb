@@ -9,7 +9,6 @@ class User < ApplicationRecord
 	has_many :scores
 	has_many :series, class_name: 'Serie'
 
-
   #Aquí esta el parche para que por defecto sean usuarios!!!
   def default_user
     if self.rol == nil
