@@ -26,3 +26,60 @@ LOG:  database system was shut down at 2017-04-28 15:47:15 -04
 LOG:  MultiXact member wraparound protections are now enabled
 LOG:  database system is ready to accept connections
 LOG:  autovacuum launcher started
+LOG:  database system was shut down at 2017-04-29 19:56:31 -04
+LOG:  MultiXact member wraparound protections are now enabled
+LOG:  database system is ready to accept connections
+LOG:  autovacuum launcher started
+ERROR:  column "romance" does not exist at character 68
+STATEMENT:  SELECT "series".* FROM "series" WHERE "series"."private" = $1 AND (Romance)
+ERROR:  column "genre" does not exist at character 68
+STATEMENT:  SELECT "series".* FROM "series" WHERE "series"."private" = $1 AND (genre LIKE 'Romance')
+ERROR:  column series.genre does not exist at character 67
+STATEMENT:  SELECT "series".* FROM "series" WHERE "series"."private" = $1 AND "series"."genre" = 'Romance'
+ERROR:  column "genre" does not exist at character 68
+STATEMENT:  SELECT "series".* FROM "series" WHERE "series"."private" = $1 AND (genre like 'Comedia')
+ERROR:  missing FROM-clause entry for table "genre_series" at character 67
+STATEMENT:  SELECT "series".* FROM "series" WHERE "series"."private" = $1 AND "genre_series"."genre_id" = 0
+ERROR:  missing FROM-clause entry for table "genre_series" at character 67
+STATEMENT:  SELECT "series".* FROM "series" WHERE "series"."private" = $1 AND "genre_series"."genre_id" = 0
+LOG:  received fast shutdown request
+LOG:  aborting any active transactions
+LOG:  autovacuum launcher shutting down
+LOG:  shutting down
+LOG:  database system is shut down
+LOG:  database system was shut down at 2017-04-30 21:01:49 -04
+LOG:  MultiXact member wraparound protections are now enabled
+LOG:  autovacuum launcher started
+LOG:  database system is ready to accept connections
+LOG:  received fast shutdown request
+LOG:  aborting any active transactions
+LOG:  autovacuum launcher shutting down
+LOG:  shutting down
+LOG:  database system is shut down
+LOG:  database system was shut down at 2017-05-02 11:13:18 -04
+LOG:  MultiXact member wraparound protections are now enabled
+LOG:  database system is ready to accept connections
+LOG:  autovacuum launcher started
+ERROR:  column series.idioms does not exist at character 68
+HINT:  Perhaps you meant to reference the column "series.idiom".
+STATEMENT:  SELECT  "series".* FROM "series" WHERE "series"."private" = $1 AND "series"."idioms" IS NULL LIMIT $2
+ERROR:  column series.idioms does not exist at character 68
+HINT:  Perhaps you meant to reference the column "series.idiom".
+STATEMENT:  SELECT  "series".* FROM "series" WHERE "series"."private" = $1 AND "series"."idioms" IS NULL LIMIT $2
+ERROR:  column series.idioms does not exist at character 68
+HINT:  Perhaps you meant to reference the column "series.idiom".
+STATEMENT:  SELECT  "series".* FROM "series" WHERE "series"."private" = $1 AND "series"."idioms" = $2 LIMIT $3
+LOG:  received fast shutdown request
+LOG:  aborting any active transactions
+LOG:  autovacuum launcher shutting down
+LOG:  shutting down
+LOG:  database system is shut down
+LOG:  database system was shut down at 2017-05-02 12:17:10 -04
+LOG:  MultiXact member wraparound protections are now enabled
+LOG:  database system is ready to accept connections
+LOG:  autovacuum launcher started
+LOG:  received fast shutdown request
+LOG:  aborting any active transactions
+LOG:  autovacuum launcher shutting down
+LOG:  shutting down
+LOG:  database system is shut down

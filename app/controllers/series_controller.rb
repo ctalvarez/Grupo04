@@ -19,6 +19,7 @@ class SeriesController < ApplicationController
     @series = Serie.search(params[:name_search], params[:idiom_search],
     params[:genre_search])
 
+
   end
 
   # GET /series/1
