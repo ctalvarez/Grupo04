@@ -18,8 +18,8 @@ ________________________
 
 # Instrucciones de Instalación
 
- * Instalar gemas 'devise' y 'pg'
- * Para el manejo de postgres, utilizamos variables de entorno. Es necesario crear
- el archivo local_env.yml en la carpeta config. Dentro del archivo, colocar lo siguiente:
-  - DB_USERNAME: 'Usuario en postgres'
-  - DB_PASSWORD: 'Contraseña postgres'
+* Instalar gemas 'devise' y 'pg'
+* Para el manejo de postgres, utilizamos variables de entorno. Es necesario crear
+el archivo local_env.yml en la carpeta config. Dentro del archivo, colocar lo siguiente:
+  * DB_USERNAME: 'Usuario en postgres'
+  * DB_PASSWORD: 'Contraseña postgres'

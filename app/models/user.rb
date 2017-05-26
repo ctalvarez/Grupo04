@@ -8,6 +8,8 @@ class User < ApplicationRecord
   before_create :default_user
 	has_many :scores
 	has_many :series, class_name: 'Serie'
+  has_many :child_filters, dependent: :destroy
+  has_many :restricted_genres, through: :child_filters, source: :genre, class_name: 'Genre'
 
   #Aquí esta el parche para que por defecto sean usuarios!!!
   def default_user

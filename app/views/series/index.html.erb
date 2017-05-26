@@ -7,7 +7,7 @@
     <tr>
       <th>Name</th>
       <th>Description</th>
-      <th>Idioms</th>
+      <th>languages</th>
       <th>Private</th>
       <th colspan="3"></th>
     </tr>
@@ -18,7 +18,7 @@
       <tr>
         <td><%= series.name %></td>
         <td><%= series.description %></td>
-        <td><%= series.idiom %></td>
+        <td><%= series.language %></td>
         <td><%= link_to 'Show', '/series/' + series.id.to_s %></td>
         <td><%= link_to 'Edit', edit_series_path(series) %></td>
         <td><%= link_to 'Destroy', '/series/' + series.id.to_s, method: :delete, data: { confirm: 'Are you sure?' } %></td>

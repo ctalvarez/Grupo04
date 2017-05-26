@@ -22,8 +22,8 @@
   </div>
 
 	<div class="field">
-		<%= f.label :idiom %>
-		<%= select :idiom, :idiom, Serie.idioms.collect { |key, value| [key, key] } %>
+		<%= f.label :language %>
+		<%= f.select :language, Serie.languages.collect { |key, value| [key, value] } %>
 	</div>
 
 	<div class="field">

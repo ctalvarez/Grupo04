@@ -1,11 +1,13 @@
 class SeriesController < ApplicationController
+  include Secured
   layout "all_layout"
   before_action :set_series, only: [:show, :edit, :update, :destroy]
+  before_action :logged_in?, only: [:index]
 
   # GET /series
   # GET /series.json
   def index
-    if current_user.rol.eql? 'admin'
+    if current_user&.admin?
       @series = Serie.all
     else
       @series = User.find(current_user).series
@@ -13,13 +15,11 @@ class SeriesController < ApplicationController
   end
 
   def home
-    @idioms = Serie.uniq.pluck(:idiom)
-    @genres = Genre.uniq.pluck(:genre)
+    @languages = Serie.languages
+    @genres = Genre.all.pluck(:genre)
     # retorna la que no son privadas si es que no se le da ningun parametro
-    @series = Serie.search(params[:name_search], params[:idiom_search],
+    @series = Serie.search(params[:name_search], params[:language_search],
     params[:genre_search])
-
-
   end
 
   # GET /series/1
@@ -92,13 +92,12 @@ class SeriesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def series_params
-      serie_params = params.require(:serie).permit(:name, :description, :idiom, :private, :genres)
+      serie_params = params.require(:serie).permit(:name, :description, :language, :private, :genres)
 			serie_params[:user_id] = current_user.id
-			serie_params[:idiom] = params[:idiom][:idiom]
 			serie_params
     end
 
     def searches_params
-      params.require(:serie).permit(:name, :idiom, :private, :genres)
+      params.require(:serie).permit(:name, :language, :private, :genres)
     end
 end
