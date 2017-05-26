@@ -33,11 +33,6 @@ class Serie < ApplicationRecord
     series
   end
 
-<<<<<<< HEAD
-  scope :by_name, (->(serie_name) {where('name like ?', "%#{serie_name}%" )})
-  scope :by_idiom, (->(serie_idiom) {where('idiom like ?', Serie.idioms.key(serie_idiom.to_i))})
-=======
->>>>>>> 2fd1c97ef185fc939505716e6614b9b2b1c15619
 
 
 	def default_private
