@@ -13,15 +13,11 @@ class SeriesController < ApplicationController
   end
 
   def home
-    @series = Serie.where(private: false)
-    @idioms = Serie.idioms
+    @idioms = Serie.uniq.pluck(:idiom)
     @genres = Genre.uniq.pluck(:genre)
-    if params[:name].present? or params[:idiom].present? or params[:genre].present?
-
-      @series = @series.by_name(params[:name]) if params[:name].present?
-      @series = @series.by_idiom(params[:idiom]) if params[:idiom].present?
-      @series = @series.Genre.merge(GenreSerie.by_genre) if params[:genre].present?
-    end
+    # retorna la que no son privadas si es que no se le da ningun parametro
+    @series = Serie.search(params[:name_search], params[:idiom_search],
+    params[:genre_search])
 
   end
 
@@ -95,9 +91,13 @@ class SeriesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def series_params
-      serie_params = params.require(:serie).permit(:name, :description, :idiom, :private)
+      serie_params = params.require(:serie).permit(:name, :description, :idiom, :private, :genres)
 			serie_params[:user_id] = current_user.id
 			serie_params[:idiom] = params[:idiom][:idiom]
 			serie_params
+    end
+
+    def searches_params
+      params.require(:serie).permit(:name, :idiom, :private, :genres)
     end
 end
