@@ -12,7 +12,7 @@ class Serie < ApplicationRecord
 
 
   scope :by_name, (->(serie_name) {where('name like ?', "%#{serie_name}%" )})
-  scope :by_idiom, (->(serie_idiom) {where('idiom like ?', serie_idiom)})
+  scope :by_idiom, (->(serie_idiom) {where('idiom like ?', Serie.idioms.key(serie_idiom.to_i))})
 
 
 	def default_private
