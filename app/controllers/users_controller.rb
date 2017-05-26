@@ -1,6 +1,9 @@
 class UsersController < ApplicationController
+  include Secured
   layout "all_layout"
   before_action :set_user, only: [:show, :edit, :update, :destroy, :change_level]
+  before_action :admin?, only: [:index, :change_level]
+  before_action :logged_in, only: [:show, :edit, :updta, :destroy]
 
   # GET /users
   # GET /users.json
