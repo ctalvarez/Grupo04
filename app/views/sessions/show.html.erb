@@ -1,0 +1,13 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @session.status %>
+</p>
+
+<p>
+  <strong>Number:</strong>
+  <%= @session.session_number %>
+</p>
+<%= link_to 'Edit', edit_series_session_path(@session, series_id: :series_id)%> |
+<%= link_to 'Back', '/series/' + @session.serie.id.to_s %>

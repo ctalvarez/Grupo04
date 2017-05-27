@@ -37,6 +37,7 @@
         <td><%= series.name %></td>
         <td><%= series.description %></td>
         <td><%= series.language %></td>
+        <td><%= link_to 'Show', '/series/' + series.id.to_s %></td>
 
       </tr>
     <% end %>

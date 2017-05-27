@@ -1,0 +1,6 @@
+<h1>Editing Session</h1>
+
+<%= render 'form', session: @session, serie: @session.serie %>
+
+<%= link_to 'Show',series_session_path(@session) %> |
+<%= link_to 'Back', '/series/' + @session.serie.id.to_s %>

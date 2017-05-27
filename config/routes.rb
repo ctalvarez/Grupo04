@@ -3,10 +3,12 @@ Rails.application.routes.draw do
   get 'series', to: 'series#index'
   get 'home', to: 'series#home'
   resources :series do
-    resources :chapters
+    resources :sessions do
+      resources :chapters
+    end
   end
   resources :scores
-  # resources :chapters
+  #resources :chapters
   resources :users
   root 'series#home'
 
