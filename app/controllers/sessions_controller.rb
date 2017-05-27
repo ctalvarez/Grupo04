@@ -1,6 +1,7 @@
 class SessionsController < ApplicationController
   layout 'all_layout'
   before_action :set_session, only: %i[show edit update destroy]
+  before_action :set_serie, only: %i[show edit update destroy]
 
   # GET /chapters
   # GET /chapters.json
@@ -65,6 +66,10 @@ class SessionsController < ApplicationController
   private
 
   # Use callbacks to share common setup or constraints between actions.
+  def set_serie
+    @serie = Serie.find(params[:series_id])
+  end
+
   def set_session
     @session = Session.find(params[:id])
   end

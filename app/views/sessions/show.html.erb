@@ -9,5 +9,5 @@
   <strong>Number:</strong>
   <%= @session.session_number %>
 </p>
-<%= link_to 'Edit', edit_series_session_path(@session, series_id: :series_id)%> |
+<%= link_to 'Edit', edit_series_session_path(@serie, @session)%> |
 <%= link_to 'Back', '/series/' + @session.serie.id.to_s %>
