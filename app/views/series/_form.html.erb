@@ -23,7 +23,7 @@
 
 	<div class="field">
 		<%= f.label :language %>
-		<%= f.select :language, Serie.languages.collect { |key, value| [key, value] } %>
+		<%= f.select :language, Serie.languages.collect { |key, value| [key, key] } %>
 	</div>
 
 	<div class="field">
