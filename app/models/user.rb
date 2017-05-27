@@ -16,6 +16,23 @@ class User < ApplicationRecord
   has_many  :seen, dependent: :destroy
   has_many  :seen_chapters, through: :seen, source: :chapter
 
+  has_many  :children_relationship,
+            class_name: 'ParentChild',
+            foreign_key: 'parent_id',
+            dependent: :destroy
+
+  has_one   :parent_relationship,
+            class_name: 'ParentChild',
+            foreign_key: 'child_id',
+            dependent: :destroy
+
+  has_many  :children,
+            through: :children_relationship,
+            source: :child
+  has_one   :parent,
+            through: :parent_relationship,
+            source: :parent
+
   # Aqui esta el parche para que por defecto sean usuarios!!!
   def default_user
     self.rol = :user if rol.nil?

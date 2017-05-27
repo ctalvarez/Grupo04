@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   include Secured
   layout 'all_layout'
-  before_action :set_user, only: %i[show edit update destroy change_level create_child]
+  before_action :set_user, only: %i[show edit update destroy change_level create_child new_child]
   before_action :admin?, only: %i[index change_level]
   before_action :logged_in?, only: %i[show edit update destroy]
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_170_527_030_819) do
+ActiveRecord::Schema.define(version: 20_170_527_215_256) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'plpgsql'
 
@@ -75,6 +75,15 @@ ActiveRecord::Schema.define(version: 20_170_527_030_819) do
     t.string   'genre'
     t.datetime 'created_at', null: false
     t.datetime 'updated_at', null: false
+  end
+
+  create_table 'parent_children', force: :cascade do |t|
+    t.integer  'parent_id'
+    t.integer  'child_id'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+    t.index ['child_id'], name: 'index_parent_children_on_child_id', using: :btree
+    t.index ['parent_id'], name: 'index_parent_children_on_parent_id', using: :btree
   end
 
   create_table 'scores', force: :cascade do |t|
