@@ -16,10 +16,16 @@ class SeriesController < ApplicationController
 
   def home
     @languages = Serie.languages
-    @genres = Genre.all.pluck(:genre)
+    @genres = Genre.pluck(:genre)
     # retorna la que no son privadas si es que no se le da ningun parametro
-    @series = Serie.search(params[:name_search], params[:language_search],
-    params[:genre_search])
+    # freeSeries = Serie.where(private: false)
+    # ownSeries = User.find(current_user).series if current_user
+    # ownSeries = ownSeries || []
+    searchIn = Serie.where('user_id=? OR private=?', current_user, false)
+    @series = Serie.search( params[:name_search],
+                            params[:language_search],
+                            params[:genre_search],
+                            searchIn )
   end
 
   # GET /series/1
