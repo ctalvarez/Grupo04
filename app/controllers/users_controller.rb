@@ -1,9 +1,9 @@
 class UsersController < ApplicationController
   include Secured
   layout 'all_layout'
-  before_action :set_user, only: %i[show edit update destroy change_level]
+  before_action :set_user, only: %i[show edit update destroy change_level create_child]
   before_action :admin?, only: %i[index change_level]
-  before_action :logged_in?, only: %i[show edit updta destroy]
+  before_action :logged_in?, only: %i[show edit update destroy]
 
   # GET /users
   # GET /users.json
@@ -18,6 +18,24 @@ class UsersController < ApplicationController
   # GET /users/new
   def new
     @user = User.new
+  end
+
+  def new_child
+    @child = User.new
+  end
+
+  def create_child
+    @child = User.new(user_params)
+
+    respond_to do |format|
+      if @child.save
+        format.html { redirect_to @user, notice: 'Child was successfully created.' }
+        format.json { render :show, status: :created, location: @child }
+      else
+        format.html { render :new }
+        format.json { render json: @child.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   # GET /users/1/edit

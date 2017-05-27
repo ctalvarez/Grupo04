@@ -16,7 +16,6 @@ class Serie < ApplicationRecord
   before_create :default_private
 
   def self.search(name, language, genre, series)
-
     series = series.where('name ilike ?', "%#{name}%") if name.present?
     if language.present?
       series = series.where('language like ?', "%#{language}%")

@@ -10,6 +10,7 @@ class SeriesController < ApplicationController
     if current_user&.admin?
       @series = Serie.all
     else
+      p current_user
       @series = User.find(current_user).series
     end
   end
