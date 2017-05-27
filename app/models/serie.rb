@@ -1,6 +1,5 @@
 class Serie < ApplicationRecord
-
-	enum language: [:Spanish, :English]
+  enum language: %i[Spanish English]
 
   has_many :sessions, dependent: :destroy
   has_many :genre_series, class_name: 'GenreSerie', dependent: :destroy
@@ -9,18 +8,17 @@ class Serie < ApplicationRecord
   has_many :subtitles, through: :subtitle_integrations
   has_many :actor_series, dependent: :destroy
   has_many :actors, through: :actor_series, source: :actor
+  has_many :sessions, dependent: :destroy
   has_one :director_series, dependent: :destroy
   has_one :director, through: :director_series, source: :director
 
   belongs_to :user
-	before_create :default_private
+  before_create :default_private
 
   def self.search(name, language, genre)
-    series = self.where(private: false)
+    series = where(private: false)
 
-    if name.present?
-      series = series.where('name ilike ?', "%#{name}%" )
-    end
+    series = series.where('name ilike ?', "%#{name}%") if name.present?
     if language.present?
       series = series.where('language like ?', "%#{language}%")
     end
@@ -28,21 +26,15 @@ class Serie < ApplicationRecord
       genre_series = []
       genres = Genre.all
       genres.each do |g|
-        if g.genre == genre
-          genre_series << g.series
-        end
+        genre_series << g.series if g.genre == genre
       end
       genre_series.uniq
-      series = series & genre_series[0]
+      series &= genre_series[0]
     end
     series
   end
 
-
-
-	def default_private
-		if self.private == nil
-			self.private = false
-		end
-	end
+  def default_private
+    self.private = false if private.nil?
+  end
 end

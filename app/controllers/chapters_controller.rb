@@ -1,6 +1,6 @@
 class ChaptersController < ApplicationController
-  layout "all_layout"
-  before_action :set_chapter, only: [:show, :edit, :update, :destroy]
+  layout 'all_layout'
+  before_action :set_chapter, only: %i[show edit update destroy]
 
   # GET /chapters
   # GET /chapters.json
@@ -10,23 +10,21 @@ class ChaptersController < ApplicationController
 
   # GET /chapters/1
   # GET /chapters/1.json
-  def show
-  end
+  def show; end
 
   # GET /chapters/new
   def new
-		@serie = Serie.find(params[:series_id])
+    @serie = Serie.find(params[:series_id])
     @chapter = @serie.chapters.build
   end
 
   # GET /chapters/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /chapters
   # POST /chapters.json
   def create
-		@serie = Serie.find(params[:series_id])
+    @serie = Serie.find(params[:series_id])
     @chapter = @serie.chapters.build(chapter_params)
 
     respond_to do |format|
@@ -65,13 +63,14 @@ class ChaptersController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_chapter
-      @chapter = Chapter.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def chapter_params
-      params.require(:chapter).permit(:name, :description)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_chapter
+    @chapter = Chapter.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def chapter_params
+    params.require(:chapter).permit(:name, :description)
+  end
 end

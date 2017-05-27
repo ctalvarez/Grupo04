@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170526230550) do
+ActiveRecord::Schema.define(version: 20170527030819) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -89,17 +89,25 @@ ActiveRecord::Schema.define(version: 20170526230550) do
     t.index ["user_id"], name: "index_scores_on_user_id", using: :btree
   end
 
+  create_table "seens", force: :cascade do |t|
+    t.integer  "chapter_id"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["chapter_id"], name: "index_seens_on_chapter_id", using: :btree
+    t.index ["user_id"], name: "index_seens_on_user_id", using: :btree
+  end
+
   create_table "series", force: :cascade do |t|
     t.string   "name"
     t.text     "description"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
     t.integer  "user_id"
-    t.string   "language"
+    t.integer  "language"
     t.boolean  "private"
     t.string   "image"
     t.string   "country"
-    t.integer  "subtitle"
     t.integer  "session_amount"
     t.date     "year_release"
     t.index ["user_id"], name: "index_series_on_user_id", using: :btree
@@ -160,6 +168,8 @@ ActiveRecord::Schema.define(version: 20170526230550) do
   add_foreign_key "genre_series", "series", column: "serie_id"
   add_foreign_key "scores", "chapters"
   add_foreign_key "scores", "users"
+  add_foreign_key "seens", "chapters"
+  add_foreign_key "seens", "users"
   add_foreign_key "series", "users"
   add_foreign_key "sessions", "series", column: "serie_id"
   add_foreign_key "subtitle_integrations", "series", column: "serie_id"

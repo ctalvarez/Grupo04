@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
   devise_for :users
-  get 'series', to: "series#index"
-  get 'home', to: "series#home"
+  get 'series', to: 'series#index'
+  get 'home', to: 'series#home'
   resources :series do
-  	resources :chapters
+    resources :chapters
   end
   resources :scores
   # resources :chapters
