@@ -14,6 +14,13 @@
     <%= f.text_field :password %>
   </div>
 
+  <div class="field">
+    <%= f.label 'Restricted Genres' %>
+    <% @genres.each do |genre| %>
+      <%= check_box_tag 'filters[]', genre.id, nil, {multiple: true} %><%= genre.genre %>
+    <% end %>
+  </div>
+
   <div class="actions">
     <%= f.submit %>
   </div>

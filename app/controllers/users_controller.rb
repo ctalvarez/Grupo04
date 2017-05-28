@@ -22,14 +22,18 @@ class UsersController < ApplicationController
 
   def new_child
     @child = User.new
+    @genres = Genre.all
   end
 
   def create_child
-    @child = User.new(user_params)
-
+    @child = @user.children.build child_params
     respond_to do |format|
       if @child.save
-        format.html { redirect_to @user, notice: 'Child was successfully created.' }
+        @child.child!
+        @user.children << @child
+        @child.child_filters.create child_filters_params
+
+        format.html { redirect_to user_path(@user), notice: 'Child was successfully created.' }
         format.json { render :show, status: :created, location: @child }
       else
         format.html { render :new }
@@ -95,6 +99,18 @@ class UsersController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def user_params
-    params.require(:user).permit(:name, :email, :password, :rol)
+    params.require(:user).permit(:name, :email, :password)
+  end
+
+  def child_params
+    params.require(:user).permit(:name, :email, :password)
+  end
+
+  def child_filters_params
+    child_filters = []
+    params[:filters].each do |x|
+      child_filters << { genre_id: x }
+    end
+    child_filters
   end
 end
