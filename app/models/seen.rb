@@ -6,7 +6,5 @@ class Seen < ApplicationRecord
     self.delete
   end
 
-  def create_seen(userid, chapterid)
-    Seen.create(user_id: userid, chapter_id: chapterid)
-  end
+  
 end
