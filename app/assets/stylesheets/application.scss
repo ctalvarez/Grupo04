@@ -14,12 +14,26 @@
  @import "bootstrap-sprockets";
  @import "bootstrap";
 
+.row {
+  text-align: center;
+  vertical-align: middle;
+  padding: 10px;
+  padding-top: 0;
+}
+
+.thumbnail {
+  margin: 10px 10px 10px 0;
+  padding: 0 15px 0 15px;
+  border: 1px solid gray;
+  border-radius: 5px;
+}
 
 .finder {
   float: left;
   display: inline;
   position: relative;
-  width: 20%;
+  margin-left: 2%;
+  width: 18%;
   padding: 0;
   .search-form {
     padding: 10%;
@@ -38,5 +52,4 @@
   padding: 0;
   margin-left: auto;
   margin-right: auto;
-  border: 2px solid black;
 }

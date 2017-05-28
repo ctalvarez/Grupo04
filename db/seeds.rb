@@ -12,9 +12,12 @@ Genre.destroy_all
 Serie.destroy_all
 User.destroy_all
 
-a = Genre.create genre: 'Romance'
-b = Genre.create genre: 'Suspenso'
-c = Genre.create genre: 'Comedia'
+romance = Genre.create genre: 'Romance'
+suspense = Genre.create genre: 'Suspenso'
+comedy = Genre.create genre: 'Comedia'
+action = Genre.create genre: 'Action'
+terror = Genre.create genre: 'Terror'
+drama = Genre.create genre: 'Drama'
 
 x = User.create name: 'David',
                 email: 'daruz@uc.cl',
@@ -33,7 +36,7 @@ z = User.create name: 'Carlos',
 
 d1 = Director.create name: 'Mark Gatiss'
 
-m = Serie.create  name: 'How I met your mother',
+himym = Serie.create  name: 'How I met your mother',
                   description: 'asd',
                   user: y,
                   language: :English,
@@ -42,7 +45,7 @@ m = Serie.create  name: 'How I met your mother',
                   year_release: Date.parse('3/2/1995'),
                   session_amount: 0
 
-n = Serie.create  name: 'Breaking Bad',
+breakigBad = Serie.create  name: 'Breaking Bad',
                   description: 'Best serie EVER',
                   user: x,
                   language: :English,
@@ -51,7 +54,7 @@ n = Serie.create  name: 'Breaking Bad',
                   year_release: Date.parse('10/10/2000'),
                   session_amount: 0
 
-o = Serie.create  name: 'Sherlock',
+sherlock = Serie.create  name: 'Sherlock',
                   description: 'Detective story',
                   user: x,
                   language: :English,
@@ -60,7 +63,7 @@ o = Serie.create  name: 'Sherlock',
                   year_release: Date.parse('24/2/2007'),
                   session_amount: 0
 
-p = Serie.create  name: 'Narcos',
+narcos = Serie.create  name: 'Narcos',
                   description: 'plata o plomo',
                   user: z,
                   language: :Spanish,
@@ -69,28 +72,73 @@ p = Serie.create  name: 'Narcos',
                   year_release: Date.parse('19/5/2010'),
                   session_amount: 0
 
-ds = DirectorSeries.create director: d1, serie: o
+houseOfCards = Serie.create  name: 'House of Cards',
+                  description: 'frank underwood president',
+                  user: z,
+                  language: :English,
+                  country: 'EEUU',
+                  private: false,
+                  year_release: Date.parse('10/10/2011'),
+                  session_amount: 0
 
-i = GenreSerie.create genre: a, serie: m  # HIMYM es romance
-j = GenreSerie.create genre: c, serie: m  # HIMYM es comedia
-k = GenreSerie.create genre: b, serie: n  # BB es suspenso
-l = GenreSerie.create genre: b, serie: o  # Sherlock es suspenso
-d = GenreSerie.create genre: b, serie: p  # Narcos es suspenso
+gameOfThrones = Serie.create  name: 'Game of Thrones',
+                  description: 'winter is comming',
+                  user: z,
+                  language: :English,
+                  country: 'EEUU',
+                  private: false,
+                  year_release: Date.parse('12/7/2012'),
+                  session_amount: 0
+
+scream = Serie.create name: 'Scream',
+                      description: 'Crime and Murder',
+                      user: z,
+                      language: :English,
+                      country: 'EEUU',
+                      private: false,
+                      year_release: Date.parse('11/11/2015'),
+                      session_amount: 0
+
+rickAndMorty = Serie.create name: 'Rick y Morty',
+                      description: 'Wubba Lubba dub-dub',
+                      user: z,
+                      language: :English,
+                      country: 'EEUU',
+                      private: false,
+                      year_release: Date.parse('9/10/2014'),
+                      session_amount: 0
+
+ds = DirectorSeries.create director: d1, serie: sherlock
+
+gs1 = GenreSerie.create genre: romance, serie: himym  # HIMYM es romance
+gs2 = GenreSerie.create genre: comedy, serie: himym  # HIMYM es comedia
+gs3 = GenreSerie.create genre: suspense, serie: breakigBad  # BB es suspenso
+gs3 = GenreSerie.create genre: drama, serie: breakigBad  # BB es drama
+gs4 = GenreSerie.create genre: suspense, serie: sherlock  # Sherlock es suspenso
+gs5 = GenreSerie.create genre: drama, serie: narcos  # Narcos es drama
+gs6 = GenreSerie.create genre: action, serie: narcos  # Narcos es action
+gs7 = GenreSerie.create genre: drama, serie: houseOfCards  # House of cards es drama
+gs8 = GenreSerie.create genre: action, serie: gameOfThrones  # got es action
+gs9 = GenreSerie.create genre: drama, serie: gameOfThrones  # got es drama
+gs10 = GenreSerie.create genre: suspense, serie: gameOfThrones  # got es suspenso
+gs11 = GenreSerie.create genre: terror, serie: scream  # scream es terror
+gs12 = GenreSerie.create genre: suspense, serie: scream  # scream es susoenso
+gs13 = GenreSerie.create genre: comedy, serie: rickAndMorty  # scream es susoenso
 
 a1 = Actor.create name: 'Benedict Cumberbatch'
 a2 = Actor.create name: 'Louise Brealey'
 
-ActorSeries.create actor: a1, serie: o
-ActorSeries.create actor: a2, serie: o
+ActorSeries.create actor: a1, serie: sherlock
+ActorSeries.create actor: a2, serie: sherlock
 
 s1 = Session.create date_release: Date.parse('24/4/2000'),
                     status: :Finished,
                     session_number: 1,
-                    serie: o
+                    serie: sherlock
 s2 = Session.create date_release: Date.parse('24/4/2001'),
                     status: :OnDemand,
                     session_number: 2,
-                    serie: o
+                    serie: sherlock
 
 c1 = Chapter.create name: 'Chapter 1',
                     description: 'asd',
@@ -105,7 +153,7 @@ c3 = Chapter.create name: 'Chapter 3',
 s1 = Subtitle.create language: 'Spanish'
 s2 = Subtitle.create language: 'French'
 
-SubtitleIntegration.create subtitle: s1, serie: o
-SubtitleIntegration.create subtitle: s2, serie: o
+SubtitleIntegration.create subtitle: s1, serie: sherlock
+SubtitleIntegration.create subtitle: s2, serie: sherlock
 
 Seen.create user: x, chapter: c1
