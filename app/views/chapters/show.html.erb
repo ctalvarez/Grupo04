@@ -10,5 +10,5 @@
   <%= @chapter.description %>
 </p>
 
-<%= link_to 'Edit', edit_series_session_chapter_path(@chapter) %> |
+<%= link_to 'Edit', edit_series_session_chapter_path(@season.serie.id,@season.id,@chapter) %> |
 <%= link_to 'Back', '/series/' + @season.serie.id.to_s %>

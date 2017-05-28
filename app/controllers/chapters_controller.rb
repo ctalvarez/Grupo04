@@ -30,7 +30,7 @@ class ChaptersController < ApplicationController
 
     respond_to do |format|
       if @chapter.save
-        format.html { redirect_to series_chapter_path(@season, @chapter), notice: 'Chapter was successfully created.' }
+        format.html { redirect_to series_session_chapter_path(@season.serie.id, @season.id, @chapter), notice: 'Chapter was successfully created.' }
         format.json { render :show, status: :created, location: @chapter }
       else
         format.html { render :new }
@@ -44,7 +44,7 @@ class ChaptersController < ApplicationController
   def update
     respond_to do |format|
       if @chapter.update(chapter_params)
-        format.html { redirect_to @chapter, notice: 'Chapter was successfully updated.' }
+        format.html { redirect_to series_session_chapter_path(@season.serie.id, @season.id, @chapter), notice: 'Chapter was successfully updated.' }
         format.json { render :show, status: :ok, location: @chapter }
       else
         format.html { render :edit }

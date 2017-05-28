@@ -28,6 +28,6 @@
 	</ul>
 </p>
 
-
+<%= link_to 'Add Chapter', new_series_session_chapter_path(@serie.id, @season.id)%> |
 <%= link_to 'Edit', edit_series_session_path(@serie, @season)%> |
 <%= link_to 'Back', '/series/' + @season.serie.id.to_s %>
