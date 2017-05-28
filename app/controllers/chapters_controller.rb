@@ -1,7 +1,7 @@
 class ChaptersController < ApplicationController
   layout 'all_layout'
   before_action :set_chapter, only: %i[show edit update destroy]
-  before_action :set_season, only: %i[show edit update destroy]
+  before_action :set_season, only: %i[index show edit update destroy]
 
   # GET /chapters
   # GET /chapters.json
