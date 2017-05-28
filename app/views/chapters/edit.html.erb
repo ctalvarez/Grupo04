@@ -2,5 +2,5 @@
 
 <%= render 'form', chapter: @chapter %>
 
-<%= link_to 'Show', @chapter %> |
-<%= link_to 'Back', chapters_path %>
+<%= link_to 'Show', series_session_chapter_path(@season.serie.id, @season.id, @chapter) %> |
+<%= link_to 'Back',  '/series/' + @season.serie.id.to_s %>

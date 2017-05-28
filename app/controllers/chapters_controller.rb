@@ -1,6 +1,7 @@
 class ChaptersController < ApplicationController
   layout 'all_layout'
   before_action :set_chapter, only: %i[show edit update destroy]
+  before_action :set_season, only: %i[show edit update destroy]
 
   # GET /chapters
   # GET /chapters.json
@@ -14,8 +15,8 @@ class ChaptersController < ApplicationController
 
   # GET /chapters/new
   def new
-    @serie = Serie.find(params[:series_id])
-    @chapter = @serie.chapters.build
+    @season = Session.find(params[:session_id])
+    @chapter = @season.chapters.build
   end
 
   # GET /chapters/1/edit
@@ -24,12 +25,12 @@ class ChaptersController < ApplicationController
   # POST /chapters
   # POST /chapters.json
   def create
-    @serie = Serie.find(params[:series_id])
-    @chapter = @serie.chapters.build(chapter_params)
+    @season = Session.find(params[:session_id])
+    @chapter = @season.chapters.build(chapter_params)
 
     respond_to do |format|
       if @chapter.save
-        format.html { redirect_to series_chapter_path(@serie, @chapter), notice: 'Chapter was successfully created.' }
+        format.html { redirect_to series_chapter_path(@season, @chapter), notice: 'Chapter was successfully created.' }
         format.json { render :show, status: :created, location: @chapter }
       else
         format.html { render :new }
@@ -67,6 +68,9 @@ class ChaptersController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_chapter
     @chapter = Chapter.find(params[:id])
+  end
+  def set_season
+    @season = Session.find(params[:session_id])
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

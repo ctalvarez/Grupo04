@@ -55,9 +55,10 @@
 	</ul>
 </p>
 
+<%=link_to 'New Season', new_series_session_path(series_id: @series.id)%>
+<br>
 <%if !current_user.nil?%>
-    <%=link_to 'New Season', new_series_session_path(series_id: @series.id)%>
-    <br>
+
     <%=
     link_to 'Edit', edit_series_path(@series)%> |
 <% end %>

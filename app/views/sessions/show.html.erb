@@ -9,5 +9,25 @@
   <strong>Number:</strong>
   <%= @season.session_number %>
 </p>
+
+<p>
+  <strong>Total Chapters</strong>
+  <%= @season.chapters.count %>
+</p>
+
+<p>
+  <strong>Total Chapters</strong>
+  <ul>
+    <%if @season.chapters.count==0%>
+      <li>Not found subtitles >.< </li>
+    <% else %>
+      <% @season.chapters.each do | chapter | %>
+         <li><%= link_to chapter.name, series_session_chapter_path(@season.serie.id, @season.id, chapter) %></li>
+		  <% end %>
+    <%end %>
+	</ul>
+</p>
+
+
 <%= link_to 'Edit', edit_series_session_path(@serie, @season)%> |
 <%= link_to 'Back', '/series/' + @season.serie.id.to_s %>
