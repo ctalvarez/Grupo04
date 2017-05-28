@@ -2,12 +2,12 @@
 
 <p>
   <strong>Status:</strong>
-  <%= @session.status %>
+  <%= @season.status %>
 </p>
 
 <p>
   <strong>Number:</strong>
-  <%= @session.session_number %>
+  <%= @season.session_number %>
 </p>
-<%= link_to 'Edit', edit_series_session_path(@serie, @session)%> |
-<%= link_to 'Back', '/series/' + @session.serie.id.to_s %>
+<%= link_to 'Edit', edit_series_session_path(@serie, @season)%> |
+<%= link_to 'Back', '/series/' + @season.serie.id.to_s %>

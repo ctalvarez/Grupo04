@@ -1,12 +1,12 @@
 class SessionsController < ApplicationController
   layout 'all_layout'
-  before_action :set_session, only: %i[show edit update destroy]
+  before_action :set_season, only: %i[show edit update destroy]
   before_action :set_serie, only: %i[show edit update destroy]
 
   # GET /chapters
   # GET /chapters.json
   def index
-    @sessions = Session.all
+    @seasons = Session.all
   end
 
   # GET /chapters/1
@@ -16,7 +16,7 @@ class SessionsController < ApplicationController
   # GET /chapters/new
   def new
     @serie = Serie.find(params[:series_id])
-    @session = @serie.sessions.build
+    @season = @serie.sessions.build
   end
 
   # GET /chapters/1/edit
@@ -26,15 +26,15 @@ class SessionsController < ApplicationController
   # POST /chapters.json
   def create
     @serie = Serie.find(params[:series_id])
-    @session = @serie.sessions.build(session_params)
+    @season = @serie.sessions.build(session_params)
 
     respond_to do |format|
-      if @session.save
-        format.html { redirect_to series_session_path(@serie, @session), notice: 'Session was successfully created.' }
-        format.json { render :show, status: :created, location: @session }
+      if @season.save
+        format.html { redirect_to series_session_path(@serie, @season), notice: 'season was successfully created.' }
+        format.json { render :show, status: :created, location: @season }
       else
         format.html { render :new }
-        format.json { render json: @session.errors, status: :unprocessable_entity }
+        format.json { render json: @season.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -43,12 +43,12 @@ class SessionsController < ApplicationController
   # PATCH/PUT /chapters/1.json
   def update
     respond_to do |format|
-      if @session.update(session_params)
-        format.html { redirect_to '/series/' + @session.serie.id.to_s, notice: 'Session was successfully updated.' }
-        format.json { render :show, status: :ok, location: @session }
+      if @season.update(session_params)
+        format.html { redirect_to '/series/' + @season.serie.id.to_s, notice: 'Session was successfully updated.' }
+        format.json { render :show, status: :ok, location: @season }
       else
         format.html { render :edit }
-        format.json { render json: @session.errors, status: :unprocessable_entity }
+        format.json { render json: @season.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -56,9 +56,9 @@ class SessionsController < ApplicationController
   # DELETE /chapters/1
   # DELETE /chapters/1.json
   def destroy
-    @session.destroy
+    @season.destroy
     respond_to do |format|
-      format.html { redirect_to sessions_url, notice: 'Session was successfully destroyed.' }
+      format.html { redirect_to sessions_url, notice: 'season was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -70,8 +70,8 @@ class SessionsController < ApplicationController
     @serie = Serie.find(params[:series_id])
   end
 
-  def set_session
-    @session = Session.find(params[:id])
+  def set_season
+    @season = Session.find(params[:id])
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

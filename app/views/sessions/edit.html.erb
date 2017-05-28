@@ -1,6 +1,6 @@
-<h1>Editing Session</h1>
+<h1>Editing Season</h1>
 
-<%= render 'form', session: @session, serie: @session.serie %>
+<%= render 'form', season: @season, serie: @season.serie %>
 
-<%= link_to 'Show',series_session_path(@session) %> |
-<%= link_to 'Back', '/series/' + @session.serie.id.to_s %>
+<%= link_to 'Show',series_session_path(@season) %> |
+<%= link_to 'Back', '/series/' + @season.serie.id.to_s %>

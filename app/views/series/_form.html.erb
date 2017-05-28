@@ -26,6 +26,20 @@
 		<%= f.select :language, Serie.languages.collect { |key, value| [key, key] } %>
 	</div>
 
+  <div class="field">
+    <%= f.label 'Image(link)' %>
+    <%= f.text_field :image %>
+  </div>
+
+  <div class="field">
+		<%= f.label :subtitles %>
+		<% Subtitle.all.each do |subtitle| %>
+			<%= f.check_box :subtitle_ids, {multiple: true}, subtitle.id, nil %><%= subtitle.language %> <br>
+		<% end %>
+
+		<!-- <%= f.select :genre_ids, Genre.all.collect { |g| [g.genre, g.id] }, {}, multiple: true %> -->
+	</div>
+
 	<div class="field">
 		<%= f.label :genres %>
 		<% Genre.all.each do |genre| %>

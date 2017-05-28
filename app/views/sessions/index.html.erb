@@ -12,13 +12,13 @@
   </thead>
 
   <tbody>
-    <% @sessions.each do |session| %>
+    <% @sessions.each do |season| %>
       <tr>
-        <td><%= session.name %></td>
-        <td><%= session.description %></td>
-        <td><%= link_to 'Show', session %></td>
-        <td><%= link_to 'Edit', edit_session_path(session) %></td>
-        <td><%= link_to 'Destroy', session, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= season.name %></td>
+        <td><%= season.description %></td>
+        <td><%= link_to 'Show', season %></td>
+        <td><%= link_to 'Edit', edit_session_path(season) %></td>
+        <td><%= link_to 'Destroy', season, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>

@@ -47,16 +47,16 @@
 </p>
 
 <p>
-	<strong>Session:</strong>
+	<strong>Season:</strong>
 	<ul>
-		<% @series.sessions.each do | session | %>
-			<li><%= link_to  "Temporada " + session.session_number.to_s, series_session_path(@series, session)%></li>
+		<% @series.sessions.each do | season | %>
+			<li><%= link_to  "Temporada " + season.session_number.to_s, series_session_path(@series, season)%></li>
 		<% end %>
 	</ul>
 </p>
 
 <%if !current_user.nil?%>
-    <%=link_to 'New Session', new_series_session_path(series_id: @series.id)%>
+    <%=link_to 'New Season', new_series_session_path(series_id: @series.id)%>
     <br>
     <%=
     link_to 'Edit', edit_series_path(@series)%> |
