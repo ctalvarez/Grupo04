@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   root 'series#home'
 
   patch 'change_level', to: 'users#change_level'
+  patch 'delete_seen', to: 'users#delete_seen'
 
   get '/user/:id/new_child', to: 'users#new_child', as: :new_child
   post '/user/:id/children', to: 'users#create_child', as: :children

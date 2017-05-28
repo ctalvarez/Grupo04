@@ -45,4 +45,8 @@ class User < ApplicationRecord
       update(rol: 'admin')
     end
   end
+
+  def create_seen(chapterid)
+    Seen.create(user_id: self.id, chapter_id: chapterid)
+  end
 end

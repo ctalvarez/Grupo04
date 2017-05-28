@@ -54,6 +54,14 @@
       <ul>
     		<% season.chapters.each do | chapter | %>
     			<li><%= link_to chapter.name, series_session_chapter_path(season.serie.id, season.id, chapter) %></li>
+          <% unless current_user.nil?%>
+            <% aux =  current_user.seen.find_by(chapter_id: chapter.id, user_id: current_user.id) %>
+            <% if aux.nil?  %>
+                <li><%= link_to 'Without see :O', delete_seen_path({chapter_id: chapter.id}), method: :patch%></li>
+            <% else%>
+                <li><%= link_to 'You already saw :D', delete_seen_path({chapter_id: chapter.id}), method: :patch%></li>
+            <% end %>
+          <%end %>
     		<% end %>
     	</ul>
 		<% end %>

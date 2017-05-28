@@ -25,6 +25,20 @@ class UsersController < ApplicationController
     @genres = Genre.all
   end
 
+  def delete_seen
+    @user = current_user
+    @chapter = Chapter.find(params[:chapter_id])
+    @season = @chapter.session
+    @seen = @user.seen.find_by(chapter_id: @chapter.id, user_id: @user.id)
+    if @seen.nil?
+      @user.create_seen( @chapter.id)
+    else
+      @seen.delete_create_seen
+    end
+
+    redirect_to series_session_path(@season.serie.id, @season)
+  end
+
   def create_child
     @child = @user.children.build child_params
     respond_to do |format|
