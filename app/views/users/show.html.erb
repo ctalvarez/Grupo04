@@ -15,18 +15,29 @@
   <%= @user.rol %>
 </p>
 
-<p>
-	<strong>Series:</strong>
-	<ul>
-		<% @user.series.each do | serie | %>
-			<li><%= link_to serie.name, '/series/' + serie.id.to_s %></li>
-		<% end %>
-	</ul>
-</p>
+<% unless current_user.child? %>
+  <p>
+  	<strong>Series:</strong>
+  	<ul>
+  		<% @user.series.each do | serie | %>
+  			<li><%= link_to serie.name, '/series/' + serie.id.to_s %></li>
+  		<% end %>
+  	</ul>
+  </p>
 
-<%= link_to 'New Series', new_series_path %>
+  <p>
+    <strong>Children:</strong>
+    <ul>
+      <% @user.children.each do |child| %>
+      <%= child.name %>
+      <%end%>
+    </ul>
+  </p>
 
-<br>
-
+  <%= link_to 'New Series', new_series_path %>
+  <br>
+  <%= link_to 'Create Child Account', new_child_path(current_user) %>
+  <br>
+<% end %>
 <%= link_to 'Edit', edit_user_path(@user) %> |
 <%= link_to 'Back', users_path %>

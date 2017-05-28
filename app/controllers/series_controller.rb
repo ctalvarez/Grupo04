@@ -1,15 +1,16 @@
 class SeriesController < ApplicationController
   include Secured
-  layout "all_layout"
-  before_action :set_series, only: [:show, :edit, :update, :destroy]
+  layout 'all_layout'
+  before_action :set_series, only: %i[show edit update destroy]
   before_action :logged_in?, only: [:index]
 
   # GET /series
   # GET /series.json
   def index
-    if current_user&.admin?
+    if current_user && current_user.admin?
       @series = Serie.all
     else
+      p current_user
       @series = User.find(current_user).series
     end
   end
@@ -17,21 +18,25 @@ class SeriesController < ApplicationController
   def home
     @languages = Serie.languages
     @genres = Genre.pluck(:genre)
-    # retorna la que no son privadas si es que no se le da ningun parametro
-    # freeSeries = Serie.where(private: false)
-    # ownSeries = User.find(current_user).series if current_user
-    # ownSeries = ownSeries || []
-    searchIn = Serie.where('user_id=? OR private=?', current_user, false)
-    @series = Serie.search( params[:name_search],
-                            params[:language_search],
-                            params[:genre_search],
-                            searchIn )
+    if current_user && current_user.child?
+      search_in = Serie.where('user_id=? OR private=?',
+                              current_user.parent,
+                              false)
+      current_user.restricted_genres.each { |g| search_in -= g.series }
+    elsif current_user && current_user.admin?
+      search_in = Serie.all
+    else
+      search_in = Serie.where('user_id=? OR private=?', current_user, false)
+    end
+    @series = Serie.search(params[:name_search],
+                           params[:language_search],
+                           params[:genre_search],
+                           search_in)
   end
 
   # GET /series/1
   # GET /series/1.json
-  def show
-  end
+  def show; end
 
   # GET /series/new
   def new
@@ -39,23 +44,22 @@ class SeriesController < ApplicationController
   end
 
   # GET /series/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /series
   # POST /series.json
   def create
-		@series = Serie.new(series_params)
+    @series = Serie.new(series_params)
     respond_to do |format|
       if @series.save
 
-				if !params[:serie][:genre_ids].blank?
-					params[:serie][:genre_ids].each do |genre|
-						if genre != ""
-							GenreSerie.create serie_id: @series.id, genre_id: genre
-						end
-					end
-				end
+        unless params[:serie][:genre_ids].blank?
+          params[:serie][:genre_ids].each do |genre|
+            if genre != ''
+              GenreSerie.create serie_id: @series.id, genre_id: genre
+            end
+          end
+        end
 
         format.html { redirect_to @series, notice: 'Serie was successfully created.' }
         format.json { render :show, status: :created, location: @series }
@@ -91,19 +95,20 @@ class SeriesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_series
-      @series = Serie.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def series_params
-      serie_params = params.require(:serie).permit(:name, :description, :language, :private, :genres)
-			serie_params[:user_id] = current_user.id
-			serie_params
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_series
+    @series = Serie.find(params[:id])
+  end
 
-    def searches_params
-      params.require(:serie).permit(:name, :language, :private, :genres)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def series_params
+    serie_params = params.require(:serie).permit(:name, :description, :language, :private, :genres)
+    serie_params[:user_id] = current_user.id
+    serie_params
+  end
+
+  def searches_params
+    params.require(:serie).permit(:name, :language, :private, :genres)
+  end
 end

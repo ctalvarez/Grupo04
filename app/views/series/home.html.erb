@@ -34,7 +34,7 @@
   <tbody>
     <% @series.each do |series| %>
       <tr>
-        <td><%= series.name %></td>
+        <td><%= link_to series.name, '/series/' + series.id.to_s %></td>
         <td><%= series.description %></td>
         <td><%= series.language %></td>
         <td><%= link_to 'Show', '/series/' + series.id.to_s %></td>
