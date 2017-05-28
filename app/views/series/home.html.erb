@@ -20,24 +20,17 @@
     <%= submit_tag "Search" %>
 <% end %>
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Description</th>
-      <th>language</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-</table>
+
 <div class="row">
     <% @series.each do |series| %>
-      <div class="col-xs-6 col-md-3">
-        <%= link_to series.name, '/series/' + series.id.to_s, { :class=>"thumbnail" }%>
-        <%= series.description %>
-        <%= series.language %>
-        <%= link_to 'Show', '/series/' + series.id.to_s %>
-
+      <div class="col-sm-6 col-md-4">
+        <div class="thumbnail">
+          <%= link_to series.name, '/series/' + series.id.to_s, { :class=>"thumbnail" }%>
+          <div class="caption">
+            <p>Description:  <%= series.description %></p>
+            <p>Language: <%= series.language %></p>
+          </div>
+        </div>
       </div>
     <% end %>
 </div>
