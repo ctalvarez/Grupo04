@@ -1,39 +1,46 @@
 <p id="notice"><%= notice %></p>
 
 <h1>All our series :D</h1>
-<%= form_tag  home_path, :method => 'get' do%>
-    <div class="field">
-      <%= label_tag 'Name' %>
-      <%= text_field_tag :name_search, params[:name_search] %>
-    </div>
+<fieldset class="finder">
 
-    <div class="field">
-      <%= label_tag 'language' %>
-      <%= select_tag :language_search, options_for_select(@languages), :include_blank => true %>
-    </div>
-
-    <div class="field">
-      <%= label_tag 'Genre' %>
-      <%= select_tag :genre_search, options_for_select(@genres), :include_blank => true %>
-    </div>
-
-    <%= submit_tag "Search" %>
-<% end %>
-
-
-<div class="row">
-    <% @series.each do |series| %>
-      <div class="col-sm-6 col-md-4">
-        <div class="thumbnail">
-          <%= link_to series.name, '/series/' + series.id.to_s, { :class=>"thumbnail" }%>
-          <div class="caption">
-            <p>Description:  <%= series.description %></p>
-            <p>Language: <%= series.language %></p>
-          </div>
+  <%= form_tag  home_path, :method => 'get', :class => "search-form" do%>
+      <legend>Search :D</legend>
+      <div class="form-group">
+        <div class="field">
+          <%= label_tag 'Name' %>
+          <%= text_field_tag :name_search, params[:name_search], :class=>"form-control" %>
         </div>
       </div>
-    <% end %>
+      <div class="form-group">
+        <div class="field">
+          <%= label_tag 'language' %>
+          <%= select_tag :language_search, options_for_select(@languages), :include_blank => true, :class=>"form-control" %>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="field">
+          <%= label_tag 'Genre' %>
+          <%= select_tag :genre_search, options_for_select(@genres), :include_blank => true, :class=>"form-control" %>
+        </div>
+      </div>
+      <%= submit_tag "Search", :class=>"btn btn-primary" %>
+  <% end %>
+
+</fieldset>
+
+<div class="content-section-series">
+  <div class="row">
+      <% @series.each do |series| %>
+        <div class="col-sm-6 col-md-4">
+          <div class="thumbnail">
+            <%= link_to series.name, '/series/' + series.id.to_s, { :class=>"thumbnail" }%>
+            <div class="caption">
+              <p>Description:  <%= series.description %></p>
+              <p>Language: <%= series.language %></p>
+            </div>
+          </div>
+        </div>
+      <% end %>
+  </div>
+  <br>
 </div>
-
-
-<br>
