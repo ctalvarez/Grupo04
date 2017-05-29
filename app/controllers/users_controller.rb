@@ -33,7 +33,7 @@ class UsersController < ApplicationController
     if @seen.nil?
       @user.create_seen( @chapter.id)
     else
-      @seen.delete_create_seen
+      @seen.delete_seen
     end
 
     redirect_to series_session_path(@season.serie.id, @season)

@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   root 'series#home'
 
   patch 'change_level', to: 'users#change_level'
+  patch 'create_comment', to: 'users#create_comment'
   patch 'delete_seen', to: 'users#delete_seen'
 
   get '/user/:id/new_child', to: 'users#new_child', as: :new_child

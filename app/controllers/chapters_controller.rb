@@ -13,11 +13,13 @@ class ChaptersController < ApplicationController
   # GET /chapters/1.json
   def show; end
 
+
   # GET /chapters/new
   def new
     @season = Session.find(params[:session_id])
     @chapter = @season.chapters.build
   end
+
 
   # GET /chapters/1/edit
   def edit; end
