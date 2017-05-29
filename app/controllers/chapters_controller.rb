@@ -13,11 +13,13 @@ class ChaptersController < ApplicationController
   # GET /chapters/1.json
   def show; end
 
+
   # GET /chapters/new
   def new
     @season = Session.find(params[:session_id])
     @chapter = @season.chapters.build
   end
+
 
   # GET /chapters/1/edit
   def edit; end
@@ -75,6 +77,6 @@ class ChaptersController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def chapter_params
-    params.require(:chapter).permit(:name, :description)
+    params.require(:chapter).permit(:name, :description, :duration)
   end
 end
