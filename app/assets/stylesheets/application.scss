@@ -23,7 +23,6 @@ body {
 // HOME
 .row {
   text-align: center;
-  vertical-align: middle;
   padding: 10px;
   padding-top: 0;
 }
@@ -67,5 +66,23 @@ body {
   padding: 50px 100px 50px 100px;
   border: 1px solid gray;
   border-radius: 20px;
+}
+
+// profile
+#user-photo {
+  text-align: left;
+}
+#user-action {
+  text-align: right;
+  padding-top: 25px;
+}
+.user-serie{
+  li {
+    text-align: left;
+    font-size: 20px;
+    border: 1px solid gray;
+    border-radius: 20px;
+    padding: 0 10px 0 10px;
+  }
 }
 

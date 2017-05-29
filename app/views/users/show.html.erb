@@ -1,43 +1,64 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @user.name %>
-</p>
 
-<p>
-  <strong>Email:</strong>
-  <%= @user.email %>
-</p>
+<br><br>
+<div class="container-fluid well container-md-6">
+  <div class="row">
+    <div class="col-sm-2 col-md-2" id="user-photo">
+      <p>foto de perfil :) que flota a la izquierda </p>
+    </div>
+    <div class="col-sm-2 col-md-3" id="user-photo">
+      <h3 class="h3-user">Welcome <%= @user.name %></h3>
+      <h6>Email: <%= @user.email %></h6>
+      <h6>Rol: <%= @user.rol %></h6>
+      <h6>Since: <%= @user.created_at.strftime("%d/%m/%Y") %></h6>
+    </div>
 
-<p>
-  <strong>Rol:</strong>
-  <%= @user.rol %>
-</p>
+    <div class="col-sm-2 col-md-2" id="user-action">
+      <div class="btn-group">
+        <a class="btn dropdown-toggle btn-info" data-toggle="dropdown" href="#">
+          Options
+          <span class="icon-cog icon-white"></span><span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu">
+          <li><%= link_to 'Add Serie', new_series_path %></li>
+          <li><%= link_to 'Add Child Account', new_child_path(current_user) %></li>
+          <li><%=link_to 'Edit Profile', edit_user_path(@user)%></li>
+          <li><%=link_to 'Delete Account', user_path(@user), method: 'delete'%></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 <% unless current_user.child? %>
-  <p>
-  	<strong>Series:</strong>
-  	<ul>
-  		<% @user.series.each do | serie | %>
-  			<li><%= link_to serie.name, '/series/' + serie.id.to_s %></li>
-  		<% end %>
-  	</ul>
-  </p>
+    <div class="container-fluid well container-md-6">
+      <h3>Your Series</h3>
+      <ul class="user-serie">
+        <% @user.series.each do | serie | %>
+            <div class="row">
+          <li><%= link_to serie.name, '/series/' + serie.id.to_s %></li>
+            </div>
+        <% end %>
+      </ul>
+    </div>
 
-  <p>
-    <strong>Children:</strong>
-    <ul>
-      <% @user.children.each do |child| %>
-      <%= child.name %>
-      <%end%>
-    </ul>
-  </p>
+      <div class="container-fluid well container-md-6">
+        <h3>Your Children</h3>
+            <ul class="user-serie">
+              <% if @user.children.length >0 %>
+                <% @user.children.each do |child| %>
+                    <div class="row">
+                      <li><%= child.name %></li>
+                    </div>
+                <% end %>
+              <%else%>
+                  <div class="row">
+                    <li>You don't have any child haha</li>
+                  </div>
+              <%end%>
+            </ul>
+      </div>
 
-  <%= link_to 'New Series', new_series_path %>
-  <br>
-  <%= link_to 'Create Child Account', new_child_path(current_user) %>
-  <br>
 <% end %>
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
