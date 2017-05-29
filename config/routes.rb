@@ -8,7 +8,6 @@ Rails.application.routes.draw do
     end
   end
   resources :scores
-  #resources :chapters
   resources :users
   root 'series#home'
 

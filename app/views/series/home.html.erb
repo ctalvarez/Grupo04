@@ -1,8 +1,9 @@
 <p id="notice"><%= notice %></p>
 
-<h1>All our series :D</h1>
+<div class="row">
+  <p class="h1">All our series :D</p>
+</div>
 <fieldset class="finder">
-
   <%= form_tag  home_path, :method => 'get', :class => "search-form" do%>
       <legend>Search :D</legend>
       <div class="form-group">
@@ -29,18 +30,28 @@
 </fieldset>
 
 <div class="content-section-series">
-  <div class="row">
-      <% @series.each do |series| %>
-        <div class="col-sm-6 col-md-4">
-          <div class="thumbnail">
-            <%= link_to series.name, '/series/' + series.id.to_s, { :class=>"thumbnail" }%>
-            <div class="caption">
-              <p>Description:  <%= series.description %></p>
-              <p>Language: <%= series.language %></p>
+  <%n_series = @series.count%>
+  <%puts n_series/2%>
+  <% (n_series/3+1).times do |n|%>
+      <div class="row">
+        <%for i in 0..2 do %>
+            <% if 3*n + i == @series.length%>
+                <% break %>
+            <% end %>
+          <div class="col-sm-6 col-md-4">
+              <div class="thumbnail">
+                <%= link_to @series[3*n + i].name, '/series/' + @series[3*n + i].id.to_s, { :class=>"thumbnail" }%>
+              <div class="caption">
+              <p>Description:  <%= @series[3*n + i].description %></p>
+              <p>Language: <%= @series[3*n + i].language %></p>
+              </div>
             </div>
           </div>
-        </div>
-      <% end %>
-  </div>
-  <br>
+        <%end%>
+      </div>
+  <%end%>
+
+
+
+</div>
 </div>
