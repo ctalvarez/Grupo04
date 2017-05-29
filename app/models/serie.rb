@@ -1,23 +1,33 @@
 class Serie < ApplicationRecord
+  enum language: %i[Spanish English]
 
-	enum idioms: [:Spanish, :English]
-
-  has_many :chapters, dependent: :destroy
-  belongs_to :user
-	before_create :default_private
+  has_many :sessions, dependent: :destroy
   has_many :genre_series, class_name: 'GenreSerie', dependent: :destroy
-  has_many :genres, through: :genre_series, class_name: 'Genre' do
+  has_many :genres, through: :genre_series, class_name: 'Genre'
+  has_many :subtitle_integrations, dependent: :destroy
+  has_many :subtitles, through: :subtitle_integrations
+  has_many :actor_series, dependent: :destroy
+  has_many :actors, through: :actor_series, source: :actor
+  has_many :sessions, dependent: :destroy
+  has_one :director_series, dependent: :destroy
+  has_one :director, through: :director_series, source: :director
 
+  belongs_to :user
+  before_create :default_private
+
+  def self.search(name, language, genre, series)
+    series = series.where('name ilike ?', "%#{name}%") if name.present?
+    series = series.where(language: language) if language.present?
+    if genre.present?
+      genre_series = []
+      Genre.all.each { |g| genre_series << g.series if g.genre == genre }
+      genre_series.uniq
+      series &= genre_series[0]
+    end
+    series
   end
 
-
-  scope :by_name, (->(serie_name) {where('name like ?', "%#{serie_name}%" )})
-  scope :by_idiom, (->(serie_idiom) {where('idiom like ?', serie_idiom)})
-
-
-	def default_private
-		if self.private == nil
-			self.private = false
-		end
-	end
+  def default_private
+    self.private = false if private.nil?
+  end
 end

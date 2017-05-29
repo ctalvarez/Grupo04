@@ -11,6 +11,33 @@
 </p>
 
 <p>
+  <strong>Language:</strong>
+  <%= @series.language %>
+</p>
+
+<p>
+  <strong>Subtitles:</strong>
+  <ul>
+    <%if @series.subtitles.count==0%>
+      <li>Not found subtitles >.< </li>
+    <% else %>
+      <% @series.subtitles.each do | subtitle | %>
+			   <li><%= subtitle.language %></li>
+		  <% end %>
+    <%end %>
+	</ul>
+</p>
+
+<p>
+  <strong>Image:</strong>
+  <%=if @series.image.nil?
+    'Not found image t.t'
+  else
+    image_tag(@series.image)
+  end %>
+</p>
+
+<p>
 	<strong>Genres:</strong>
 	<ul>
 		<% @series.genres.each do | genre | %>
@@ -20,15 +47,33 @@
 </p>
 
 <p>
-	<strong>Chapters:</strong>
+	<strong>Season:</strong>
 	<ul>
-		<% @series.chapters.each do | chapter | %>
-			<li><%= link_to chapter.name, series_chapter_path(@series, chapter.id) %></li>
+		<% @series.sessions.each do | season | %>
+			<li><%= link_to  "Temporada " + season.session_number.to_s, series_session_path(@series, season)%></li>
+      <ul>
+    		<% season.chapters.each do | chapter | %>
+    			<li><%= link_to chapter.name, series_session_chapter_path(season.serie.id, season.id, chapter) %>
+          <% unless current_user.nil?%>
+            <% aux =  current_user.seen.find_by(chapter_id: chapter.id, user_id: current_user.id) %>
+            <% if aux.nil?  %>
+                <%= link_to 'Watch', delete_seen_path({chapter_id: chapter.id}), method: :patch%></li>
+            <% else%>
+                <%= link_to 'Mark unseen', delete_seen_path({chapter_id: chapter.id}), method: :patch%>
+            <% end %></li>
+          <%end %>
+    		<% end %>
+    	</ul>
 		<% end %>
 	</ul>
 </p>
 
-<%= link_to 'New Chapter', new_series_chapter_path(series_id: @series.id) %>
+<%=link_to 'New Season', new_series_session_path(series_id: @series.id)%>
 <br>
-<%= link_to 'Edit', edit_series_path(@series) %> |
+<%if !current_user.nil?%>
+
+    <%=
+    link_to 'Edit', edit_series_path(@series)%> |
+<% end %>
+
 <%= link_to 'Back', root_path %>

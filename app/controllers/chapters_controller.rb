@@ -1,6 +1,7 @@
 class ChaptersController < ApplicationController
-  layout "all_layout"
-  before_action :set_chapter, only: [:show, :edit, :update, :destroy]
+  layout 'all_layout'
+  before_action :set_chapter, only: %i[show edit update destroy]
+  before_action :set_season, only: %i[index show edit update destroy]
 
   # GET /chapters
   # GET /chapters.json
@@ -10,28 +11,28 @@ class ChaptersController < ApplicationController
 
   # GET /chapters/1
   # GET /chapters/1.json
-  def show
-  end
+  def show; end
+
 
   # GET /chapters/new
   def new
-		@serie = Serie.find(params[:series_id])
-    @chapter = @serie.chapters.build
+    @season = Session.find(params[:session_id])
+    @chapter = @season.chapters.build
   end
 
+
   # GET /chapters/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /chapters
   # POST /chapters.json
   def create
-		@serie = Serie.find(params[:series_id])
-    @chapter = @serie.chapters.build(chapter_params)
+    @season = Session.find(params[:session_id])
+    @chapter = @season.chapters.build(chapter_params)
 
     respond_to do |format|
       if @chapter.save
-        format.html { redirect_to series_chapter_path(@serie, @chapter), notice: 'Chapter was successfully created.' }
+        format.html { redirect_to series_session_chapter_path(@season.serie.id, @season.id, @chapter), notice: 'Chapter was successfully created.' }
         format.json { render :show, status: :created, location: @chapter }
       else
         format.html { render :new }
@@ -45,7 +46,7 @@ class ChaptersController < ApplicationController
   def update
     respond_to do |format|
       if @chapter.update(chapter_params)
-        format.html { redirect_to @chapter, notice: 'Chapter was successfully updated.' }
+        format.html { redirect_to series_session_chapter_path(@season.serie.id, @season.id, @chapter), notice: 'Chapter was successfully updated.' }
         format.json { render :show, status: :ok, location: @chapter }
       else
         format.html { render :edit }
@@ -65,13 +66,17 @@ class ChaptersController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_chapter
-      @chapter = Chapter.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def chapter_params
-      params.require(:chapter).permit(:name, :description)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_chapter
+    @chapter = Chapter.find(params[:id])
+  end
+  def set_season
+    @season = Session.find(params[:session_id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def chapter_params
+    params.require(:chapter).permit(:name, :description, :duration)
+  end
 end

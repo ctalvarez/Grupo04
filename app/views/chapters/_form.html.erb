@@ -1,4 +1,4 @@
-<%= form_for(chapter, url: series_chapters_path(serie)) do |f| %>
+<%= form_for(chapter, url: series_session_chapters_path(session)) do |f| %>
   <% if chapter.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(chapter.errors.count, "error") %> prohibited this chapter from being saved:</h2>
@@ -19,6 +19,11 @@
   <div class="field">
     <%= f.label :description %>
     <%= f.text_area :description %>
+  </div>
+
+  <div class="field">
+    <%= f.label :duration %>
+    <%= f.number_field :duration %>
   </div>
 
   <div class="actions">

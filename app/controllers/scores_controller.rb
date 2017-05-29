@@ -1,6 +1,8 @@
 class ScoresController < ApplicationController
-  layout "all_layout"
-  before_action :set_score, only: [:show, :edit, :update, :destroy]
+  layout 'all_layout'
+  before_action :set_score, only: %i[show edit update destroy]
+  before_action :set_user, only: %i[show edit update destroy new]
+  before_action :set_chapter, only: %i[show edit update destroy new]
 
   # GET /scores
   # GET /scores.json
@@ -10,8 +12,7 @@ class ScoresController < ApplicationController
 
   # GET /scores/1
   # GET /scores/1.json
-  def show
-  end
+  def show; end
 
   # GET /scores/new
   def new
@@ -19,12 +20,13 @@ class ScoresController < ApplicationController
   end
 
   # GET /scores/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /scores
   # POST /scores.json
   def create
+    @user = current_user
+    
     @score = Score.new(score_params)
 
     respond_to do |format|
@@ -63,13 +65,21 @@ class ScoresController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_score
-      @score = Score.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def score_params
-      params.require(:score).permit(:comment, :score)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_score
+    @score = Score.find(params[:id])
+  end
+
+  def set_user
+    @user = User.find(params[:user_id])
+  end
+  def set_chapter
+    @chapter = Chapter.find(params[:chapter_id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def score_params
+    params.require(:score).permit(:comment, :score, :user_id, :chapter_id)
+  end
 end

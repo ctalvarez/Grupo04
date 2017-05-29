@@ -1,1 +1,1 @@
-json.partial! "scores/score", score: @score
+json.partial! 'scores/score', score: @score
