@@ -7,14 +7,26 @@
 #
 #  movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #  Character.create(name: 'Luke', movie: movies.first)
+ActorSeries.destroy_all
+Actor.destroy_all
+Chapter.destroy_all
+ChildFilter.destroy_all
+DirectorSeries.destroy_all
+Director.destroy_all
 GenreSerie.destroy_all
 Genre.destroy_all
+ParentChild.destroy_all
+Score.destroy_all
+Seen.destroy_all
 Serie.destroy_all
+Session.destroy_all
+SubtitleIntegration.destroy_all
+Subtitle.destroy_all
 User.destroy_all
 
 a = Genre.create genre: 'Romance'
-b = Genre.create genre: 'Suspenso'
-c = Genre.create genre: 'Comedia'
+b = Genre.create genre: 'Suspense'
+c = Genre.create genre: 'Comedy'
 
 x = User.create name: 'David',
                 email: 'daruz@uc.cl',
@@ -30,6 +42,17 @@ z = User.create name: 'Carlos',
                 email: 'ctalvarez@uc.cl',
                 password: 'qwerty',
                 rol: :admin
+
+u1 = User.create  name: 'Juanito',
+                  email: 'j@gmail.com',
+                  password: 'qwerty',
+                  rol: :child
+
+ParentChild.create  parent: y,
+                    child: u1
+
+ChildFilter.create  user: u1,
+                    genre: a
 
 d1 = Director.create name: 'Mark Gatiss'
 
@@ -94,13 +117,16 @@ s2 = Session.create date_release: Date.parse('24/4/2001'),
 
 c1 = Chapter.create name: 'Chapter 1',
                     description: 'asd',
-                    session: s1
+                    session: s1,
+                    duration: 45
 c2 = Chapter.create name: 'Chapter 2',
                     description: 'asd',
-                    session: s2
+                    session: s2,
+                    duration: 60
 c3 = Chapter.create name: 'Chapter 3',
                     description: 'asd',
-                    session: s2
+                    session: s2,
+                    duration: 45
 
 s1 = Subtitle.create language: 'Spanish'
 s2 = Subtitle.create language: 'French'
