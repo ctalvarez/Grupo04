@@ -34,7 +34,11 @@
   </p>
 </div>
 
+
 <% if !current_user.nil? %>
+  <p>Write new comment :D</p>
+  <%= render '/scores/form', score: Score.new, user_id: current_user.id, chapter_id: @chapter.id%>
+  <br>
   <%= link_to 'Edit', edit_series_session_chapter_path(@season.serie.id,@season.id,@chapter) %> |
 <% end %>
 

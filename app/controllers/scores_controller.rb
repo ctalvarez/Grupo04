@@ -1,8 +1,6 @@
 class ScoresController < ApplicationController
   layout 'all_layout'
   before_action :set_score, only: %i[show edit update destroy]
-  before_action :set_user, only: %i[show edit update destroy new]
-  before_action :set_chapter, only: %i[show edit update destroy new]
 
   # GET /scores
   # GET /scores.json
@@ -26,12 +24,15 @@ class ScoresController < ApplicationController
   # POST /scores.json
   def create
     @user = current_user
-    
+
     @score = Score.new(score_params)
 
     respond_to do |format|
       if @score.save
-        format.html { redirect_to @score, notice: 'Score was successfully created.' }
+        serie_id = @score.chapter.serie.id
+        season_id = @score.chapter.session.id
+        chapter = @score.chapter
+        format.html { redirect_to series_session_chapter_path(serie_id, season_id, chapter), notice: 'Score was successfully created.' }
         format.json { render :show, status: :created, location: @score }
       else
         format.html { render :new }
