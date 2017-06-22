@@ -13,23 +13,28 @@
   <p>
     <strong>Comments:</strong>
     <ul>
-      <%if @chapter.scores.count==0%>
-        <li>Not found comments >.< </li>
-      <% else %>
-        <% @chapter.scores.each do | score | %>
-  			   <li>
-             <p>
-               Comment: <%= score.comment %>
-             </p>
-             <p>
-                Score:  <%= score.score %>
-              </p>
-            </li>
-  		  <% end %>
-      <%end %>
+      <div>
+        <%if @chapter.scores.count==0%>
+          <li>Not found comments >.< </li>
+        <% else %>
+          <% @chapter.scores.each do | score | %>
+    			   <li>
+               <p>
+                 Comment: <%= score.comment %>
+               </p>
+               <p>
+                  Score:  <%= score.score %>
+                </p>
+              </li>
+    		  <% end %>
+        <%end %>
+      </div>
   	</ul>
   </p>
 </div>
 
-<%= link_to 'Edit', edit_series_session_chapter_path(@season.serie.id,@season.id,@chapter) %> |
+<% if !current_user.nil? %>
+  <%= link_to 'Edit', edit_series_session_chapter_path(@season.serie.id,@season.id,@chapter) %> |
+<% end %>
+
 <%= link_to 'Back', series_session_path(@season.serie.id, @season) %>
