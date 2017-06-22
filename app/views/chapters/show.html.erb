@@ -9,28 +9,37 @@
   <strong>Description:</strong>
   <%= @chapter.description %>
 </p>
-<div class= "comments">
-  <p>
-    <strong>Comments:</strong>
-    <ul>
-      <div>
-        <%if @chapter.scores.count==0%>
-          <li>Not found comments >.< </li>
-        <% else %>
-          <% @chapter.scores.each do | score | %>
-    			   <li>
-               <p>
-                 <%= image_tag(score.user.image, class: "img-rounded", size: "80x80") %>
-                 <%= score.user.name %> said: <%= score.comment %>
-                 Score:  <%= score.score %>
-                 <%= link_to 'Edit Comment', edit_score_path(score)%>
-               </p>
-              </li>
-    		  <% end %>
-        <%end %>
+
+<div class= "container">
+  <div class="row">
+    <div class="col-sm-6">
+      <h3>Users Comments</h3>
+    </div>
+  </div>
+  <div class="row">
+    <%if @chapter.scores.count!=0%>
+      <% @chapter.scores.each do | score | %>
+    <div class="col-sm-1">
+        <%= image_tag(score.user.image, class: "img-rounded", size: "80x90") %>
+    </div>
+    <div class="col-sm-5">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <strong><%= score.user.name %></strong>
+          <span class="text-muted"> Score: <%= score.score %></span>
+        </div>
+        <div class="panel-body">
+          <%= score.comment %>
+          <%if score.user.id == current_user.id%>
+             <%= button_to 'Edit Comment', edit_score_path(score), method: :get, class: 'btn btn-info'%>
+          <%end%>
+        </div>
       </div>
-  	</ul>
-  </p>
+    </div>
+    <%end%>
+    <%end%>
+  </div>
+
 </div>
 
 
