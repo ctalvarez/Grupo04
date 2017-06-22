@@ -52,7 +52,7 @@ class UsersController < ApplicationController
       @seen.delete_seen
     end
 
-    redirect_to series_session_path(@season.serie.id, @season)
+    redirect_to '/series/'+ @season.serie.id.to_s
   end
 
   def create_child
