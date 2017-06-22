@@ -22,10 +22,9 @@
                <p>
                  <%= image_tag(score.user.image)%>
                  <%= score.user.name %> said: <%= score.comment %>
+                 Score:  <%= score.score %>
+                 <%= link_to 'Edit Comment', edit_score_path(score)%>
                </p>
-               <p>
-                  Score:  <%= score.score %>
-                </p>
               </li>
     		  <% end %>
         <%end %>

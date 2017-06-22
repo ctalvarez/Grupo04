@@ -46,7 +46,10 @@ class ScoresController < ApplicationController
   def update
     respond_to do |format|
       if @score.update(score_params)
-        format.html { redirect_to @score, notice: 'Score was successfully updated.' }
+        serie_id = @score.chapter.serie.id
+        season_id = @score.chapter.session.id
+        chapter = @score.chapter
+        format.html { redirect_to series_session_chapter_path(serie_id, season_id, chapter), notice: 'Score was successfully updated.' }
         format.json { render :show, status: :ok, location: @score }
       else
         format.html { render :edit }
