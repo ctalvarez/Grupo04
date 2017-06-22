@@ -20,7 +20,8 @@
           <% @chapter.scores.each do | score | %>
     			   <li>
                <p>
-                 Comment: <%= score.comment %>
+                 <%= image_tag(score.user.image)%>
+                 <%= score.user.name %> said: <%= score.comment %>
                </p>
                <p>
                   Score:  <%= score.score %>
