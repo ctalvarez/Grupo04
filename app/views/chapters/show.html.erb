@@ -20,7 +20,7 @@
           <% @chapter.scores.each do | score | %>
     			   <li>
                <p>
-                 <%= image_tag(score.user.image)%>
+                 <%= image_tag(score.user.image, class: "img-rounded", size: "80x80") %>
                  <%= score.user.name %> said: <%= score.comment %>
                  Score:  <%= score.score %>
                  <%= link_to 'Edit Comment', edit_score_path(score)%>

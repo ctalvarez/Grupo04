@@ -36,6 +36,7 @@ class User < ApplicationRecord
   # Aqui esta el parche para que por defecto sean usuarios!!!
   def default_user
     self.rol = :user if rol.nil?
+    self.image = "avatar.jpg" if self.image.nil?
   end
 
   def change_level

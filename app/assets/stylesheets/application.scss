@@ -15,7 +15,8 @@
  @import "bootstrap";
 
 body {
-  padding-top: 50px; }
+  padding-top: 50px;
+  background-color: #F5FEFF;}
 
 .navbar-right{
   margin-right: 20px;
@@ -53,7 +54,7 @@ body {
 }
 
 .content-section-series {
-  float: left;
+  float: center;
   width: 79%;
   padding: 0;
   margin-left: auto;
@@ -85,4 +86,3 @@ body {
     padding: 0 10px 0 10px;
   }
 }
-
