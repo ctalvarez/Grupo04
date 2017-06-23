@@ -50,7 +50,7 @@
 	<strong>Season:</strong>
 	<ul>
 		<% @series.sessions.each do | season | %>
-			<li><%= link_to  "Temporada " + season.session_number.to_s, series_session_path(@series, season)%></li>
+			<li> <%="Temporada " + season.session_number.to_s%>   <%= link_to  "Editar Temporada", edit_series_session_path(@series, season)%></li>
       <ul>
     		<% season.chapters.each do | chapter | %>
     			<li><%= link_to chapter.name, series_session_chapter_path(season.serie.id, season.id, chapter) %>
@@ -71,7 +71,7 @@
 
 
 <%if !current_user.nil?%>
-  <%=link_to 'New Season', new_series_session_path(series_id: @series.id)%>
+  <%=link_to 'New Season', new_series_session_path(series_id: @series.id, count_s: @series.sessions.count)%>
   <br>
   <%= link_to 'Edit', edit_series_path(@series)%> |
 <% end %>
