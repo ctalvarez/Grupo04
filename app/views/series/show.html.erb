@@ -12,7 +12,16 @@
 
 <div class="container-fluid well container-md-6">
   <div class="row">
-    <div class="col-sm-2 col-md-3" id="serie-description">
+    <div class="col-sm-2 col-md-4" id="serie-image">
+      <p>
+        <%=if @series.image.nil?
+             'Not found image t.t'
+           else
+             image_tag(@series.image)
+           end %>
+      </p>
+    </div>
+    <div class="col-sm-2 col-md-8" id="serie-description">
       <p> <strong>Description: </strong> <%=@series.description%> </p>
       <p> <strong>Language: </strong><%= @series.language %> </p>
       <p> <strong>Subtitle(s): </strong>
@@ -36,15 +45,6 @@
       </p>
 
     </div>
-    <div class="col-sm-2 col-md-9" id="serie-image">
-      <p>
-        <%=if @series.image.nil?
-             'Not found image t.t'
-           else
-             image_tag(@series.image)
-           end %>
-      </p>
-    </div>
   </div>
 </div>
 
@@ -61,7 +61,8 @@
     <% @series.sessions.each do | season | %>
         <div class="row justify-content-start">
           <div class="col-sm-2 col-md-6" id="serie-season">
-          <li id="season-number"> <%="Temporada " + season.session_number.to_s%>   <%= link_to  "Editar Temporada", edit_series_session_path(@series, season)%></li>
+          <li id="season-number"> <%="Temporada " + season.session_number.to_s%><%= link_to  "(Edit)", edit_series_session_path(@series, season),
+                                                                                                :class=>"btn"%></li>
           <ul>
             <% season.chapters.each do | chapter | %>
                 <% unless current_user.nil?%>

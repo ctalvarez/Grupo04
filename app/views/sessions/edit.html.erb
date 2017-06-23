@@ -1,6 +1,6 @@
-<h1>Editing Season</h1>
+<h1 class="edit-h1">Editing Season</h1>
 
 <%= render 'form', session: @season, serie: @season.serie, count_s: nil%>
 
-<%= link_to 'Show',series_session_path(@season) %> |
-<%= link_to 'Back', '/series/' + @season.serie.id.to_s %>
+
+<%= link_to 'Back', '/series/' + @season.serie.id.to_s, :class=>"btn btn-primary edit-back" %>
