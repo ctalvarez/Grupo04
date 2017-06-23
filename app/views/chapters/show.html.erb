@@ -1,14 +1,32 @@
 <p id="notice"><%= notice %></p>
+<div class="container">
+  <div class="row">
+    <div class="btn-toolbar" role="toolbar">
+      <div class="btn-group mr-2" role="group" >
+        <%= link_to 'Back', '/series/'+@season.serie.id.to_s, class: 'btn btn-primary', :type => 'button'%>
+        <%if !current_user.nil?%>
+          <%= link_to 'Edit Chapter', edit_series_session_chapter_path(@season.serie.id,@season.id,@chapter), method: :get, class: 'btn btn-primary', :type => 'button'%>
+        <%end%>
+      </div>
+    </div>
+  </div>
 
-<p>
-  <strong>Name:</strong>
-  <%= @chapter.name %>
-</p>
+</div>
 
-<p>
-  <strong>Description:</strong>
-  <%= @chapter.description %>
-</p>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-1">
+      <%=image_tag(@chapter.serie.image, size: "400x400")%>
+    </div>
+    <div class="col-sm-10">
+        <h1><%= @chapter.name %></h1>
+        <p class="lead">
+          <strong>Description:</strong>
+          <%= @chapter.description %>
+        </p>
+    </div>
+  </div>
+</div>
 
 <div class= "container">
   <div class="row">
@@ -16,9 +34,9 @@
       <h3>Users Comments</h3>
     </div>
   </div>
+  <%if @chapter.scores.count!=0%>
+    <% @chapter.scores.each do | score | %>
   <div class="row">
-    <%if @chapter.scores.count!=0%>
-      <% @chapter.scores.each do | score | %>
     <div class="col-sm-1">
         <%= image_tag(score.user.image, class: "img-rounded", size: "80x90") %>
     </div>
@@ -36,18 +54,29 @@
         </div>
       </div>
     </div>
-    <%end%>
-    <%end%>
   </div>
+  <%end%>
+  <%end%>
+
 
 </div>
 
 
 <% if !current_user.nil? %>
-  <p>Write new comment :D</p>
-  <%= render '/scores/form', score: Score.new, user_id: current_user.id, chapter_id: @chapter.id%>
-  <br>
-  <%= link_to 'Edit', edit_series_session_chapter_path(@season.serie.id,@season.id,@chapter) %> |
-<% end %>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-6">
+        <h3>Write new comment :D</h3>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-6">
+        <%= render '/scores/form', score: Score.new, user_id: current_user.id, chapter_id: @chapter.id%>
+      </div>
+      <div class="col-sm-2">
 
-<%= link_to 'Back', series_session_path(@season.serie.id, @season) %>
+      </div>
+
+    </div>
+  </div>
+<% end %>

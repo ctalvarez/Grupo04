@@ -1,6 +1,9 @@
 class ScoresController < ApplicationController
+  include Secured
   layout 'all_layout'
   before_action :set_score, only: %i[show edit update destroy]
+  before_action :admin?, only: %i[index]
+  before_action :logged_in?, only: %i[show edit update destroy]
 
   # GET /scores
   # GET /scores.json
