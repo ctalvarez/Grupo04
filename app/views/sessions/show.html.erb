@@ -16,7 +16,7 @@
 </p>
 
 <p>
-  <strong>Total Chapters</strong>
+  <strong>Chapters</strong>
   <ul>
     <%if @season.chapters.count==0%>
       <li>Not found subtitles >.< </li>
@@ -28,6 +28,8 @@
 	</ul>
 </p>
 
-<%= link_to 'Add Chapter', new_series_session_chapter_path(@serie.id, @season.id)%> |
-<%= link_to 'Edit', edit_series_session_path(@serie, @season)%> |
+<% if !current_user.nil? %>
+  <%= link_to 'Add Chapter', new_series_session_chapter_path(@serie.id, @season.id)%> |
+  <%= link_to 'Edit', edit_series_session_path(@serie, @season)%> |
+<% end %>
 <%= link_to 'Back', '/series/' + @season.serie.id.to_s %>

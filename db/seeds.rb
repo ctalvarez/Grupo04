@@ -56,7 +56,7 @@ ParentChild.create  parent: y,
                     child: u1
 
 ChildFilter.create  user: u1,
-                    genre: a
+                    genre: action
 
 d1 = Director.create name: 'Mark Gatiss'
 

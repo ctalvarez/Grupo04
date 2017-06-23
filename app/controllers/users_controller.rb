@@ -52,7 +52,7 @@ class UsersController < ApplicationController
       @seen.delete_seen
     end
 
-    redirect_to series_session_path(@season.serie.id, @season)
+    redirect_to '/series/'+ @season.serie.id.to_s
   end
 
   def create_child
@@ -129,7 +129,7 @@ class UsersController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def user_params
-    params.require(:user).permit(:name, :email, :password)
+    params.require(:user).permit(:name, :email, :password, :image)
   end
 
   def child_params
