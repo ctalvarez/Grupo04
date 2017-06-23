@@ -11,11 +11,19 @@
     </div>
   <% end %>
 
+  <%if !count_s.nil? %>
+    <div class="field">
+      <%= f.label :session_number%>
+      <%= f.text_field :session_number, :value => count_s+1%>
+    </div>
+  <%else%>
   <div class="field">
     <%= f.label :session_number%>
     <%= f.text_field :session_number %>
   </div>
+  <%end%>
 
+  
   <div class="field">
     <%= f.label :status %>
 		<%= f.select :status, Session.statuses.collect { |key, value| [key, key] } %>

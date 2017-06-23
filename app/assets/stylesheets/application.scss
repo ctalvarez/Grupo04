@@ -15,7 +15,8 @@
  @import "bootstrap";
 
 body {
-  padding-top: 50px; }
+  padding-top: 50px;
+  background-color: #F5FEFF;}
 
 .navbar-right{
   margin-right: 20px;
@@ -53,7 +54,7 @@ body {
 }
 
 .content-section-series {
-  float: left;
+  float: center;
   width: 79%;
   padding: 0;
   margin-left: auto;
@@ -85,6 +86,7 @@ body {
     padding: 0 10px 0 10px;
   }
 }
+
 
 //SERIES
 
@@ -129,3 +131,32 @@ body {
     overflow: hidden;
   }
 }
+
+.panel>.panel-heading:after{
+	border-width:7px;
+	border-right-color:#f7f7f7;
+	margin-top:1px;
+	margin-left:2px;
+}
+.panel>.panel-heading:before{
+	border-right-color:#ddd;
+	border-width:8px;
+}
+.panel>.panel-heading:after,.panel>.panel-heading:before{
+	position:absolute;
+	top:11px;left:-16px;
+	right:100%;
+	width:0;
+	height:0;
+	display:block;
+	content:" ";
+	border-color:transparent;
+	border-style:solid solid outset;
+	pointer-events:none;
+}
+
+
+.panel-heading{
+  text-align: left;
+}
+

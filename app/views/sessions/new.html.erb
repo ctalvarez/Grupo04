@@ -1,5 +1,5 @@
 <h1>New Session</h1>
 
-<%= render 'form', session: @season, serie: @season.serie %>
+<%= render 'form', session: @season, serie: @season.serie, count_s: @season.serie.sessions.count %>
 
 <%= link_to 'Back', '/series/' + @serie.id.to_s %>
