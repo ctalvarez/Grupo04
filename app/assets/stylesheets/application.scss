@@ -11,6 +11,9 @@
  * It is generally better to create a new file per style scope.
  *
  */
+/*
+ *= require rails_bootstrap_forms
+ */
  @import "bootstrap-sprockets";
  @import "bootstrap";
 
@@ -92,8 +95,10 @@ body {
 
 #serie-description{
   text-align: left;
-  border-right: 1px solid gray;
   overflow: hidden;
+}
+#serie-image{
+  border-right: 1px solid gray;
 }
 .serie-seasons {
   list-style-type: none;
@@ -142,21 +147,43 @@ body {
 	border-right-color:#ddd;
 	border-width:8px;
 }
-.panel>.panel-heading:after,.panel>.panel-heading:before{
-	position:absolute;
-	top:11px;left:-16px;
-	right:100%;
-	width:0;
-	height:0;
-	display:block;
-	content:" ";
-	border-color:transparent;
-	border-style:solid solid outset;
-	pointer-events:none;
+.panel>.panel-heading:after,.panel>.panel-heading:before {
+  position: absolute;
+  top: 11px;
+  left: -16px;
+  right: 100%;
+  width: 0;
+  height: 0;
+  display: block;
+  content: " ";
+  border-color: transparent;
+  border-style: solid solid outset;
+  pointer-events: none;
 }
-
-
 .panel-heading{
   text-align: left;
 }
+.form-horizontal {
+  width: 80%;
+  margin-right: 10%;
+  margin-left: 10%;
+  border: 1px solid gray;
+  border-radius: 5px;
+  overflow: hidden;
+  padding: 10px;
+  background-color: white;
+  .btn{
+    float: right;
+    margin-right: 30px;
+  }
+}
+.edit-back{
+  padding: 10px;
+  margin-top: 20px;
+  margin-left: 5%;
+}
 
+.edit-h1{
+  padding: 10px;
+  margin-left: 5%;
+}
