@@ -36,7 +36,9 @@ class SeriesController < ApplicationController
 
   # GET /series/1
   # GET /series/1.json
-  def show; end
+  def show
+    @user ||= current_user
+  end
 
   # GET /series/new
   def new

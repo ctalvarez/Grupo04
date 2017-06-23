@@ -86,3 +86,46 @@ body {
   }
 }
 
+//SERIES
+
+#serie-description{
+  text-align: left;
+  border-right: 1px solid gray;
+  overflow: hidden;
+}
+.serie-seasons {
+  list-style-type: none;
+
+  #serie-season {
+    padding: 10px;
+    margin-bottom: 20px;
+    ul {
+      list-style-type: circle;
+    }
+    #season-chapter{
+      padding: 5px;
+      border-bottom: 1px solid gray;
+    }
+    text-align: left;
+    font-size: 20px;
+    border: 1px solid gray;
+    border-radius: 20px;
+  }
+  #chapter-li{
+    text-align: left;
+  }
+}
+#edit-serie{
+  float: right;
+  overflow: hidden;
+  padding-right: 30px;
+}
+.season-title{
+  margin-bottom: 30px;
+  padding-right: 30px;
+  padding-left: 30px;
+  #new-season{
+    float: right;
+    overflow: hidden;
+  }
+}
