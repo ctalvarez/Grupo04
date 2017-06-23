@@ -32,6 +32,11 @@
 </div>
 
 
+<p>
+  <strong>Time watching series:</strong>
+  <%= @wasted_time %> minutes.
+</p>
+
 <% unless current_user.child? %>
     <div class="container-fluid well container-md-6">
       <h3>Your Series</h3>
@@ -44,21 +49,21 @@
       </ul>
     </div>
 
-      <div class="container-fluid well container-md-6">
-        <h3>Your Children</h3>
-            <ul class="user-serie">
-              <% if @user.children.length >0 %>
-                <% @user.children.each do |child| %>
-                    <div class="row">
-                      <li><%= child.name %></li>
-                    </div>
-                <% end %>
-              <%else%>
+    <div class="container-fluid well container-md-6">
+      <h3>Your Children</h3>
+          <ul class="user-serie">
+            <% if @user.children.length >0 %>
+              <% @user.children.each do |child| %>
                   <div class="row">
-                    <li>You don't have any child haha</li>
+                    <li><%= child.name %></li>
                   </div>
-              <%end%>
-            </ul>
-      </div>
+              <% end %>
+            <%else%>
+                <div class="row">
+                  <li>You don't have any child haha</li>
+                </div>
+            <%end%>
+          </ul>
+    </div>
 
 <% end %>

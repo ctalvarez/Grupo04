@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   include Secured
   layout 'all_layout'
-  before_action :set_user, only: %i[show edit update destroy change_level create_child new_child]
+  before_action :set_user, only: %i[show edit update destroy change_level create_child new_child statistics]
   before_action :admin?, only: %i[index change_level]
   before_action :logged_in?, only: %i[show edit update destroy]
 
@@ -13,11 +13,27 @@ class UsersController < ApplicationController
 
   # GET /users/1
   # GET /users/1.json
-  def show; end
+  def show
+    @wasted_time = Seen.where(user: @user).map(&:chapter).map(&:duration).sum
+  end
 
   # GET /users/new
   def new
     @user = User.new
+  end
+
+  def statistics
+    @child = User.find params[:child_id]
+    seen_chapters = Seen.where(user: @child).map(&:chapter)
+    @total_time = 0
+    @time_per_genre = {}
+    Genre.pluck(:genre).map { |g| @time_per_genre[g] = 0 }
+    seen_chapters.each do |sc|
+      sc.serie.genres.pluck(:genre).each do |genre|
+        @time_per_genre[genre] += sc.duration
+      end
+      @total_time += sc.duration
+    end
   end
 
   def new_child
@@ -31,12 +47,12 @@ class UsersController < ApplicationController
     @season = @chapter.session
     @seen = @user.seen.find_by(chapter_id: @chapter.id, user_id: @user.id)
     if @seen.nil?
-      @user.create_seen( @chapter.id)
+      @user.create_seen(@chapter.id)
     else
-      @seen.delete_create_seen
+      @seen.delete_seen
     end
 
-    redirect_to series_session_path(@season.serie.id, @season)
+    redirect_to '/series/'+ @season.serie.id.to_s
   end
 
   def create_child

@@ -1,6 +1,8 @@
 class ScoresController < ApplicationController
   layout 'all_layout'
   before_action :set_score, only: %i[show edit update destroy]
+  before_action :set_user, only: %i[show edit update destroy new]
+  before_action :set_chapter, only: %i[show edit update destroy new]
 
   # GET /scores
   # GET /scores.json
@@ -23,6 +25,8 @@ class ScoresController < ApplicationController
   # POST /scores
   # POST /scores.json
   def create
+    @user = current_user
+    
     @score = Score.new(score_params)
 
     respond_to do |format|
@@ -67,8 +71,15 @@ class ScoresController < ApplicationController
     @score = Score.find(params[:id])
   end
 
+  def set_user
+    @user = User.find(params[:user_id])
+  end
+  def set_chapter
+    @chapter = Chapter.find(params[:chapter_id])
+  end
+
   # Never trust parameters from the scary internet, only allow the white list through.
   def score_params
-    params.require(:score).permit(:comment, :score)
+    params.require(:score).permit(:comment, :score, :user_id, :chapter_id)
   end
 end
