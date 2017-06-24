@@ -119,7 +119,7 @@ body {
     }
     #season-chapter{
       padding: 5px;
-      border-bottom: 1px solid gray;
+      float: left;
     }
     text-align: left;
     font-size: 20px;
@@ -127,7 +127,10 @@ body {
     border-radius: 20px;
   }
   #chapter-li{
+    padding: 8px;
     text-align: left;
+    border: 1px solid gray;
+    border-radius: 20px;
   }
 }
 #edit-serie{
@@ -194,4 +197,31 @@ body {
 .edit-h1{
   padding: 10px;
   margin-left: 5%;
+}
+
+.seen-button{
+  border-radius: 20px;
+  float: right;
+  overflow: hidden;
+  width: 100px;
+}
+.container-fluid{
+  width: 90%;
+}
+// CHAPTERS
+
+.chapter-photo{
+  padding: 20px;
+}
+.chapter-description{
+  font-size: 20px;
+}
+.chapter-video .img-responsive {
+  margin: 0 auto;
+}
+.user-comments{
+  border-bottom: 1px solid gray;;
+}
+#score_score{
+  width: 80px;
 }
