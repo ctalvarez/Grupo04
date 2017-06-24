@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170529011010) do
+ActiveRecord::Schema.define(version: 20170624054934) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -77,6 +77,17 @@ ActiveRecord::Schema.define(version: 20170529011010) do
     t.string   "genre"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "news", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "serie_id"
+    t.string   "title"
+    t.text     "body"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["serie_id"], name: "index_news_on_serie_id", using: :btree
+    t.index ["user_id"], name: "index_news_on_user_id", using: :btree
   end
 
   create_table "parent_children", force: :cascade do |t|
@@ -176,6 +187,8 @@ ActiveRecord::Schema.define(version: 20170529011010) do
   add_foreign_key "director_series", "series", column: "serie_id"
   add_foreign_key "genre_series", "genres"
   add_foreign_key "genre_series", "series", column: "serie_id"
+  add_foreign_key "news", "series", column: "serie_id"
+  add_foreign_key "news", "users"
   add_foreign_key "scores", "chapters"
   add_foreign_key "scores", "users"
   add_foreign_key "seens", "chapters"
