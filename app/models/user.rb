@@ -33,6 +33,7 @@ class User < ApplicationRecord
             through: :parent_relationship,
             source: :parent
 
+  attr_accessor :filters
   # Aqui esta el parche para que por defecto sean usuarios!!!
   def default_user
     self.rol = :user if rol.nil?

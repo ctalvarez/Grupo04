@@ -81,15 +81,23 @@ body {
   padding-top: 25px;
 }
 .user-serie{
-  li {
+  .user-serie-row {
+    width: 80%;
+    margin-left: 10%;
+    margin-bottom: 20px;
     text-align: left;
     font-size: 20px;
     border: 1px solid gray;
     border-radius: 20px;
-    padding: 0 10px 0 10px;
+    padding: 20px;
   }
 }
-
+#series-container{
+  width: 90%;
+}
+#profile-container{
+  width: 90%;
+}
 
 //SERIES
 

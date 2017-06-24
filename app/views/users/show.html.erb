@@ -2,7 +2,7 @@
 
 
 <br><br>
-<div class="container-fluid well container-md-6">
+<div class="container-fluid well container-md-6" id="profile-container">
   <div class="row">
     <div class="col-sm-2 col-md-2" id="user-photo">
       <% if !@user.image.nil? %>
@@ -12,9 +12,21 @@
     </div>
     <div class="col-sm-2 col-md-3" id="user-photo">
       <h3 class="h3-user">Welcome <%= @user.name %></h3>
-      <h6>Email: <%= @user.email %></h6>
-      <h6>Rol: <%= @user.rol %></h6>
-      <h6>Since: <%= @user.created_at.strftime("%d/%m/%Y") %></h6>
+      <h5><b>Email:</b> <%= @user.email %></h5>
+      <h5><b>Rol:</b> <%= @user.rol %></h5>
+      <h5><b>Since:</b> <%= @user.created_at.strftime("%d/%m/%Y") %></h5>
+    </div>
+
+    <div class="col-sm-2 col-md-4" id="user-photo">
+      <h3 class="h3-user">Your Stats </h3>
+      <div class="row">
+        <div class="col-sm-2 col-md-6" id="user-photo">
+        <h5> Time watching series: </h5>
+        </div>
+        <div class="col-sm-2 col-md-6" id="user-photo">
+          <h5><%= @wasted_time %> minutes.</h5>
+        </div>
+      </div>
     </div>
 
     <div class="col-sm-2 col-md-2" id="user-action">
@@ -35,34 +47,34 @@
 </div>
 
 
-<p>
-  <strong>Time watching series:</strong>
-  <%= @wasted_time %> minutes.
-</p>
-
 <% unless current_user.child? %>
-    <div class="container-fluid well container-md-6">
+    <div class="container-fluid well container-md-6" id="series-container">
       <h3>Your Series</h3>
       <ul class="user-serie">
         <% @user.series.each do | serie | %>
-            <div class="row">
+            <div class="row user-serie-row">
+              <div class="col-sm-2 col-md-3">
           <li><%= link_to serie.name, '/series/' + serie.id.to_s %></li>
+              </div>
+                <div class="col-sm-2 col-md-3" >
+              <%= image_tag(asset_path('serie_not_found.jpg'), class: "img-rounded", size: "400x140") %>
+                  </div>
             </div>
         <% end %>
       </ul>
     </div>
 
-    <div class="container-fluid well container-md-6">
+    <div class="container-fluid well container-md-6" id="profile-container">
       <h3>Your Children</h3>
           <ul class="user-serie">
             <% if @user.children.length >0 %>
               <% @user.children.each do |child| %>
-                  <div class="row">
+                  <div class="row user-serie-row">
                     <li><%= child.name %></li>
                   </div>
               <% end %>
             <%else%>
-                <div class="row">
+                <div class="row user-serie-row">
                   <li>You don't have any child haha</li>
                 </div>
             <%end%>

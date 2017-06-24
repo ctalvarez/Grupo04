@@ -1,27 +1,19 @@
-<%= form_for(@child, url: children_path(@user)) do |f| %>
-  <div class="field">
-    <%= f.label :name %>
+<h1 class="edit-h1">Add a Child</h1>
+
+
+<%= bootstrap_form_for(@child, url: children_path(@user),
+                       layout: :horizontal, label_col: "col-md-2", control_col: "col-md-9") do |f| %>
+
     <%= f.text_field :name %>
-  </div>
 
-  <div class="field">
-    <%= f.label :email %>
     <%= f.text_field :email %>
-  </div>
 
-  <div class="field">
-    <%= f.label :password %>
     <%= f.text_field :password %>
-  </div>
 
-  <div class="field">
-    <%= f.label 'Restricted Genres' %>
-    <% @genres.each do |genre| %>
-      <%= check_box_tag 'filters[]', genre.id, nil, {multiple: true} %><%= genre.genre %>
-    <% end %>
-  </div>
+    <%= f.collection_check_boxes :filters, Genre.all, :id, :genre %>
 
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+    <%= f.submit 'Add Child',:class=> "btn btn-default btn-lg"%>
+
 <% end %>
+
+<%= link_to 'Go Back', '/users/' + current_user.id.to_s, :class=>"btn btn-primary edit-back" %>
