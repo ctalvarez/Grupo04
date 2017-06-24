@@ -32,6 +32,7 @@ class User < ApplicationRecord
   has_one   :parent,
             through: :parent_relationship,
             source: :parent
+  has_many :news, dependent: :destroy
 
   attr_accessor :filters
   # Aqui esta el parche para que por defecto sean usuarios!!!

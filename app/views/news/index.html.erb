@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<div class="row dashboard">
+  <h1>News Dashboard</h1>
+</div>
+
+<div class="container-fluid well container-md-6 container-news ">
+  <% @news.each do |n|%>
+    <h2 class="news-title"> <%= n.title %></h2>
+    <div class="news-body"><%= n.body %></div>
+    <%= button_to 'Continue Reading', news_path(n.id),
+                  method: :get, :class=>"news-button btn btn-default"%>
+  <% end %>
+</div>

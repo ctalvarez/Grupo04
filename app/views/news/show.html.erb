@@ -1,0 +1,16 @@
+<p id="notice"><%= notice %></p>
+
+
+<div class="container-fluid well container-md-6 container-news ">
+      <h2 class="news-title"> <%= @news.title %></h2>
+      <div class="news-show"><%= @news.body %></div>
+  <%= button_to 'Go to Serie', '/series/' + @news.serie_id.to_s,
+                method: :get, :class=>"news-button btn btn-default"%>
+  <%= button_to 'Go Back', newshome_path,
+                method: :get, :class=>"news-button btn btn-primary"%>
+
+</div>
+
+
+
+

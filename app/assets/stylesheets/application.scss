@@ -209,7 +209,6 @@ body {
   width: 90%;
 }
 // CHAPTERS
-
 .chapter-photo{
   padding: 20px;
 }
@@ -220,8 +219,41 @@ body {
   margin: 0 auto;
 }
 .user-comments{
-  border-bottom: 1px solid gray;;
+  border-bottom: 1px solid gray;
 }
 #score_score{
   width: 80px;
+}
+// NEWS
+
+.container-news{
+  width: 60%;
+}
+.news-title{
+  padding-left: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid gray;
+}
+.news-body {
+  text-align: justify;
+  margin: 20px;
+  overflow:hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+.news-show{
+  text-align: justify;
+  margin: 20px;
+}
+.news-button{
+  border-radius: 20px;
+  float: right;
+  overflow: hidden;
+  width: 200px;
+  margin-right: 5px;
+}
+.dashboard{
+  margin: 20px;
 }

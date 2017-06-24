@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   devise_for :users
   get 'series', to: 'series#index'
   get 'home', to: 'series#home'
+  get 'newshome', to:'news#index'
   resources :series do
     resources :sessions do
       resources :chapters
@@ -10,6 +11,9 @@ Rails.application.routes.draw do
   resources :scores
   resources :users
   root 'series#home'
+
+  resources :news do
+  end
 
   patch 'change_level', to: 'users#change_level'
   patch 'create_comment', to: 'users#create_comment'

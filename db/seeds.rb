@@ -184,3 +184,16 @@ SubtitleIntegration.create subtitle: s1, serie: sherlock
 SubtitleIntegration.create subtitle: s2, serie: sherlock
 
 Seen.create user: x, chapter: c1
+
+news1 = News.create user_id: z.id,
+                    serie_id: sherlock.id,
+                    title: 'Los creadores de "Sherlock" planean una nueva serie sobre "Drácula"',
+                    body: 'A pesar de que «Sherlock» todavía no ha sido renovada, los creadores de la serie de la BBC parece que tienen nuevos planes. Tal y como ha informado Variety, Mark Gatiss y Steven Moffat, aunque ahora se encuentran trabajando en otras producciones por separado, se reunirán para tratar de resucitar a otro de los personajes clásicos de la literatura: Drácula.
+
+La idea de ambos creadores es la de repetir la fórmula de «Sherlock» con una serie de capítulos de larga duración que emitiría también la BBC. Aunque los creadores aún no han comenzado a trabajar en serio en este nuevo proyecto, ya hay conversaciones con la cadena para que emita este proyecto. Lo que todavía no se sabe es si se ambientará en un Reino Unido moderno o será más cercano a la novela de Bram Stoker de 1897.
+
+Drácula será así la primera colaboración entre Moffat y Gatiss desde el último episodio de «Sherlock». Han dicho que no tienen ningún plan actual para una nueva temporada de la serie protagonizada por Benedict Cumberbatch y Martin Freeman, pero no han descartado volver a escribir más episodios en un futuro.
+
+Esta nueva serie sobre Drácula no es el primer intento en los últimos años de adaptar la historia de terror gótico para la televisión. Los productores de «Downton Abbey» ya realizaron una serie sobre Drácula para la NBC en 2013, pero solo duró una temporada.'
+
+
