@@ -61,7 +61,9 @@ class UsersController < ApplicationController
       if @child.save
         @child.child!
         @user.children << @child
-        @child.child_filters.create child_filters_params
+        @child.child_filters.create child_filers_params
+        p @child
+        p @child.child_filters
 
         format.html { redirect_to user_path(@user), notice: 'Child was successfully created.' }
         format.json { render :show, status: :created, location: @child }
@@ -129,11 +131,11 @@ class UsersController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def user_params
-    params.require(:user).permit(:name, :email, :password, :image)
+    params.require(:user).permit(:name, :email, :password, :image, :filters=>[])
   end
 
   def child_params
-    params.require(:user).permit(:name, :email, :password)
+    params.require(:user).permit(:name, :email, :password, :filters=>[])
   end
 
   def child_filters_params
