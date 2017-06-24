@@ -195,5 +195,3 @@ La idea de ambos creadores es la de repetir la fórmula de «Sherlock» con una 
 Drácula será así la primera colaboración entre Moffat y Gatiss desde el último episodio de «Sherlock». Han dicho que no tienen ningún plan actual para una nueva temporada de la serie protagonizada por Benedict Cumberbatch y Martin Freeman, pero no han descartado volver a escribir más episodios en un futuro.
 
 Esta nueva serie sobre Drácula no es el primer intento en los últimos años de adaptar la historia de terror gótico para la televisión. Los productores de «Downton Abbey» ya realizaron una serie sobre Drácula para la NBC en 2013, pero solo duró una temporada.'
-
-
