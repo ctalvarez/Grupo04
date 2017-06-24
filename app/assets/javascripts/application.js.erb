@@ -16,24 +16,3 @@
 //= require_tree .
 //= require bootstrap-sprockets
 
-$(document).ready(function() {
-    var seenButton = $('.seen-unseen');
-    var seen = $('.user-seen').data('seen');
-    seenButton.bootstrapToggle({
-        on: 'Viewed',
-        off: 'Not viewed',
-        size: 'mini'
-    });
-    if (seen) {
-        seenButton.bootstrapToggle('on');
-    }
-    else {
-        seenButton.bootstrapToggle('off');
-    }
-
-    seenButton.change(function() {
-        seen = $(this).prop('checked');
-
-    });
-
-});

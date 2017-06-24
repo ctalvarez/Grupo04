@@ -12,7 +12,7 @@
 
 <div class="container-fluid well container-md-6">
   <div class="row">
-    <div class="col-sm-2 col-md-4" id="serie-image">
+    <div class="col-sm-2 col-md-5" id="serie-image">
       <p>
         <%=if @series.image.nil?
              'Not found image t.t'
@@ -21,7 +21,7 @@
            end %>
       </p>
     </div>
-    <div class="col-sm-2 col-md-8" id="serie-description">
+    <div class="col-sm-2 col-md-7" id="serie-description">
       <p> <strong>Description: </strong> <%=@series.description%> </p>
       <p> <strong>Language: </strong><%= @series.language %> </p>
       <p> <strong>Subtitle(s): </strong>
@@ -48,8 +48,6 @@
   </div>
 </div>
 
-<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
-<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 
 <div class="container-fluid well container-md-6">
   <h3 class="season-title">Seasons
@@ -67,29 +65,35 @@
             <% season.chapters.each do | chapter | %>
                 <% unless current_user.nil?%>
                   <div class="row">
-                    <div class="col-sm-2 col-md-9" id="chapter-li">
+                    <div class="col-sm-2 col-md-11" id="chapter-li">
                       <li id="season-chapter"><%= link_to chapter.name, series_session_chapter_path(season.serie.id, season.id, chapter) %>
-                        </li>
+
+                      </li>
+
+                      <% aux =  current_user.seen.find_by(chapter_id: chapter.id, user_id: current_user.id) %>
+                      <%= content_tag :div, class: "user-seen", data: {seen: aux} do %>
+                      <% end %>
+                      <% if aux.nil?  %>
+                          <div class="seen-div" >
+                            <%= button_to 'Not Viewed', delete_seen_path({chapter_id: chapter.id}),
+                                          method: :patch, :class=>"seen-button btn btn-default"%>
+                          </div>
+                      <% else%>
+                          <div class="seen-div" >
+                            <%= button_to 'Viewed', delete_seen_path({chapter_id: chapter.id}),
+                                          method: :patch, :class=>"seen-button btn btn-primary"%>
+                          </div>
+                      <%end%>
+
                     </div>
-                    <div class="col-sm-2 col-md-2" id="seen-box">
-                      <div class="seen-div" ><input type="checkbox" class="seen-unseen" data-width="100"></div>
-                    </div>
+
                 </div>
                 <%else%>
                     <li id="season-chapter"><%= link_to chapter.name, series_session_chapter_path(season.serie.id, season.id, chapter) %>
                     </li>
                 <%end%>
 
-                <% unless current_user.nil?%>
-                    <% aux =  current_user.seen.find_by(chapter_id: chapter.id, user_id: current_user.id) %>
-                    <%= content_tag :div, class: "user-seen", data: {seen: aux} do %>
-                    <% end %>
-                    <% if aux.nil?  %>
-                        <li><%= link_to 'Without see :O', delete_seen_path({chapter_id: chapter.id}), method: :patch%></li>
-                    <% else%>
-                        <li><%= link_to 'You already saw :D', delete_seen_path({chapter_id: chapter.id}), method: :patch%></li>
-                    <% end %>
-                <%end %>
+
             <% end %>
           </ul>
           </div>
