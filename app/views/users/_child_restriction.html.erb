@@ -1,0 +1,14 @@
+<%= bootstrap_form_for(child, url: given_url,
+                       layout: :horizontal, label_col: "col-md-2", control_col: "col-md-9") do |f| %>
+
+    <%= f.text_field :name %>
+
+    <%= f.text_field :email %>
+
+    <%= f.text_field :password %>
+
+    <%= f.collection_check_boxes :restricted_genre_ids, Genre.all, :id, :genre %>
+
+    <%= f.submit "Submit", :class=> "btn btn-default btn-lg"%>
+
+<% end %>

@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   include Secured
   layout 'all_layout'
-  before_action :set_user, only: %i[show edit update destroy change_level create_child new_child statistics]
+  before_action :set_user, only: %i[show edit update destroy change_level create_child new_child child edit_child update_child]
   before_action :admin?, only: %i[index change_level]
   before_action :logged_in?, only: %i[show edit update destroy]
 
@@ -22,9 +22,9 @@ class UsersController < ApplicationController
     @user = User.new
   end
 
-  def statistics
+  def child
     @child = User.find params[:child_id]
-    seen_chapters = Seen.where(user: @child).map(&:chapter)
+    seen_chapters = @child.seen.map(&:chapter)
     @total_time = 0
     @time_per_genre = {}
     Genre.pluck(:genre).map { |g| @time_per_genre[g] = 0 }
@@ -52,7 +52,7 @@ class UsersController < ApplicationController
       @seen.delete_seen
     end
 
-    redirect_to '/series/'+ @season.serie.id.to_s
+    render layout: false, template: 'series/change_seen'
   end
 
   def create_child
@@ -61,9 +61,6 @@ class UsersController < ApplicationController
       if @child.save
         @child.child!
         @user.children << @child
-        @child.child_filters.create child_filers_params
-        p @child
-        p @child.child_filters
 
         format.html { redirect_to user_path(@user), notice: 'Child was successfully created.' }
         format.json { render :show, status: :created, location: @child }
@@ -76,6 +73,10 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit
   def edit; end
+
+  def edit_child
+    @child = User.find(params[:child_id])
+  end
 
   # POST /users
   # POST /users.json
@@ -107,6 +108,17 @@ class UsersController < ApplicationController
     end
   end
 
+  def update_child
+    @child = User.find params[:child_id]
+    respond_to do |format|
+      if @child.update child_params
+        format.html { redirect_to child_path(@user, @child), notice: 'Child was successfully updated.' }
+      else
+        format.html { render :edit_child}
+      end
+    end
+  end
+
   # DELETE /users/1
   # DELETE /users/1.json
   def destroy
@@ -131,18 +143,10 @@ class UsersController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def user_params
-    params.require(:user).permit(:name, :email, :password, :image, :filters=>[])
+    params.require(:user).permit(:name, :email, :password, :image, :restricted_genres=>[])
   end
 
   def child_params
-    params.require(:user).permit(:name, :email, :password, :filters=>[])
-  end
-
-  def child_filters_params
-    child_filters = []
-    params[:filters].each do |x|
-      child_filters << { genre_id: x }
-    end
-    child_filters
+    params.require(:user).permit(:name, :email, :password, :restricted_genre_ids=>[])
   end
 end
