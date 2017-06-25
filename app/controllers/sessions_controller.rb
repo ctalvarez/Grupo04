@@ -30,7 +30,7 @@ class SessionsController < ApplicationController
 
     respond_to do |format|
       if @season.save
-        format.html { redirect_to series_session_path(@serie, @season), notice: 'season was successfully created.' }
+        format.html { redirect_to '/series/' + @season.serie.id.to_s, notice: 'season was successfully created.' }
         format.json { render :show, status: :created, location: @season }
       else
         format.html { render :new }

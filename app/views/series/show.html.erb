@@ -14,15 +14,11 @@
   <div class="row">
     <div class="col-sm-2 col-md-5" id="serie-image-div">
       <p>
-        <%=if @series.image.nil?
-             'Not found image t.t'
-           else
-             image_tag(@series.image, id: "serie-image")
-           end %>
+         <%=image_tag(@series.image, id: "serie-image")%>
       </p>
     </div>
     <div class="col-sm-2 col-md-7" id="serie-description">
-      <p> <strong>Description: </strong> <%=@series.description%> </p>
+      <p class="description"> <strong>Description: </strong> <%=@series.description%> </p>
       <p> <strong>Language: </strong><%= @series.language %> </p>
       <p> <strong>Subtitle(s): </strong>
         <ul>
@@ -61,7 +57,12 @@
     <% @series.sessions.each do | season | %>
         <div class="row justify-content-start">
           <div class="col-sm-2 col-md-6" id="serie-season">
-          <li id="season-number"> <%="Temporada " + season.session_number.to_s%><%= link_to  "(Edit)", edit_series_session_path(@series, season), :class=>"btn" if current_user && @series.user == current_user%></li>
+          <li id="season-number"> <%="Temporada " + season.session_number.to_s%>
+            <%if current_user && @series.user == current_user%>
+              <%= link_to  "(Edit)", edit_series_session_path(@series, season), :class=>"btn" %>
+              <%= link_to  "Add Chapter", new_series_session_chapter_path(@series, season), :class=>"btn" %>
+            <%end%>
+          </li>
           <ul>
             <% season.chapters.each do | chapter | %>
                 <% unless current_user.nil?%>

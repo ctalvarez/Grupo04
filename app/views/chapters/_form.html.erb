@@ -1,4 +1,5 @@
-<%= form_for(chapter, url: series_session_chapters_path(session)) do |f| %>
+<%= bootstrap_form_for(chapter, url: series_session_chapters_path(session),
+                       layout: :horizontal, label_col: "col-md-2", control_col: "col-md-9") do |f| %>
   <% if chapter.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(chapter.errors.count, "error") %> prohibited this chapter from being saved:</h2>
@@ -12,17 +13,14 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :name %>
     <%= f.text_field :name %>
   </div>
 
   <div class="field">
-    <%= f.label :description %>
     <%= f.text_area :description %>
   </div>
 
   <div class="field">
-    <%= f.label :duration %>
     <%= f.number_field :duration %>
   </div>
 
