@@ -18,8 +18,10 @@
         <% if user_signed_in?%>
           <li><%= link_to "Log out", destroy_user_session_path, :method => :delete%></li>
           <li><%= link_to "My Profile", user_path(current_user)%></li>
-          <li><%= link_to "Admin Series", series_index_path%></li>
-          <% if current_user.rol.eql? 'admin'%>
+          <% unless current_user.child? %>
+            <li><%= link_to "Admin Series", series_index_path%></li>
+          <% end %>
+          <% if current_user.admin? %>
             <li><%= link_to "Admin Users", users_path%></li>
           <%end%>
       </ul>
