@@ -1,0 +1,23 @@
+<div class="container-fluid well">
+  <h1><%= @child.name %></h1>
+  <%= link_to 'Edit Child Restrictions', child_edit_path(@user, @child) %>
+</div>
+<div class="container-fluid well">
+  <h1>Restrictions</h1>
+  <ul>
+    <% @child.restricted_genres.each do |genre| %>
+      <li><h3><%= genre.genre %></h3></li>
+    <% end %>
+  </ul>
+</div>
+<div class="container-fluid well">
+  <div class="row">
+    <div class="col-md-6">
+      <%= pie_chart @time_per_genre, download: true, title: "Total time: #{@total_time / 60} hours #{@total_time % 60} minutes", donut: true %>
+    </div>
+    <div class="col-md-6">
+      <%= line_chart @child.seen.group_by_day(:created_at).count, download: true, title: "Seen chapters by day" %>
+    </div>
+  </div>
+</div>
+<%= link_to 'Go Back', @user, :class=>"btn btn-primary edit-back" %>

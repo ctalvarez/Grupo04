@@ -105,9 +105,14 @@ body {
   text-align: left;
   overflow: hidden;
 }
-#serie-image{
+#serie-image-div{
   border-right: 1px solid gray;
 }
+
+#serie-image {
+  width: 350px;
+}
+
 .serie-seasons {
   list-style-type: none;
 
