@@ -1,7 +1,13 @@
 class NewsController < ApplicationController
 
   def index
-    @news = News.all
+    @series = Serie.pluck(:name)
+    @actors = Actor.pluck(:name)
+    search_in = News.all
+    @news = News.search(params[:title_search],
+                           params[:serie_search],
+                           params[:actor_search],
+                           search_in)
   end
 
   def show

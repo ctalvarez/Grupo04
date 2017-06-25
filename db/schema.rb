@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170624054934) do
+ActiveRecord::Schema.define(version: 20170625202350) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -88,6 +88,15 @@ ActiveRecord::Schema.define(version: 20170624054934) do
     t.datetime "updated_at", null: false
     t.index ["serie_id"], name: "index_news_on_serie_id", using: :btree
     t.index ["user_id"], name: "index_news_on_user_id", using: :btree
+  end
+
+  create_table "news_actors", force: :cascade do |t|
+    t.integer  "news_id"
+    t.integer  "actor_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["actor_id"], name: "index_news_actors_on_actor_id", using: :btree
+    t.index ["news_id"], name: "index_news_actors_on_news_id", using: :btree
   end
 
   create_table "parent_children", force: :cascade do |t|
@@ -189,6 +198,8 @@ ActiveRecord::Schema.define(version: 20170624054934) do
   add_foreign_key "genre_series", "series", column: "serie_id"
   add_foreign_key "news", "series", column: "serie_id"
   add_foreign_key "news", "users"
+  add_foreign_key "news_actors", "actors"
+  add_foreign_key "news_actors", "news"
   add_foreign_key "scores", "chapters"
   add_foreign_key "scores", "users"
   add_foreign_key "seens", "chapters"
