@@ -77,12 +77,12 @@
                       <% if aux.nil?  %>
                           <div class="seen-div" >
                             <%= button_to 'Not Viewed', delete_seen_path({chapter_id: chapter.id}),
-                                          method: :patch, :class=>"seen-button btn btn-default"%>
+                                          method: :patch, :class=>"seen-button btn btn-default", remote: true, id: "chapter-#{chapter.id}" %>
                           </div>
                       <% else%>
                           <div class="seen-div" >
                             <%= button_to 'Viewed', delete_seen_path({chapter_id: chapter.id}),
-                                          method: :patch, :class=>"seen-button btn btn-primary"%>
+                                          method: :patch, :class=>"seen-button btn btn-primary", remote: true, id: "chapter-#{chapter.id}" %>
                           </div>
                       <%end%>
 

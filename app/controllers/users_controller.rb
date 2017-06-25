@@ -52,7 +52,7 @@ class UsersController < ApplicationController
       @seen.delete_seen
     end
 
-    redirect_to '/series/'+ @season.serie.id.to_s
+    render layout: false, template: 'series/change_seen'
   end
 
   def create_child
