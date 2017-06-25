@@ -14,6 +14,7 @@ class Serie < ApplicationRecord
 
   belongs_to :user
   before_create :default_private
+  has_many :news
 
   def self.search(name, language, genre, series)
     series = series.where('name ilike ?', "%#{name}%") if name.present?

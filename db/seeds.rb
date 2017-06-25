@@ -151,9 +151,11 @@ gs13 = GenreSerie.create genre: comedy, serie: rickAndMorty  # scream es susoens
 
 a1 = Actor.create name: 'Benedict Cumberbatch'
 a2 = Actor.create name: 'Louise Brealey'
+a3 = Actor.create name: 'Martin Freeman'
 
 ActorSeries.create actor: a1, serie: sherlock
 ActorSeries.create actor: a2, serie: sherlock
+ActorSeries.create actor: a3, serie: sherlock
 
 s1 = Session.create date_release: Date.parse('24/4/2000'),
                     status: :Finished,
@@ -196,4 +198,14 @@ Drácula será así la primera colaboración entre Moffat y Gatiss desde el últ
 
 Esta nueva serie sobre Drácula no es el primer intento en los últimos años de adaptar la historia de terror gótico para la televisión. Los productores de «Downton Abbey» ya realizaron una serie sobre Drácula para la NBC en 2013, pero solo duró una temporada.'
 
+newsActor1 = NewsActor.create news_id: news1.id, actor_id: a1.id
+newsActor1 = NewsActor.create news_id: news1.id, actor_id: a2.id
+newsActor1 = NewsActor.create news_id: news1.id, actor_id: a3.id
+
+news2 = News.create user_id: z.id,
+                    serie_id: breakigBad.id,
+                    title: "Epidemia mundial de metanfetaminas: ¿se trata del 'Breaking Bad' norcoreano?",
+                    body: "Potentes drogas sintéticas fabricadas en el este y el sureste de Asia están afectando a los consumidores de drogas en diferentes partes del mundo, incluyendo América del Norte, donde están contribuyendo a una epidemia de muertes por sobredosis. Sobre esto alerta la Oficina de las Naciones Unidas contra la Droga y el Delito (ONUDD), haciendo hincapié en la influencia de las metanfetaminas asiáticas.
+
+\"Los métodos actuales de identificación de fármacos son útiles para detectar sustancias como la metanfetamina, y cada vez más de esta droga es incautada por las autoridades policiales\", indicó Inshik Sim, analista de datos de ese organismo en Bangkok, Tailandia."
 

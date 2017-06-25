@@ -1,9 +1,18 @@
 <p id="notice"><%= notice %></p>
 
 
+
 <div class="container-fluid well container-md-6 container-news ">
       <h2 class="news-title"> <%= @news.title %></h2>
       <div class="news-show"><%= @news.body %></div>
+      <div class="news-tags">
+        <ul>
+          <li>#<%=@news.serie.name + ' '%></li>
+          <% @news.actors.each do |a|%>
+              <li>#<%= a.name + ' '%> </li>
+          <% end %>
+        </ul>
+      </div>
   <%= button_to 'Go to Serie', '/series/' + @news.serie_id.to_s,
                 method: :get, :class=>"news-button btn btn-default"%>
   <%= button_to 'Go Back', newshome_path,
