@@ -3,7 +3,7 @@
 <div class="container-fluid well container-md-6">
   <h2 class="h2-serie"> <%= @series.name %>
     <div id="edit-serie">
-    <%if current_user && @series.user == current_user %>
+    <%if current_user && (@series.user == current_user || current_user.admin?)%>
         <%=link_to 'Edit', edit_series_path(@series),:class=>"btn btn-primary"%>
     <% end %>
   </div></h2>
