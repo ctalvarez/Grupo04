@@ -4,6 +4,8 @@ class News < ApplicationRecord
   has_many :actors, through: :news_actors, source: :actor
   has_many :news_actors, dependent: :destroy
 
+  validates :user_id, presence: true
+
   def self.search(news_title, serie, actor, news)
     if serie.present?
       serie = Serie.where(name: serie)

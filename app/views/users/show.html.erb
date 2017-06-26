@@ -28,7 +28,6 @@
         </div>
       </div>
     </div>
-
     <div class="col-sm-2 col-md-2" id="user-action">
       <div class="btn-group">
         <a class="btn dropdown-toggle btn-info" data-toggle="dropdown" href="#">
@@ -46,6 +45,32 @@
   </div>
 </div>
 
+<div class="container-fluid well container-md-6" id="news-container">
+  <div class="row">
+    <div class="col-sm-2 col-md-9 user-news-title">
+      <h3>Your News</h3>
+    </div>
+    <div class="col-sm-2 col-md-2 user-news-action">
+      <%= link_to 'Add News', new_news_path, :class=>"seen-button btn btn-primary" %>
+    </div>
+  </div>
+    <% news = current_user.news
+       news.each do |n|%>
+      <div class="row user-news-row">
+        <div class="col-sm-2 col-md-7 user-news-col">
+          <%= n.title %>
+        </div>
+        <div class="col-sm-2 col-md-2">
+          <%= button_to 'Go to Post', news_path(n.id),
+                        method: :get, :class=>"seen-button btn btn-primary"%>
+        </div>
+        <% if n == news[0] %>
+
+        <%end%>
+      </div>
+      <% end %>
+
+</div>
 
 <% unless current_user.child? %>
     <div class="container-fluid well container-md-6" id="series-container">

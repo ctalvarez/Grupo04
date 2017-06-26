@@ -3,6 +3,17 @@
 
 
 <div class="container-fluid well container-md-6 container-news ">
+    <% if current_user %>
+      <% if current_user == @news.user or current_user.admin? %>
+        <div class="row">
+          Owner-Admin options:
+          <%= button_to 'Delete Post', news_path(@news.id),
+                        method: :delete, :class=>"news-button btn btn-info"%>
+          <%= button_to 'Edit Post', edit_news_path(@news.id),
+                        method: :get, :class=>"news-button btn btn-info"%>
+        </div>
+      <%end%>
+    <%end%>
       <h2 class="news-title"> <%= @news.title %></h2>
       <div class="news-show"><%= @news.body %></div>
       <div class="news-tags">
@@ -13,10 +24,16 @@
           <% end %>
         </ul>
       </div>
-  <%= button_to 'Go to Serie', '/series/' + @news.serie_id.to_s,
-                method: :get, :class=>"news-button btn btn-default"%>
-  <%= button_to 'Go Back', newshome_path,
-                method: :get, :class=>"news-button btn btn-primary"%>
+      <div class="row">
+        <%= button_to 'Go to Serie', '/series/' + @news.serie_id.to_s,
+                      method: :get, :class=>"news-button btn btn-primary"%>
+        <%= button_to 'Go to Dashboard', newshome_path,
+                      method: :get, :class=>"news-button btn btn-primary"%>
+        <% if current_user %>
+        <%= button_to 'Go Author Profile', '/users/' + @news.user.id.to_s,
+                      method: :get, :class=>"news-button btn btn-primary"%>
+        <%end%>
+      </div>
 
 </div>
 
