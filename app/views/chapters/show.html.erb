@@ -88,6 +88,17 @@
           <%= link_to 'Edit Chapter', edit_series_session_chapter_path(@season.serie.id,@season.id,@chapter), method: :get, class: 'btn btn-default', :type => 'button'%>
         <%end%>
       </div>
+      <div class="btn-group mr-2" role="group">
+        <%@pos_chapter = @season.chapters.index(@chapter)%>
+        <%=if  @pos_chapter!= 0
+            @previous_chapter = @season.chapters[@pos_chapter-1]
+            link_to '<- Previous chapter', series_session_chapter_path(@season.serie.id, @season.id, @previous_chapter), method: :get, class: 'btn btn-info', :type => 'button'
+        end%>
+        <%=if  @pos_chapter + 1 != @season.chapters.count
+            @next_chapter = @season.chapters[@pos_chapter+1]
+            link_to 'Next chapter ->', series_session_chapter_path(@season.serie.id, @season.id, @next_chapter), method: :get, class: 'btn btn-info', :type => 'button'
+        end%>
+      </div>
     </div>
   </div>
 

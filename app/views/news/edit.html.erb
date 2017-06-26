@@ -1,0 +1,5 @@
+<h1 class="edit-h1">Edit Post</h1>
+
+<%= render 'form', news: @news %>
+
+<%= link_to 'Back', '/users/' + current_user.id.to_s, :class=>"btn btn-primary edit-back" %>

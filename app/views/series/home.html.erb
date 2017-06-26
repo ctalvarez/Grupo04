@@ -40,7 +40,7 @@
                 <%=image_tag(@series[3*n + i].image, class: "img-thumbnail")%>
                 <h4><%= link_to @series[3*n + i].name, '/series/' + @series[3*n + i].id.to_s%></h4>
               <div class="caption">
-              <p>Description:  <%= @series[3*n + i].description %></p>
+              <p ><%= @series[3*n + i].description %></p>
               <p>Language: <%= @series[3*n + i].language %></p>
               </div>
           </div>

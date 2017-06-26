@@ -70,6 +70,7 @@ body {
   padding: 50px 100px 50px 100px;
   border: 1px solid gray;
   border-radius: 20px;
+  background-color: white;
 }
 
 // profile
@@ -97,6 +98,24 @@ body {
 }
 #profile-container{
   width: 90%;
+}
+
+.user-news-title{
+  text-align: left;
+}
+.user-news-action{
+  text-align: right;
+  margin-right: 5px;
+  margin-top: 10px;
+}
+.user-news-col{
+  text-align: left;
+  font-size: large;
+  font-weight: bold;
+  margin-left: 30px;
+  border: 1px solid gray;
+  border-radius: 20px;
+  padding: 5px;
 }
 
 //SERIES
@@ -198,6 +217,9 @@ body {
   .btn{
     float: right;
     margin-right: 30px;
+  }
+  h3{
+    margin-left: 30px;
   }
 }
 .edit-back{
@@ -305,4 +327,8 @@ body {
 .testeo{
   display: inline-block;
   margin: 0;
+}
+
+.description{
+  text-align: center;
 }

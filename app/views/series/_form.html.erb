@@ -18,6 +18,10 @@
 
     <%= f.text_area :description %>
 
+    <%= f.collection_check_boxes :actor_ids, Actor.all, :id, :name, label:'Actors' %>
+
+    <%= f.collection_check_boxes :director_ids, Director.all, :id, :name, label:'Directors' %>
+
     <%= f.select :language, Serie.languages.collect { |key, value| [key, key] } %>
 
     <%= f.text_field :image %>
