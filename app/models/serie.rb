@@ -31,6 +31,6 @@ class Serie < ApplicationRecord
 
   def default_private
     self.private = false if private.nil?
-    self.image = "notfound.jpg" if self.image.nil?
+    self.image = "notfound.jpg" if self.image.nil? || self.image.blank?
   end
 end

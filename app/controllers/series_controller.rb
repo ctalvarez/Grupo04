@@ -102,7 +102,7 @@ class SeriesController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def series_params
     serie_params = params.require(:serie).permit(:name, :description, :language, :private, :image,
-                                                 :genre_ids=>[], :subtitle_ids=>[])
+                                                 :genre_ids=>[], :subtitle_ids=>[], :actor_ids=>[])
     serie_params[:user_id] = current_user.id
     serie_params
   end
