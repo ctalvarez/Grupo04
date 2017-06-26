@@ -3,25 +3,22 @@
 <div class="row">
   <p class="h1">Admin Series</p>
 </div>
-<div class="btn" aria-label="Basic example" >
-  <%= link_to 'New Series', new_series_path, {:class =>"btn btn-default", :role=>"button"} %>
-</div>
-<div class="panel panel-default">
-  <div class="panel-heading">Admin Series</div>
-  <table class="table">
-    <thead>
-        <tr>
-          <th>Serie name</th>
-          <th colspan="3"></th>
-        </tr>
-    </thead>
-    <% @series.each do |series| %>
-    <tr>
-      <td><%= series.name %></td>
-      <td><%= link_to 'Show', '/series/' + series.id.to_s, {:class =>"btn btn-default", :role=>"button"} %></td>
-      <td><%= link_to 'Edit', edit_series_path(series), {:class =>"btn btn-default", :role=>"button"} %></td>
-      <td><%= link_to 'Destroy', '/series/' + series.id.to_s, method: :delete, data: { confirm: 'Are you sure?' }, :class =>"btn btn-default", :role=>"button" %></td>
-    </tr>
-    <% end %>
-  </table>
+
+<div class="container container-md-6" >
+  <div class="btn" aria-label="Basic example" >
+    <%= link_to 'New Series', new_series_path, {:class=>"btn btn-primary edit-back"  , :role=>"button"} %>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading">Admin Series</div>
+    <table class="table">
+      <% @series.each do |series| %>
+      <tr>
+        <td><%= series.name %></td>
+        <td><%= link_to 'Show', '/series/' + series.id.to_s, {:class =>"btn btn-default", :role=>"button"} %></td>
+        <td><%= link_to 'Edit', edit_series_path(series), {:class =>"btn btn-default", :role=>"button"} %></td>
+        <td><%= link_to 'Destroy', '/series/' + series.id.to_s, method: :delete, data: { confirm: 'Are you sure?' }, :class =>"btn btn-default", :role=>"button" %></td>
+      </tr>
+      <% end %>
+    </table>
+  </div>
 </div>

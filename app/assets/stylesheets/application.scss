@@ -179,6 +179,13 @@ body {
 .panel-heading{
   text-align: left;
 }
+.panel-body{
+  text-align: left;
+}
+.panel-footer{
+  text-align: right;
+  height: 50px;
+}
 .form-horizontal {
   width: 80%;
   margin-right: 10%;
@@ -288,4 +295,14 @@ body {
 
 .description{
   text-align: justify;
+}
+
+
+.comment{
+  display: inline-block;
+  margin: 0;
+}
+.testeo{
+  display: inline-block;
+  margin: 0;
 }

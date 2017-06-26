@@ -1,9 +1,8 @@
-<h1>Editing Score</h1>
+<h1 class="edit-h1">Editing Score</h1>
 
 <%= render 'form', score: @score , user_id: @score.user.id, chapter_id: @score.chapter.id%>
 
-<%= link_to 'Show', @score %> |
 <%serie_id = @score.chapter.serie.id
   season_id = @score.chapter.session.id
   chapter = @score.chapter%>
-<%= link_to 'Back', series_session_chapter_path(serie_id, season_id, chapter) %>
+<%= link_to 'Back', series_session_chapter_path(serie_id, season_id, chapter), :class=>"btn btn-primary edit-back"   %>

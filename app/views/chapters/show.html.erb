@@ -42,17 +42,19 @@
                 <%= image_tag(score.user.image, class: "img-rounded", size: "80x90") %>
               </div>
               <div class="col-sm-5">
-                <div class="panel panel-default">
+                <div class="panel panel-primary">
                   <div class="panel-heading">
                     <strong><%= score.user.name %></strong>
                     <span class="text-muted"> Score: <%= score.score %></span>
                   </div>
                   <div class="panel-body">
                     <%= score.comment %>
-                    <%if score.user.id == current_user.id%>
-                        <%= button_to 'Edit Comment', edit_score_path(score), method: :get, class: 'btn btn-info'%>
-                    <%end%>
                   </div>
+                  <%if current_user && score.user.id == current_user.id%>
+                    <div class="panel-footer">
+                      <%= button_to 'Edit Comment', edit_score_path(score), method: :get, class: 'btn btn-primary'%>
+                    </div>
+                  <%end%>
                 </div>
               </div>
             </div>
@@ -88,6 +90,3 @@
   </div>
 
 </div>
-
-
-
