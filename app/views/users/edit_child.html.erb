@@ -1,0 +1,5 @@
+<h1 class="edit-h1">Edit a Child</h1>
+
+<%= render 'child_restriction', child: @child, user: @user, given_url: child_path(@user, @child) %>
+
+<%= link_to 'Go Back', '/users/' + current_user.id.to_s, :class=>"btn btn-primary edit-back" %>

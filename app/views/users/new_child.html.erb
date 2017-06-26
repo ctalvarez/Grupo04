@@ -1,27 +1,5 @@
-<%= form_for(@child, url: children_path(@user)) do |f| %>
-  <div class="field">
-    <%= f.label :name %>
-    <%= f.text_field :name %>
-  </div>
+<h1 class="edit-h1">Add a Child</h1>
 
-  <div class="field">
-    <%= f.label :email %>
-    <%= f.text_field :email %>
-  </div>
+<%= render 'child_restriction', child: @child, user: @user, given_url: children_path(@user) %>
 
-  <div class="field">
-    <%= f.label :password %>
-    <%= f.text_field :password %>
-  </div>
-
-  <div class="field">
-    <%= f.label 'Restricted Genres' %>
-    <% @genres.each do |genre| %>
-      <%= check_box_tag 'filters[]', genre.id, nil, {multiple: true} %><%= genre.genre %>
-    <% end %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+<%= link_to 'Go Back', '/users/' + current_user.id.to_s, :class=>"btn btn-primary edit-back" %>

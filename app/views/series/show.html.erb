@@ -1,79 +1,157 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @series.name %>
-</p>
+<div class="container-fluid well container-md-6">
+  <h2 class="h2-serie"> <%= @series.name %>
+    <div id="serie-rating"></div>
+    <div id="edit-serie">
+    <%if current_user && (@series.user == current_user || current_user.admin?)%>
+        <%=link_to 'Edit', edit_series_path(@series),:class=>"btn btn-primary"%>
+    <% end %>
+  </div></h2>
 
 <p>
   <strong>Description:</strong>
   <%= @series.description %>
 </p>
 
-<p>
-  <strong>Language:</strong>
-  <%= @series.language %>
-</p>
+<div class="container-fluid well container-md-6">
+  <div class="row">
+    <div class="col-sm-2 col-md-5" id="serie-image-div">
+      <p>
+         <%=image_tag(@series.image, id: "serie-image")%>
+      </p>
+    </div>
+    <div class="col-sm-2 col-md-7" id="serie-description">
+      <p class="description"> <strong>Description: </strong> <%=@series.description%> </p>
+      <p> <strong>Directors: </strong>
+        <%if @series.director.count==0%>
+            No associated directors
+        <% else %>
+          <% all_directors = "" %>
+          <% @series.director.each do | director| %>
+              <%if director== @series.director.last
+                all_directors += director.name+ "."
+              else
+                all_directors += director.name+ ", "
+              end%>
+          <% end %>
+          <%=all_directors%>
+        <%end %>
+      </p>
+      <p> <strong>Actors: </strong>
+        <%if @series.actors.count==0 %>
+            No associated actors
+        <% else %>
+          <% all_actors = "" %>
+          <% @series.actors.each do | actors| %>
+              <%if actors== @series.actors.last
+                all_actors += actors.name+ "."
+              else
+                all_actors += actors.name+ ", "
+              end%>
+          <% end %>
+          <%=all_actors%>
+        <%end %>
+      </p>
+      <p> <strong>Language: </strong><%= @series.language %> </p>
+      <p> <strong>Subtitle(s): </strong>
+        <ul>
+        <%if @series.subtitles.count==0%>
+            <li>Not found subtitles >.< </li>
+        <% else %>
+            <% @series.subtitles.each do | subtitle | %>
+                <li><%= subtitle.language %></li>
+            <% end %>
+        <%end %>
+        </ul>
+      </p>
+      <p>
+        <strong>Genres:</strong>
+        <ul>
+          <% @series.genres.each do | genre | %>
+              <li><%= genre.genre %></li>
+          <% end %>
+        </ul>
+      </p>
 
-<p>
-  <strong>Subtitles:</strong>
-  <ul>
-    <%if @series.subtitles.count==0%>
-      <li>Not found subtitles >.< </li>
-    <% else %>
-      <% @series.subtitles.each do | subtitle | %>
-			   <li><%= subtitle.language %></li>
-		  <% end %>
-    <%end %>
-	</ul>
-</p>
-
-<p>
-  <strong>Image:</strong>
-  <%=if @series.image.nil?
-    'Not found image t.t'
-  else
-    image_tag(@series.image)
-  end %>
-</p>
-
-<p>
-	<strong>Genres:</strong>
-	<ul>
-		<% @series.genres.each do | genre | %>
-			<li><%= genre.genre %></li>
-		<% end %>
-	</ul>
-</p>
-
-<p>
-	<strong>Season:</strong>
-	<ul>
-		<% @series.sessions.each do | season | %>
-			<li><%= link_to  "Temporada " + season.session_number.to_s, series_session_path(@series, season)%></li>
-      <ul>
-    		<% season.chapters.each do | chapter | %>
-    			<li><%= link_to chapter.name, series_session_chapter_path(season.serie.id, season.id, chapter) %>
-          <% unless current_user.nil?%>
-            <% aux =  current_user.seen.find_by(chapter_id: chapter.id, user_id: current_user.id) %>
-            <% if aux.nil?  %>
-                <%= link_to 'Watch', delete_seen_path({chapter_id: chapter.id}), method: :patch%></li>
-            <% else%>
-                <%= link_to 'Mark unseen', delete_seen_path({chapter_id: chapter.id}), method: :patch%>
-            <% end %></li>
-          <%end %>
-    		<% end %>
-    	</ul>
-		<% end %>
-	</ul>
-</p>
+    </div>
+  </div>
+</div>
 
 
+<div class="container-fluid well container-md-6">
+  <h3 class="season-title">Seasons
+    <%if current_user && (@series.user == current_user || current_user.admin?)%>
+      <div id="new-season">
+        <%=link_to 'New Season (+)', new_series_session_path(series_id: @series.id),:class=>"btn btn-primary"%>
+      </div>
+    <% end %>
+  </h3>
+  <ul class="serie-seasons">
+    <% @series.sessions.each do | season | %>
+        <div class="row justify-content-start">
+          <div class="col-sm-2 col-md-6" id="serie-season">
+          <li id="season-number"> <%="Temporada " + season.session_number.to_s%>
+            <div id="season-<%= season.id %>"></div>
+            <%if current_user && (@series.user == current_user || current_user.admin?)%>
+              <%= link_to  "(Edit)", edit_series_session_path(@series, season), :class=>"btn" %>
+              <%= link_to  "Add Chapter", new_series_session_chapter_path(@series, season), :class=>"btn" %>
+            <%end%>
+          </li>
+          <ul>
+            <% season.chapters.each do | chapter | %>
+                <% unless current_user.nil?%>
+                  <div class="row">
+                    <div class="col-sm-2 col-md-11" id="chapter-li">
+                      <li id="season-chapter"><%= link_to chapter.name, series_session_chapter_path(season.serie.id, season.id, chapter) %>
 
-<%if !current_user.nil?%>
-  <%=link_to 'New Season', new_series_session_path(series_id: @series.id)%>
-  <br>
-  <%= link_to 'Edit', edit_series_path(@series)%> |
-<% end %>
+                      </li>
 
-<%= link_to 'Back', root_path %>
+                      <% aux =  current_user.seen.find_by(chapter_id: chapter.id, user_id: current_user.id) %>
+                      <%= content_tag :div, class: "user-seen", data: {seen: aux} do %>
+                      <% end %>
+                      <% if aux.nil?  %>
+                          <div class="seen-div" >
+                            <%= button_to 'Not Viewed', delete_seen_path({chapter_id: chapter.id}),
+                                          method: :patch, :class=>"seen-button btn btn-default", remote: true, id: "chapter-#{chapter.id}" %>
+                          </div>
+                      <% else%>
+                          <div class="seen-div" >
+                            <%= button_to 'Viewed', delete_seen_path({chapter_id: chapter.id}),
+                                          method: :patch, :class=>"seen-button btn btn-primary", remote: true, id: "chapter-#{chapter.id}" %>
+                          </div>
+                      <%end%>
+
+                    </div>
+
+                </div>
+                <%else%>
+                    <li id="season-chapter"><%= link_to chapter.name, series_session_chapter_path(season.serie.id, season.id, chapter) %>
+                    </li>
+                <%end%>
+
+
+            <% end %>
+          </ul>
+          </div>
+        </div>
+
+    <% end %>
+  </ul>
+</div>
+
+<script>
+  <% @series.sessions.each do | season | %>
+    $('#season-' + <%= season.id %>).raty({
+      readOnly: true,
+      path: '/assets',
+      score: <%= season.general_score %>
+    });
+  <% end %>
+
+  $('#serie-rating').raty({
+    readOnly: true,
+    path: '/assets',
+    score: <%= @series.general_score %>
+  });
+</script>

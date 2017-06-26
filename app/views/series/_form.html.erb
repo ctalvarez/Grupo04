@@ -1,62 +1,41 @@
-<%= form_for(series, url: '/series/' + series.id.to_s) do |f| %>
-  <% if series.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(series.errors.count, "error") %> prohibited this series from being saved:</h2>
 
-      <ul>
-      <% series.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
 
-  <div class="field">
-    <%= f.label :name %>
-    <%= f.text_field :name %>
-  </div>
+  <%= bootstrap_form_for(series, url: '/series/' + series.id.to_s,
+                         layout: :horizontal, label_col: "col-md-2", control_col: "col-md-9") do |f| %>
+    <% if series.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(series.errors.count, "error") %> prohibited this series from being saved:</h2>
 
-  <div class="field">
-    <%= f.label :description %>
+        <ul>
+        <% series.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <%= f.text_field :name, layout: :horizontal%>
+
     <%= f.text_area :description %>
-  </div>
 
-	<div class="field">
-		<%= f.label :language %>
-		<%= f.select :language, Serie.languages.collect { |key, value| [key, key] } %>
-	</div>
+    <%= f.collection_check_boxes :actor_ids, Actor.all, :id, :name, label:'Actors' %>
 
-  <div class="field">
-    <%= f.label 'Image(link)' %>
+    <%= f.collection_check_boxes :director_ids, Director.all, :id, :name, label:'Directors' %>
+
+    <%= f.select :language, Serie.languages.collect { |key, value| [key, key] } %>
+
     <%= f.text_field :image %>
-  </div>
 
-  <div class="field">
-		<%= f.label :subtitles %>
-		<% Subtitle.all.each do |subtitle| %>
-			<%= f.check_box :subtitle_ids, {multiple: true}, subtitle.id, nil %><%= subtitle.language %> <br>
-		<% end %>
+    <%= f.collection_check_boxes :subtitle_ids, Subtitle.all, :id, :language, label:'Subtitles' %>
 
-		<!-- <%= f.select :genre_ids, Genre.all.collect { |g| [g.genre, g.id] }, {}, multiple: true %> -->
-	</div>
+    <%= f.collection_check_boxes :genre_ids, Genre.all, :id, :genre, label:'Genres' %><br>
 
-	<div class="field">
-		<%= f.label :genres %>
-		<% Genre.all.each do |genre| %>
-			<%= f.check_box :genre_ids, {multiple: true}, genre.id, nil %><%= genre.genre %> <br>
-		<% end %>
+    <%if current_user.rol.eql? 'admin'%>
+        <%= f.form_group label:{text:'Private'} do %>
+          <%= f.check_box :private, checked: true %>
+        <% end %>
+    <%end%>
 
-		<!-- <%= f.select :genre_ids, Genre.all.collect { |g| [g.genre, g.id] }, {}, multiple: true %> -->
-	</div>
+      <%= f.submit :class=> "btn btn-default btn-lg" %>
 
-<%if current_user.rol.eql? 'admin'%>
-  <div class="field">
-    <%= "Private" %>
-    <%= f.check_box :private, {}, true, nil %><br>
-  </div>
-<%end%>
-
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+  <% end %>

@@ -1,0 +1,49 @@
+<p id="notice"><%= notice %></p>
+
+<div class="row">
+  <div class="row dashboard">
+    <h1>News Dashboard</h1>
+  </div>
+
+  <%= form_tag  newshome_path, :method => 'get', :class => "form-inline" do%>
+      <legend></legend>
+      <div class="form-group">
+        <div class="field">
+          <%= label_tag 'News Title' %>
+          <%= text_field_tag :title_search, params[:title_search], :class=>"form-control" %>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="field">
+          <%= label_tag 'Serie' %>
+          <%= select_tag :serie_search, options_for_select(@series), :serie_search => true,
+                         :include_blank => true, :class=>"form-control" %>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="field">
+          <%= label_tag 'Actor' %>
+          <%= select_tag :actor_search, options_for_select(@actors), :include_blank => true, :class=>"form-control" %>
+        </div>
+      </div>
+      <%= submit_tag "Search", :class=>"btn btn-primary" %>
+  <% end %>
+
+
+  <% @news.each do |n|%>
+    <div class="container-fluid well container-md-6 container-news ">
+      <h2 class="news-title"> <%= n.title %></h2>
+      <div class="news-body"><%= n.body %></div>
+      <div class="news-tags">
+        <ul>
+          <li>#<%=n.serie.name + ' '%></li>
+          <% n.actors.each do |a|%>
+            <li>#<%= a.name + ' '%> </li>
+          <% end %>
+        </ul>
+      </div>
+      <%= button_to 'Continue Reading', news_path(n.id),
+                    method: :get, :class=>"news-button btn btn-default"%>
+    </div>
+  <% end %>
+</div>

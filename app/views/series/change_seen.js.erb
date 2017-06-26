@@ -1,0 +1,12 @@
+var button = $("#chapter-<%= @chapter.id %>")
+
+if (button.val() != "Viewed") {
+  button.removeClass("btn-default")
+  button.addClass("btn-primary")
+  button.val("Viewed")
+}
+else {
+  button.removeClass("btn-primary")
+  button.addClass("btn-default")
+  button.val("Not Viewed")
+}

@@ -1,4 +1,5 @@
-<%= form_for(score) do |f| %>
+<%= bootstrap_form_for(score,
+                       layout: :horizontal, label_col: "col-md-2", control_col: "col-md-9") do |f| %>
   <% if score.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(score.errors.count, "error") %> prohibited this score from being saved:</h2>
@@ -10,18 +11,21 @@
       </ul>
     </div>
   <% end %>
+  <%= f.hidden_field :user_id, :value =>user_id %>
+  <%= f.hidden_field :chapter_id, :value => chapter_id %>
 
-  <div class="field">
-    <%= f.label :comment %>
     <%= f.text_area :comment %>
-  </div>
 
-  <div class="field">
-    <%= f.label :score %>
-    <%= f.number_field :score %>
-  </div>
+    <div id="star"></div>
 
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+    <%= f.submit :class=> "btn btn-default btn-lg" %>
 <% end %>
+
+<script>
+
+  $('#star').raty({
+    path: '/assets',
+    scoreName: 'score[score]'
+  });
+
+</script>

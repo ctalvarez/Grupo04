@@ -79,7 +79,7 @@ breakigBad = Serie.create  name: 'Breaking Bad',
                   session_amount: 0
 
 sherlock = Serie.create  name: 'Sherlock',
-                  description: 'Detective story',
+                  description: 'In this modernized version of the Conan Doyle characters, using his detective plots, Sherlock Holmes lives in early 21st century London and acts more cocky towards Scotland Yard\'s detective inspector Lestrade because he\'s actually less confident. Doctor Watson is now a fairly young veteran of the Afghan war, less adoring and more active. Written by KGF Vissers',
                   user: x,
                   language: :English,
                   country: 'UK',
@@ -151,9 +151,11 @@ gs13 = GenreSerie.create genre: comedy, serie: rickAndMorty  # scream es susoens
 
 a1 = Actor.create name: 'Benedict Cumberbatch'
 a2 = Actor.create name: 'Louise Brealey'
+a3 = Actor.create name: 'Martin Freeman'
 
 ActorSeries.create actor: a1, serie: sherlock
 ActorSeries.create actor: a2, serie: sherlock
+ActorSeries.create actor: a3, serie: sherlock
 
 s1 = Session.create date_release: Date.parse('24/4/2000'),
                     status: :Finished,
@@ -184,3 +186,26 @@ SubtitleIntegration.create subtitle: s1, serie: sherlock
 SubtitleIntegration.create subtitle: s2, serie: sherlock
 
 Seen.create user: x, chapter: c1
+
+news1 = News.create user_id: z.id,
+                    serie_id: sherlock.id,
+                    title: 'Los creadores de "Sherlock" planean una nueva serie sobre "Drácula"',
+                    body: 'A pesar de que «Sherlock» todavía no ha sido renovada, los creadores de la serie de la BBC parece que tienen nuevos planes. Tal y como ha informado Variety, Mark Gatiss y Steven Moffat, aunque ahora se encuentran trabajando en otras producciones por separado, se reunirán para tratar de resucitar a otro de los personajes clásicos de la literatura: Drácula.
+
+La idea de ambos creadores es la de repetir la fórmula de «Sherlock» con una serie de capítulos de larga duración que emitiría también la BBC. Aunque los creadores aún no han comenzado a trabajar en serio en este nuevo proyecto, ya hay conversaciones con la cadena para que emita este proyecto. Lo que todavía no se sabe es si se ambientará en un Reino Unido moderno o será más cercano a la novela de Bram Stoker de 1897.
+
+Drácula será así la primera colaboración entre Moffat y Gatiss desde el último episodio de «Sherlock». Han dicho que no tienen ningún plan actual para una nueva temporada de la serie protagonizada por Benedict Cumberbatch y Martin Freeman, pero no han descartado volver a escribir más episodios en un futuro.
+
+Esta nueva serie sobre Drácula no es el primer intento en los últimos años de adaptar la historia de terror gótico para la televisión. Los productores de «Downton Abbey» ya realizaron una serie sobre Drácula para la NBC en 2013, pero solo duró una temporada.'
+
+newsActor1 = NewsActor.create news_id: news1.id, actor_id: a1.id
+newsActor1 = NewsActor.create news_id: news1.id, actor_id: a2.id
+newsActor1 = NewsActor.create news_id: news1.id, actor_id: a3.id
+
+news2 = News.create user_id: z.id,
+                    serie_id: breakigBad.id,
+                    title: "Epidemia mundial de metanfetaminas: ¿se trata del 'Breaking Bad' norcoreano?",
+                    body: "Potentes drogas sintéticas fabricadas en el este y el sureste de Asia están afectando a los consumidores de drogas en diferentes partes del mundo, incluyendo América del Norte, donde están contribuyendo a una epidemia de muertes por sobredosis. Sobre esto alerta la Oficina de las Naciones Unidas contra la Droga y el Delito (ONUDD), haciendo hincapié en la influencia de las metanfetaminas asiáticas.
+
+\"Los métodos actuales de identificación de fármacos son útiles para detectar sustancias como la metanfetamina, y cada vez más de esta droga es incautada por las autoridades policiales\", indicó Inshik Sim, analista de datos de ese organismo en Bangkok, Tailandia."
+

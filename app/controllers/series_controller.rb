@@ -44,7 +44,8 @@ class SeriesController < ApplicationController
   end
 
   # GET /series/1/edit
-  def edit; end
+  def edit;
+  end
 
   # POST /series
   # POST /series.json
@@ -53,13 +54,7 @@ class SeriesController < ApplicationController
     respond_to do |format|
       if @series.save
 
-        unless params[:serie][:genre_ids].blank?
-          params[:serie][:genre_ids].each do |genre|
-            if genre != ''
-              GenreSerie.create serie_id: @series.id, genre_id: genre
-            end
-          end
-        end
+
 
         format.html { redirect_to @series, notice: 'Serie was successfully created.' }
         format.json { render :show, status: :created, location: @series }
@@ -73,6 +68,7 @@ class SeriesController < ApplicationController
   # PATCH/PUT /series/1
   # PATCH/PUT /series/1.json
   def update
+    series_params.inspect
     respond_to do |format|
       if @series.update(series_params)
         format.html { redirect_to '/series/' + @series.id.to_s, notice: 'Serie was successfully updated.' }
@@ -103,7 +99,8 @@ class SeriesController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def series_params
-    serie_params = params.require(:serie).permit(:name, :description, :language, :private, :genres)
+    serie_params = params.require(:serie).permit(:name, :description, :language, :private, :image,
+                                                 :genre_ids=>[], :subtitle_ids=>[], :actor_ids=>[], :director_ids=>[])
     serie_params[:user_id] = current_user.id
     serie_params
   end

@@ -1,4 +1,5 @@
-<%= form_for(session, url: series_sessions_path(serie) + "/#{session.id}") do |f| %>
+<%= bootstrap_form_for(session, url: series_sessions_path(serie) + "/#{session.id}",
+                       layout: :horizontal, label_col: "col-md-2", control_col: "col-md-9") do |f| %>
   <% if session.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(session.errors.count, "error") %> prohibited this session from being saved:</h2>
@@ -11,15 +12,14 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :session_number%>
-    <%= f.text_field :session_number %>
-  </div>
+  <%if !count_s.nil? %>
+      <%= f.number_field :session_number, :value => count_s+1, label: 'Season Number', min:1%>
+  <%else%>
+    <%= f.number_field :session_number, label: 'Season Number', min: 1 %>
+  <%end%>
 
-  <div class="field">
-    <%= f.label :status %>
 		<%= f.select :status, Session.statuses.collect { |key, value| [key, key] } %>
-  </div>
+
 
   <div class="actions">
     <%= f.submit %>

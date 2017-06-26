@@ -1,11 +1,9 @@
 <p id="notice"><%= notice %></p>
 
 <div class="row">
-  <p class="h1">All our series :D</p>
-</div>
-<fieldset class="finder">
-  <%= form_tag  home_path, :method => 'get', :class => "search-form" do%>
-      <legend>Search :D</legend>
+  <p class="h1">All our series</p>
+  <%= form_tag  home_path, :method => 'get', :class => "form-inline" do%>
+      <legend></legend>
       <div class="form-group">
         <div class="field">
           <%= label_tag 'Name' %>
@@ -26,8 +24,8 @@
       </div>
       <%= submit_tag "Search", :class=>"btn btn-primary" %>
   <% end %>
+</div>
 
-</fieldset>
 
 <div class="content-section-series">
   <%n_series = @series.count%>
@@ -39,19 +37,15 @@
                 <% break %>
             <% end %>
           <div class="col-sm-6 col-md-4">
-              <div class="thumbnail">
-                <%= link_to @series[3*n + i].name, '/series/' + @series[3*n + i].id.to_s, { :class=>"thumbnail" }%>
+                <%=image_tag(@series[3*n + i].image, class: "img-thumbnail")%>
+                <h4><%= link_to @series[3*n + i].name, '/series/' + @series[3*n + i].id.to_s%></h4>
               <div class="caption">
-              <p>Description:  <%= @series[3*n + i].description %></p>
+              <p ><%= @series[3*n + i].description %></p>
               <p>Language: <%= @series[3*n + i].language %></p>
               </div>
-            </div>
           </div>
         <%end%>
       </div>
   <%end%>
 
-
-
-</div>
 </div>

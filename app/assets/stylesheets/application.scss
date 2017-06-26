@@ -11,11 +11,15 @@
  * It is generally better to create a new file per style scope.
  *
  */
+/*
+ *= require rails_bootstrap_forms
+ */
  @import "bootstrap-sprockets";
  @import "bootstrap";
 
 body {
-  padding-top: 50px; }
+  padding-top: 50px;
+  background-color: #F5FEFF;}
 
 .navbar-right{
   margin-right: 20px;
@@ -53,7 +57,7 @@ body {
 }
 
 .content-section-series {
-  float: left;
+  float: center;
   width: 79%;
   padding: 0;
   margin-left: auto;
@@ -66,6 +70,7 @@ body {
   padding: 50px 100px 50px 100px;
   border: 1px solid gray;
   border-radius: 20px;
+  background-color: white;
 }
 
 // profile
@@ -77,12 +82,253 @@ body {
   padding-top: 25px;
 }
 .user-serie{
-  li {
+  .user-serie-row {
+    width: 80%;
+    margin-left: 10%;
+    margin-bottom: 20px;
     text-align: left;
     font-size: 20px;
     border: 1px solid gray;
     border-radius: 20px;
-    padding: 0 10px 0 10px;
+    padding: 20px;
+  }
+}
+#series-container{
+  width: 90%;
+}
+#profile-container{
+  width: 90%;
+}
+
+.user-news-title{
+  text-align: left;
+}
+.user-news-action{
+  text-align: right;
+  margin-right: 5px;
+  margin-top: 10px;
+}
+.user-news-col{
+  text-align: left;
+  font-size: large;
+  font-weight: bold;
+  margin-left: 30px;
+  border: 1px solid gray;
+  border-radius: 20px;
+  padding: 5px;
+}
+
+//SERIES
+
+#serie-description{
+  text-align: left;
+  overflow: hidden;
+}
+#serie-image-div{
+  border-right: 1px solid gray;
+}
+
+#serie-image {
+  width: 350px;
+}
+
+.serie-seasons {
+  list-style-type: none;
+
+  #serie-season {
+    padding: 10px;
+    margin-bottom: 20px;
+    ul {
+      list-style-type: circle;
+    }
+    #season-chapter{
+      padding: 5px;
+      float: left;
+    }
+    text-align: left;
+    font-size: 20px;
+    border: 1px solid gray;
+    border-radius: 20px;
+  }
+  #chapter-li{
+    padding: 8px;
+    text-align: left;
+    border: 1px solid gray;
+    border-radius: 20px;
+  }
+}
+#edit-serie{
+  float: right;
+  overflow: hidden;
+  padding-right: 30px;
+}
+.season-title{
+  margin-bottom: 30px;
+  padding-right: 30px;
+  padding-left: 30px;
+  #new-season{
+    float: right;
+    overflow: hidden;
   }
 }
 
+.panel>.panel-heading:after{
+	border-width:7px;
+	border-right-color:#f7f7f7;
+	margin-top:1px;
+	margin-left:2px;
+}
+.panel>.panel-heading:before{
+	border-right-color:#ddd;
+	border-width:8px;
+}
+.panel>.panel-heading:after,.panel>.panel-heading:before {
+  position: absolute;
+  top: 11px;
+  left: -16px;
+  right: 100%;
+  width: 0;
+  height: 0;
+  display: block;
+  content: " ";
+  border-color: transparent;
+  border-style: solid solid outset;
+  pointer-events: none;
+}
+.panel-heading{
+  text-align: left;
+}
+.panel-body{
+  text-align: left;
+}
+.panel-footer{
+  text-align: right;
+  height: 50px;
+}
+.form-horizontal {
+  width: 80%;
+  margin-right: 10%;
+  margin-left: 10%;
+  border: 1px solid gray;
+  border-radius: 5px;
+  overflow: hidden;
+  padding: 10px;
+  background-color: white;
+  .btn{
+    float: right;
+    margin-right: 30px;
+  }
+  h3{
+    margin-left: 30px;
+  }
+}
+.edit-back{
+  padding: 10px;
+  margin-top: 20px;
+  margin-left: 5%;
+}
+
+.edit-h1{
+  padding: 10px;
+  margin-left: 5%;
+}
+
+.seen-button{
+  border-radius: 20px;
+  float: right;
+  overflow: hidden;
+  width: 100px;
+}
+.container-fluid{
+  width: 90%;
+}
+// CHAPTERS
+.chapter-photo{
+  padding: 20px;
+}
+.chapter-description{
+  font-size: 20px;
+}
+.chapter-video .img-responsive {
+  margin: 0 auto;
+}
+.user-comments{
+  border-bottom: 1px solid gray;
+}
+#score_score{
+  width: 80px;
+}
+// NEWS
+
+.container-news{
+  width: 60%;
+  margin-top: 20px;
+}
+.news-title{
+  padding-left: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid gray;
+  text-align: left;
+}
+.news-body {
+  text-align: justify;
+  margin: 20px;
+  overflow:hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+.news-show{
+  text-align: justify;
+  margin: 20px;
+}
+.news-button{
+  border-radius: 20px;
+  float: right;
+  overflow: hidden;
+  width: 200px;
+  margin-right: 5px;
+}
+.dashboard{
+  margin: 20px;
+}
+.news-tags{
+  padding: 0;
+  margin: 0;
+  margin-left: 20px;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  ul{
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    margin-bottom: 5px;
+    li{
+      display: inline;
+      font-weight: bolder;
+      float: left;
+      margin-right: 2px;
+    }
+  }
+}
+
+.description{
+  text-align: justify;
+}
+
+
+.comment{
+  display: inline-block;
+  margin: 0;
+}
+.testeo{
+  display: inline-block;
+  margin: 0;
+}
+
+.description{
+  text-align: center;
+}

@@ -15,3 +15,7 @@
 //= require turbolinks
 //= require_tree .
 //= require bootstrap-sprockets
+
+//= require Chart.bundle
+//= require chartkick
+//= require raty.js

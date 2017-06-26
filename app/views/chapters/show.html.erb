@@ -1,35 +1,121 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @chapter.name %>
-</p>
 
-<p>
-  <strong>Description:</strong>
-  <%= @chapter.description %>
-</p>
-<div class= "comments">
-  <p>
-    <strong>Comments:</strong>
-    <ul>
-      <%if @chapter.scores.count==0%>
-        <li>Not found comments >.< </li>
-      <% else %>
-        <% @chapter.scores.each do | score | %>
-  			   <li>
-             <p>
-               Comment: <%= score.comment %>
-             </p>
-             <p>
-                Score:  <%= score.score %>
-              </p>
-            </li>
-  		  <% end %>
-      <%end %>
-  	</ul>
-  </p>
+<div class="container-fluid well container-md-6" id="profile-container">
+  <div class="row">
+    <div class="col-sm-2 col-md-3" id="user-photo">
+      <div class="chapter-photochapter-photo">
+        <%=image_tag(@chapter.serie.image, size: "200x200")%>
+      </div>
+    </div>
+
+    <div class="col-sm-2 col-md-9" id="user-photo">
+      <h2 class="h3-user"><%= @chapter.name %></h2>
+      <p class="chapter-description">
+      <strong>Description: </strong>
+        <%= @chapter.description %>
+      </p>
+      <div id="chapter-score"></div>
+    </div>
+  </div>
 </div>
 
-<%= link_to 'Edit', edit_series_session_chapter_path(@season.serie.id,@season.id,@chapter) %> |
-<%= link_to 'Back', series_session_path(@season.serie.id, @season) %>
+
+<div class="container-fluid well container-md-6" id="profile-container">
+  <h2 class="h3-user">Play video</h2>
+  <div class="chapter-video">
+  <%=image_tag(asset_path('playvideo.jpg'), size: "720x440", :class=>"img-responsive")%>
+  </div>
+</div>
+
+
+<div class="container-fluid well container-md-6" id="profile-container">
+  <div class="row">
+    <div class="col-sm-6">
+      <h3>Users Comments</h3>
+    </div>
+  </div>
+  <div class="user-comments">
+    <%if @chapter.scores.count!=0%>
+        <% @chapter.scores.each do | score | %>
+            <div class="row">
+              <div class="col-sm-1">
+                <%= image_tag(score.user.image, class: "img-rounded", size: "80x90") %>
+              </div>
+              <div class="col-sm-5">
+                <div class="panel panel-primary">
+                  <div class="panel-heading">
+                    <strong><%= score.user.name %></strong>
+                    <div id="score-<%= score.id %>"></div>
+                    <!-- <span class="text-muted"> Score: <%= score.score %></span> -->
+                  </div>
+                  <div class="panel-body">
+                    <%= score.comment %>
+                  </div>
+                  <%if current_user && score.user.id == current_user.id%>
+                    <div class="panel-footer">
+                      <%= button_to 'Edit Comment', edit_score_path(score), method: :get, class: 'btn btn-primary'%>
+                    </div>
+                  <%end%>
+                </div>
+              </div>
+            </div>
+
+        <%end%>
+    <%end%>
+  </div>
+  <% if !current_user.nil? %>
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-6">
+            <h3>Write new comment :D</h3>
+          </div>
+        </div>
+        <div class="row">
+            <%= render '/scores/form', score: Score.new, user_id: current_user.id, chapter_id: @chapter.id%>
+        </div>
+      </div>
+  <% end %>
+</div>
+
+
+<div class="container">
+  <div class="row">
+    <div class="btn-toolbar" role="toolbar">
+      <div class="btn-group mr-2" role="group" >
+        <%= link_to 'Go Back', '/series/'+@season.serie.id.to_s, class: 'btn btn-primary', :type => 'button'%>
+        <%if !current_user.nil?%>
+          <%= link_to 'Edit Chapter', edit_series_session_chapter_path(@season.serie.id,@season.id,@chapter), method: :get, class: 'btn btn-default', :type => 'button'%>
+        <%end%>
+      </div>
+      <div class="btn-group mr-2" role="group">
+        <%@pos_chapter = @season.chapters.index(@chapter)%>
+        <%=if  @pos_chapter!= 0
+            @previous_chapter = @season.chapters[@pos_chapter-1]
+            link_to '<- Previous chapter', series_session_chapter_path(@season.serie.id, @season.id, @previous_chapter), method: :get, class: 'btn btn-info', :type => 'button'
+        end%>
+        <%=if  @pos_chapter + 1 != @season.chapters.count
+            @next_chapter = @season.chapters[@pos_chapter+1]
+            link_to 'Next chapter ->', series_session_chapter_path(@season.serie.id, @season.id, @next_chapter), method: :get, class: 'btn btn-info', :type => 'button'
+        end%>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  <% @chapter.scores.each do |score| %>
+    $('#score-<%= score.id %>').raty({
+      readOnly: true,
+      path: '/assets',
+      score: <%= score.score %>
+    });
+  <% end %>
+
+  $('#chapter-score').raty({
+    readOnly: true,
+    path: '/assets',
+    score: <%= @chapter.general_score %>
+  });
+</script>

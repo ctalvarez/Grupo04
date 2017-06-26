@@ -32,10 +32,13 @@ class User < ApplicationRecord
   has_one   :parent,
             through: :parent_relationship,
             source: :parent
+  has_many :news, dependent: :destroy
 
+  attr_accessor :filters
   # Aqui esta el parche para que por defecto sean usuarios!!!
   def default_user
     self.rol = :user if rol.nil?
+    self.image = "avatar.jpg" if self.image.nil?
   end
 
   def change_level

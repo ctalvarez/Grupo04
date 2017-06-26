@@ -2,18 +2,32 @@
 
 
 <br><br>
-<div class="container-fluid well container-md-6">
+<div class="container-fluid well container-md-6" id="profile-container">
   <div class="row">
     <div class="col-sm-2 col-md-2" id="user-photo">
-      <p>foto de perfil :) que flota a la izquierda </p>
+      <% if !@user.image.nil? %>
+          <%= image_tag(@user.image, class: "img-circle", size: "140x140") %>
+      <% end %>
+
     </div>
     <div class="col-sm-2 col-md-3" id="user-photo">
       <h3 class="h3-user">Welcome <%= @user.name %></h3>
-      <h6>Email: <%= @user.email %></h6>
-      <h6>Rol: <%= @user.rol %></h6>
-      <h6>Since: <%= @user.created_at.strftime("%d/%m/%Y") %></h6>
+      <h5><b>Email:</b> <%= @user.email %></h5>
+      <h5><b>Rol:</b> <%= @user.rol %></h5>
+      <h5><b>Since:</b> <%= @user.created_at.strftime("%d/%m/%Y") %></h5>
     </div>
 
+    <div class="col-sm-2 col-md-4" id="user-photo">
+      <h3 class="h3-user">Your Stats </h3>
+      <div class="row">
+        <div class="col-sm-2 col-md-6" id="user-photo">
+        <h5> Time watching series: </h5>
+        </div>
+        <div class="col-sm-2 col-md-6" id="user-photo">
+          <h5><%= @wasted_time %> minutes.</h5>
+        </div>
+      </div>
+    </div>
     <div class="col-sm-2 col-md-2" id="user-action">
       <div class="btn-group">
         <a class="btn dropdown-toggle btn-info" data-toggle="dropdown" href="#">
@@ -21,8 +35,8 @@
           <span class="icon-cog icon-white"></span><span class="caret"></span>
         </a>
         <ul class="dropdown-menu">
-          <li><%= link_to 'Add Serie', new_series_path %></li>
-          <li><%= link_to 'Add Child Account', new_child_path(current_user) %></li>
+          <li><%= link_to 'Add Serie', new_series_path unless @current_user.child? %></li>
+          <li><%= link_to 'Add Child Account', new_child_path(current_user) unless @current_user.child? %></li>
           <li><%=link_to 'Edit Profile', edit_user_path(@user)%></li>
           <li><%=link_to 'Delete Account', user_path(@user), method: 'delete'%></li>
         </ul>
@@ -31,35 +45,61 @@
   </div>
 </div>
 
+<div class="container-fluid well container-md-6" id="news-container">
+  <div class="row">
+    <div class="col-sm-2 col-md-9 user-news-title">
+      <h3>Your News</h3>
+    </div>
+    <div class="col-sm-2 col-md-2 user-news-action">
+      <%= link_to 'Add News', new_news_path, :class=>"seen-button btn btn-primary" %>
+    </div>
+  </div>
+    <% news = current_user.news
+       news.each do |n|%>
+      <div class="row user-news-row">
+        <div class="col-sm-2 col-md-7 user-news-col">
+          <%= n.title %>
+        </div>
+        <div class="col-sm-2 col-md-2">
+          <%= button_to 'Go to Post', news_path(n.id),
+                        method: :get, :class=>"seen-button btn btn-primary"%>
+        </div>
+        <% if n == news[0] %>
 
-<p>
-  <strong>Time watching series:</strong>
-  <%= @wasted_time %> minutes.
-</p>
+        <%end%>
+      </div>
+      <% end %>
+
+</div>
 
 <% unless current_user.child? %>
-    <div class="container-fluid well container-md-6">
+    <div class="container-fluid well container-md-6" id="series-container">
       <h3>Your Series</h3>
       <ul class="user-serie">
         <% @user.series.each do | serie | %>
-            <div class="row">
+            <div class="row user-serie-row">
+              <div class="col-sm-2 col-md-3">
           <li><%= link_to serie.name, '/series/' + serie.id.to_s %></li>
+              </div>
+                <div class="col-sm-2 col-md-3" >
+              <%= image_tag(asset_path('serie_not_found.jpg'), class: "img-rounded", size: "400x140") %>
+                  </div>
             </div>
         <% end %>
       </ul>
     </div>
 
-    <div class="container-fluid well container-md-6">
+    <div class="container-fluid well container-md-6" id="profile-container">
       <h3>Your Children</h3>
           <ul class="user-serie">
             <% if @user.children.length >0 %>
               <% @user.children.each do |child| %>
-                  <div class="row">
-                    <li><%= child.name %></li>
+                  <div class="row user-serie-row">
+                    <li><%= link_to child.name, child_path(@user, child) %></li>
                   </div>
               <% end %>
             <%else%>
-                <div class="row">
+                <div class="row user-serie-row">
                   <li>You don't have any child haha</li>
                 </div>
             <%end%>

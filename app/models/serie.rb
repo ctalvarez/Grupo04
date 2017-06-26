@@ -9,11 +9,13 @@ class Serie < ApplicationRecord
   has_many :actor_series, dependent: :destroy
   has_many :actors, through: :actor_series, source: :actor
   has_many :sessions, dependent: :destroy
-  has_one :director_series, dependent: :destroy
-  has_one :director, through: :director_series, source: :director
+  has_many :director_series, dependent: :destroy
+  has_many :director, through: :director_series, source: :director
+  has_many :news, dependent: :nullify
 
   belongs_to :user
   before_create :default_private
+  has_many :news
 
   def self.search(name, language, genre, series)
     series = series.where('name ilike ?', "%#{name}%") if name.present?
@@ -29,5 +31,11 @@ class Serie < ApplicationRecord
 
   def default_private
     self.private = false if private.nil?
+    self.image = "notfound.jpg" if self.image.nil? || self.image.blank?
+  end
+
+  def general_score
+    return 0 if sessions.count == 0
+    sessions.sum(&:general_score) / sessions.count
   end
 end
