@@ -24,7 +24,7 @@
         <td><%= user.password %></td>
         <td><%= user.rol %></td>
         <td>
-        <%if !user.eql? current_user%>
+        <%if !(user.eql? current_user) && !(user.child?) %>
           <%= text = ""
               if user.rol.eql? "user"
                   text = "up level"
