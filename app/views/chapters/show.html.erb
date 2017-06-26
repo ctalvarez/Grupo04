@@ -116,6 +116,10 @@
   $('#chapter-score').raty({
     readOnly: true,
     path: '/assets',
-    score: <%= @chapter.scores.sum(:score) / @chapter.scores.count %>
+    score: <%= if @chapter.scores.count != 0
+      @chapter.scores.sum(:score) / @chapter.scores.count
+      else
+        0
+      end %>
   });
 </script>
