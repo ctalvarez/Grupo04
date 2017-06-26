@@ -11,6 +11,7 @@ class Serie < ApplicationRecord
   has_many :sessions, dependent: :destroy
   has_one :director_series, dependent: :destroy
   has_one :director, through: :director_series, source: :director
+  has_many :news, dependent: :nullify
 
   belongs_to :user
   before_create :default_private

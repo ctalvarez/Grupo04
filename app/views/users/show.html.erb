@@ -35,8 +35,8 @@
           <span class="icon-cog icon-white"></span><span class="caret"></span>
         </a>
         <ul class="dropdown-menu">
-          <li><%= link_to 'Add Serie', new_series_path %></li>
-          <li><%= link_to 'Add Child Account', new_child_path(current_user) %></li>
+          <li><%= link_to 'Add Serie', new_series_path unless @current_user.child? %></li>
+          <li><%= link_to 'Add Child Account', new_child_path(current_user) unless @current_user.child? %></li>
           <li><%=link_to 'Edit Profile', edit_user_path(@user)%></li>
           <li><%=link_to 'Delete Account', user_path(@user), method: 'delete'%></li>
         </ul>
@@ -95,7 +95,7 @@
             <% if @user.children.length >0 %>
               <% @user.children.each do |child| %>
                   <div class="row user-serie-row">
-                    <li><%= child.name %></li>
+                    <li><%= link_to child.name, child_path(@user, child) %></li>
                   </div>
               <% end %>
             <%else%>

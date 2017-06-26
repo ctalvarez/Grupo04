@@ -3,7 +3,7 @@
 <div class="container-fluid well container-md-6">
   <h2 class="h2-serie"> <%= @series.name %>
     <div id="edit-serie">
-    <%if !current_user.nil?%>
+    <%if current_user && (@series.user == current_user || current_user.admin?)%>
         <%=link_to 'Edit', edit_series_path(@series),:class=>"btn btn-primary"%>
     <% end %>
   </div></h2>
@@ -12,17 +12,13 @@
 
 <div class="container-fluid well container-md-6">
   <div class="row">
-    <div class="col-sm-2 col-md-5" id="serie-image">
+    <div class="col-sm-2 col-md-5" id="serie-image-div">
       <p>
-        <%=if @series.image.nil?
-             'Not found image t.t'
-           else
-             image_tag(@series.image)
-           end %>
+         <%=image_tag(@series.image, id: "serie-image")%>
       </p>
     </div>
     <div class="col-sm-2 col-md-7" id="serie-description">
-      <p> <strong>Description: </strong> <%=@series.description%> </p>
+      <p class="description"> <strong>Description: </strong> <%=@series.description%> </p>
       <p> <strong>Language: </strong><%= @series.language %> </p>
       <p> <strong>Subtitle(s): </strong>
         <ul>
@@ -51,16 +47,22 @@
 
 <div class="container-fluid well container-md-6">
   <h3 class="season-title">Seasons
-    <div id="new-season">
-      <%=link_to 'New Season (+)', new_series_session_path(series_id: @series.id),:class=>"btn btn-primary"%>
-    </div>
+    <% if current_user && @series.user == current_user%>
+      <div id="new-season">
+        <%=link_to 'New Season (+)', new_series_session_path(series_id: @series.id),:class=>"btn btn-primary"%>
+      </div>
+    <% end %>
   </h3>
   <ul class="serie-seasons">
     <% @series.sessions.each do | season | %>
         <div class="row justify-content-start">
           <div class="col-sm-2 col-md-6" id="serie-season">
-          <li id="season-number"> <%="Temporada " + season.session_number.to_s%><%= link_to  "(Edit)", edit_series_session_path(@series, season),
-                                                                                                :class=>"btn"%></li>
+          <li id="season-number"> <%="Temporada " + season.session_number.to_s%>
+            <%if current_user && @series.user == current_user%>
+              <%= link_to  "(Edit)", edit_series_session_path(@series, season), :class=>"btn" %>
+              <%= link_to  "Add Chapter", new_series_session_chapter_path(@series, season), :class=>"btn" %>
+            <%end%>
+          </li>
           <ul>
             <% season.chapters.each do | chapter | %>
                 <% unless current_user.nil?%>
@@ -76,12 +78,12 @@
                       <% if aux.nil?  %>
                           <div class="seen-div" >
                             <%= button_to 'Not Viewed', delete_seen_path({chapter_id: chapter.id}),
-                                          method: :patch, :class=>"seen-button btn btn-default"%>
+                                          method: :patch, :class=>"seen-button btn btn-default", remote: true, id: "chapter-#{chapter.id}" %>
                           </div>
                       <% else%>
                           <div class="seen-div" >
                             <%= button_to 'Viewed', delete_seen_path({chapter_id: chapter.id}),
-                                          method: :patch, :class=>"seen-button btn btn-primary"%>
+                                          method: :patch, :class=>"seen-button btn btn-primary", remote: true, id: "chapter-#{chapter.id}" %>
                           </div>
                       <%end%>
 
@@ -102,6 +104,3 @@
     <% end %>
   </ul>
 </div>
-
-
-

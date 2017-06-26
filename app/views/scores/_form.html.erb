@@ -17,7 +17,7 @@
     <%= f.text_area :comment %>
 
 
-    <%= f.number_field :score %>
+    <%= f.number_field :score, min: 1, max: 5 %>
 
     <%= f.submit :class=> "btn btn-default btn-lg" %>
 <% end %>
