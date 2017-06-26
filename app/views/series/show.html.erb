@@ -19,6 +19,23 @@
     </div>
     <div class="col-sm-2 col-md-7" id="serie-description">
       <p class="description"> <strong>Description: </strong> <%=@series.description%> </p>
+      <p> <strong>Director: </strong><%= @series.director.name%>. </p>
+      <p> <strong>Actors: </strong>
+
+        <%if @series.actors==0%>
+            No associated actors
+        <% else %>
+          <% all_actors = "" %>
+          <% @series.actors.each do | actors| %>
+              <%if actors== @series.actors.last
+                all_actors += actors.name+ "."
+              else
+                all_actors += actors.name+ ", "
+              end%>
+          <% end %>
+          <%=all_actors%>
+        <%end %>
+      </p>
       <p> <strong>Language: </strong><%= @series.language %> </p>
       <p> <strong>Subtitle(s): </strong>
         <ul>
