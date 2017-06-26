@@ -15,6 +15,7 @@
       <strong>Description: </strong>
         <%= @chapter.description %>
       </p>
+      <div id="chapter-score"></div>
     </div>
   </div>
 </div>
@@ -45,7 +46,8 @@
                 <div class="panel panel-primary">
                   <div class="panel-heading">
                     <strong><%= score.user.name %></strong>
-                    <span class="text-muted"> Score: <%= score.score %></span>
+                    <div id="score-<%= score.id %>"></div>
+                    <!-- <span class="text-muted"> Score: <%= score.score %></span> -->
                   </div>
                   <div class="panel-body">
                     <%= score.comment %>
@@ -101,3 +103,19 @@
   </div>
 
 </div>
+
+<script>
+  <% @chapter.scores.each do |score| %>
+    $('#score-<%= score.id %>').raty({
+      readOnly: true,
+      path: '/assets',
+      score: <%= score.score %>
+    });
+  <% end %>
+
+  $('#chapter-score').raty({
+    readOnly: true,
+    path: '/assets',
+    score: <%= @chapter.scores.sum(:score) / @chapter.scores.count %>
+  });
+</script>
