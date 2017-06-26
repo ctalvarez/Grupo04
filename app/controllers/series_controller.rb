@@ -46,7 +46,8 @@ class SeriesController < ApplicationController
   end
 
   # GET /series/1/edit
-  def edit; end
+  def edit;
+  end
 
   # POST /series
   # POST /series.json

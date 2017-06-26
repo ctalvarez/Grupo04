@@ -1,0 +1,31 @@
+
+
+  <%= bootstrap_form_for(news, url: '/news/' + news.id.to_s,
+                         layout: :horizontal, label_col: "col-md-2", control_col: "col-md-9") do |f| %>
+    <% if news.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(news.errors.count, "error") %> prohibited this series from being saved:</h2>
+
+        <ul>
+        <% news.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <%= f.hidden_field :user_id, :value => current_user.id%>
+
+    <%= f.text_field :title, layout: :horizontal%>
+
+    <%= f.text_area :body %>
+
+      <h3>Select Tags</h3>
+
+    <%= f.collection_radio_buttons :serie, Serie.all, :id, :name, label: "Serie" %>
+
+    <%= f.collection_check_boxes :actor_ids, Actor.all, :id, :name, label:'Actors' %>
+
+    <%= f.submit :class=> "btn btn-default btn-lg" %>
+
+  <% end %>
