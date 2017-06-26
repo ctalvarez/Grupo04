@@ -2,6 +2,7 @@
 
 <div class="container-fluid well container-md-6">
   <h2 class="h2-serie"> <%= @series.name %>
+    <div id="serie-rating"></div>
     <div id="edit-serie">
     <%if current_user && (@series.user == current_user || current_user.admin?)%>
         <%=link_to 'Edit', edit_series_path(@series),:class=>"btn btn-primary"%>
@@ -88,6 +89,7 @@
         <div class="row justify-content-start">
           <div class="col-sm-2 col-md-6" id="serie-season">
           <li id="season-number"> <%="Temporada " + season.session_number.to_s%>
+            <div id="season-<%= season.id %>"></div>
             <%if current_user && (@series.user == current_user || current_user.admin?)%>
               <%= link_to  "(Edit)", edit_series_session_path(@series, season), :class=>"btn" %>
               <%= link_to  "Add Chapter", new_series_session_chapter_path(@series, season), :class=>"btn" %>
@@ -134,3 +136,19 @@
     <% end %>
   </ul>
 </div>
+
+<script>
+  <% @series.sessions.each do | season | %>
+    $('#season-' + <%= season.id %>).raty({
+      readOnly: true,
+      path: '/assets',
+      score: <%= season.general_score %>
+    });
+  <% end %>
+
+  $('#serie-rating').raty({
+    readOnly: true,
+    path: '/assets',
+    score: <%= @series.general_score %>
+  });
+</script>
