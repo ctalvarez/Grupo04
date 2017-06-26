@@ -33,4 +33,9 @@ class Serie < ApplicationRecord
     self.private = false if private.nil?
     self.image = "notfound.jpg" if self.image.nil?
   end
+
+  def general_score
+    return 0 if sessions.count == 0
+    sessions.sum(&:general_score) / sessions.count
+  end
 end
